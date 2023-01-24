@@ -1,91 +1,37 @@
-<div class="Fondo ">
-    <div class="container ">
-        <div class="row">
-            <div class="col-md-7 col-sm-12  mt-5 pl-4 pr-4">
-                <div class="conborde col-sm-12 col-md-12">
-                    <div class="col-sm-12 text-center img_login">
-                        <img class="imgLogin" src="../../../../assets/ImagenesAgroApoya2Adm/user.png">
+<img class="wave" src="../../../../assets/ImagenesSoporteTecntOnline/wave.png">
+<div class="row justify-content-center">
+
+    <div class="container">
+        <div class="img">
+            <img src="../../../../assets/ImagenesSoporteTecntOnline/ingresos.png">
+        </div>
+        <div class="login-content">
+            <form action="index.html">
+                <img src="../../../../assets/ImagenesSoporteTecntOnline/usuario.png">
+                <h3 class="TituloDetalle">Iniciar Sesion</h3>
+                <br>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fa fa-user-circle-o"></i>
                     </div>
-                    <div class="col-sm-12 text-center">
-                        <h3 class="TituloDetalle">Iniciar Sesion</h3>
+                    <div class="div">
+                        <input type="text" class="input" name="Usuario" placeholder="Usuario" required="required">
                     </div>
-
-                    <div class="form_login_user">
-                        <form class="col-12 containerFlex" appearance="fill">
-
-                            <div class="col-11 mb-4">
-                                <input type="text" class="form-control sinborde" name="Usuario" placeholder="Usuario"
-                                    required="required">
-                            </div>
-
-                        </form>
-                        <form class="col-12 containerFlex" appearance="fill">
-
-                            <div class="col-11">
-                                <input type="password" required="required" class="form-control sinborde" name="Password"
-                                    id="Password" placeholder="Contraseña/Password">
-                            </div>
-
-                            <div class="m-0 p-0">
-                                <button id="pass" class="SinEstilo">
-                                    <img src="" class="BtnimgTamanoPeque">
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-3 col-2">
-                            <button id="btnIngresar" class="btn btn-agro-prin">Ingresar</button>
-                        </div>
-                    </div>
-
-                    <br />
-                    <div class="row ">
-                        <a class="mt-1 mb-1 textoDos TextCenter">¿Olvidaste tu contraseña?</a>
-                    </div>
-
                 </div>
-            </div>
-            <!--  Box Login-->
-
+                <div class="input-div">
+                    <div class="i">
+                        <i class="fa fa-eye" type="button" id="pass" (click)="ocultarPass()"></i>
+                        <!-- <i class="fa fa-eye-slash"></i> -->
+                    </div>
+                    <div class="div">
+                        <input type="password" required="required" class="input" name="Password" id="Password"
+                            placeholder="Contraseña/Password">
+                    </div>
+                </div>
+                <!-- <a href="#">Forgot Password?</a>-->
+                <input type="submit" class="btn" value="Ingresar">
+            </form>
         </div>
     </div>
+
 </div>
-
-
-<!--
-<ng-template #ModalRespuesta let-modal>
-    <div class="modal-header">
-        <h1>Respuesta</h1>
-        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close"
-            (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-        <div class="row br">
-            <div class="col-sm-12">
-                <h2 class="TituloDetalle">{{Respuesta}}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <button (keyup.enter)="modal.close()" type="button" class="btn btn-agro-prin col-sm-2 col-6"
-            (click)="modal.close()">Aceptar</button>
-    </div>
-    <br>
-</ng-template>
-
-<ng-template #ModalOlvidePassword let-modal>
-    <div class="p-2">
-        <div class="modal-header">
-            <img style="width: 40px; margin-right: 10px;"
-                src="../../../../assets/ImagenesAgroApoya2Adm/ic_AgroAzul.png">
-            <h1 class="modal-title TituloForm">{{TituloModal}}</h1>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="mt-4 mb-4 text-center">
-            <app-olvidepassword></app-olvidepassword>
-        </div>
-    </div>
-</ng-template>
--->
