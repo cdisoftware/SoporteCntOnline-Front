@@ -1,4 +1,6 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
@@ -7,23 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  imagen: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    this.imagen = "fa fa-eye";
   }
 
+  login(templateMensaje: any){
+
+  }
 
   ocultarPass() {
     let elemento: any = document.getElementById('Password');
-    let icon: any = document.getElementById('pass');
-    if (icon.setAttribute('class', 'fa fa-eye') == icon.setAttribute('class', 'fa fa-eye')) {
+    if (this.imagen == "fa fa-eye") {
       elemento.type = "text";
-      icon.setAttribute('class', 'fa fa-eye-slash')
-
-    } else {
-      alert("ok")
+      this.imagen = "fa fa-eye-slash"
+    } else if (this.imagen == "fa fa-eye-slash") {
       elemento.type = "password";
-      icon.setAttribute('class', 'fa fa-eye');
+      this.imagen = "fa fa-eye"
     }
   }
 }
