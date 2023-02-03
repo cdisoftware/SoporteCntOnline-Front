@@ -1,5 +1,48 @@
+h1 {
+    text-align: center;
+    color: #08943c;
+    font-size: x-large;
+}
+
+.textblue {
+    color: #fc5404;
+}
+
+h2 {
+    text-align: center;
+    color: #96989B;
+    font-size: large;
+}
+
 .BtnPrincipal {
     background-color: #fc5404 !important;
     border-color: #fc5404 !important;
     color: white !important;
+}
+
+.BtnCancel {
+    background-color: #575A5F !important;
+    border-color: #575A5F !important;
+    color: white !important;
+}
+
+.logoContabilidadOnl {
+    width: 32px;
+    height: 32px;
+}
+
+.TituloDetalle {
+    color: #96989B;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.imgModal {
+    width: 25px;
+}
+
+.br {
+    margin-top: 10px;
 }
