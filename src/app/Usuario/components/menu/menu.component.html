@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-collapse displayFlexbetweenMenu">
+        <img src="../../../../assets/ImagenesSoporteTecntOnline/logoContabilidadOnl.png" class="logoContabilidad" />
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        </ul>
+        <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="ml-3">
+                <div class="dropdown cursorPointer">
+                    <div class="dropbtn cursorPointer">
+                        <img src="../../../../assets/ImagenesSoporteTecntOnline/user.png" class="userStyle" />
+                    </div>
+                    <div class="dropdown-content">
+                        <a><strong>Hola, {{NombreUsu}}</strong></a>
+                        <!--<hr class="hrSinEstilo">
+                        <a class="cursorPointer">Opcion</a>-->
+                        <hr class="hrSinEstilo">
+                        <a class="cursorPointer" (click)="CerrarSesion(templateConfirmacion)">Cerrar sesión<img
+                                src="../../../../assets/ImagenesSoporteTecntOnline/cerrar-sesion.png"
+                                class="btncerrarsesion" /></a>
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
+</nav>
+<hr class="m-0 mb-4 p-0" style="background-color: black; height: 5px;">
+
+<ng-template #templateConfirmacion let-modal>
+    <div class="p-2">
+        <div class="modal-header">
+            <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+            <h1 class="modal-title">Cerrar sesión</h1>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="mt-4 mb-1 text-center">
+            <div class="row justify-content-center">
+
+                <div class="col-12 mb-3">
+                    <h2 class="TituloDetalle">¿Estás seguro de salir?</h2>
+                </div>
+
+                <div class="col-sm-4">
+                    <button type="button" id="btnGuardarDirecccion" class="btn BtnPrincipal w-100"
+                        (click)="AceptCerrarSesion()">
+                        Aceptar
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" id="btnGuardarDirecccion" class="btn BtnCancel w-100"
+                        (click)="modal.dismiss('Cross click')">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

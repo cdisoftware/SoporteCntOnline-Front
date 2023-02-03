@@ -1,0 +1,91 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e0dcdc;
+    color: #fff;
+}
+
+.nav-links a {
+    color: #fff;
+}
+
+.logoContabilidad {
+    cursor: pointer;
+    left: 100%;
+    width: 180px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.hrSinEstilo {
+    margin: 2px;
+    border-color: black;
+}
+
+.userStyle {
+    float: right;
+    cursor: pointer;
+}
+
+.btncerrarsesion {
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+
+/* Clases para el dropdown */
+.dropbtn {
+    background-color: transparent;
+    color: var(--main-bg-color-grisWhiteFont);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 6px;
+    top: 110%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+}
+
+.dropdown-content a:hover {
+    background-color: #DFDFDF
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@media only screen and (min-width: 989px) {
+    .displayFlexbetweenMenu {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

@@ -1,0 +1,16 @@
+<br>
+<br>
+<div class="row br justify-content-center centradoTarget">
+
+
+    <div class="col-sm-3 col-12" *ngFor="let proyect of DatProyectos" [id]="proyect.IdProyecto">
+        <img src="../../../../assets/ImagenesSoporteTecntOnline/{{proyect.Imagen}}" class="imagendetalle">
+        <div class="card-body">
+            <br>
+            <a type="button" class="btn Btntableros col-sm-10" (click)="RedireccionCont(proyect.urlComponente)"><strong>{{proyect.Proyecto}}</strong></a>
+        </div>
+    </div>
+
+
+
+</div>
