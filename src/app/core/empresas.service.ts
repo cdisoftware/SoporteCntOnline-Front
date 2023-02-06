@@ -16,7 +16,7 @@ export class EmpresasService {
   ModificaEmpresa(Bandera: string, Datos: any) {
     return this.http.post<any>(this.url_servidor + 'modEmpresa/' + Bandera, Datos)
   }
-  ConsultaInfoUsuario(Nit: string, IdCol: string, Nombre: string, Datos: any) {
-    return this.http.get<any>(this.url_servidor + 'consEmpresas/' + Nit + IdCol + Nombre, Datos)
+  ConsultaEmpresas(Nit: string, IdCol: string, Nombre: string) {
+    return this.http.get<any>(this.url_servidor + 'consEmpresas/' + Nit + '/' + IdCol + '/' + Nombre)
   }
 }

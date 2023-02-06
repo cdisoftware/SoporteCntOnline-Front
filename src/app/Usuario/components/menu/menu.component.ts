@@ -33,4 +33,8 @@ export class MenuComponent implements OnInit {
     this.cookie.DeleteCookie();
     this.router.navigate(['']);
   }
+
+  atras() {
+    this.router.navigate(['home']);
+  }
 }
