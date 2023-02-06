@@ -1,0 +1,19 @@
+.imagendetalle {
+    display: block;
+    margin: auto;
+   cursor: pointer;
+}
+
+.centradoTarget {
+    text-align: center;
+}
+.tituloMod{
+    text-align: center;
+    color: #fc5404;   
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.labelcont{
+    font-size: 13px;
+    font-weight: bold;
+}
