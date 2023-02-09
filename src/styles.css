@@ -44,7 +44,7 @@ h2 {
 }
 
 .br {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .Llave {
     color: #181D23;
@@ -63,4 +63,26 @@ h2 {
 .tarjetadetalle {
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.textArea {
+    border-top: solid 0.5px #f3f3f3;
+    border-radius: 1px;
+    box-shadow: 0px 1px #adadad;
+}
+.labelcont{
+    font-size: 13px;
+    font-weight: bold;
+}
+.tituloMod{
+    text-align: center;
+    color: #fc5404;   
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.imagendetalle {
+    display: block;
+    margin: auto;
+   cursor: pointer;
+}
+.centradoTarget {
+    text-align: center;
 }

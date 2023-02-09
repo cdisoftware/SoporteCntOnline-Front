@@ -39,4 +39,5 @@ export class TableroComponent implements OnInit {
   RedireccionCont(path:string) {
     this.rutas.navigateByUrl('/home/'+ path);
   }
+
 }
