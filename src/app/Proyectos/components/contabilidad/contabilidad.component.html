@@ -2,56 +2,335 @@
     <h1 class="br tituloMod"><strong>Contabilidad Online</strong></h1>
     <br>
     <div class="row br justify-content-center">
-        <div class="col-sm-2 text-center" (click)="ConsultaEmp()">
+        <div class="col-sm-2 text-center" (click)="ConsultaEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/buscar.png" class="imagendetalle">
             <div>
                 <label class="labelcont">Consultar empresa</label>
             </div>
         </div>
-        <div class="col-sm-2 text-center" (click)="InsertaEmp()">
+        <div class="col-sm-2 text-center" (click)="CrearEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/mas.png" class="imagendetalle">
             <div>
                 <label class="labelcont">Agregar empresa</label>
             </div>
         </div>
-        <div class="col-sm-2 text-center">
+        <div class="col-sm-2 text-center" (click)="ActualizaEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="imagendetalle">
             <div>
                 <label class="labelcont">Actualizar empresa</label>
             </div>
         </div>
     </div>
-    <br>
 
-    <div class="row br" *ngIf="VerOcultarCampos == true">
+    <!-- filtros busqueda empresas-->
+    <div class="row br" *ngIf="VerOcultarCamposCons == true">
         <hr>
-        <div class="col-sm-4 br">
-            <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
-                placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa" [ngModelOptions]="{standalone: true}">
+        <div class="row" VerConsultaEmp>
+            <div class="col-sm-4">
+                <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
+                    placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
+                    placeholder="Nit empresa" [(ngModel)]="Nit">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
+                    [(ngModel)]="Regional">
+            </div>
         </div>
-        <div class="col-sm-4 br">
-            <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
-                placeholder="Nit empresa" [(ngModel)]="Nit" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="col-sm-4 br">
-            <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
-                [(ngModel)]="Regional" [ngModelOptions]="{standalone: true}">
-        </div>
-
         <div class="row br justify-content-center">
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
-                    (click)="ConsultaEmp()">Buscar</button>
+                    (click)="VerConsultaEmp()">Buscar</button>
             </div>
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla" (click)="limpiar()">Limpiar</button>
             </div>
         </div>
     </div>
-    <br>
-    <div class="row justify-content-center br tarjetadetalle" *ngFor="let empresa of ArrayEmpresa">
 
-        <div class="row m-2">
+    <!-- formulario inserta Empresas-->
+    <div class="row br justify-content-center" *ngIf="VerOcultarCamposInsert == true">
+        <div class="row">
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Regional</label>
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
+                    [(ngModel)]="Regional">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Nombre empresa</label>
+                <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
+                    placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa">
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Nit</label>
+                <input type="text" title="Nit" class="form-control form-control-sm textBox" placeholder="Nit"
+                    [(ngModel)]="NitInsert">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Pais</label>
+                <select class="form-control form-control-sm textBox" title="Seleccionar pais" [(ngModel)]="Pais"
+                    #selectPais (change)="SelectListaPais(selectPais.value)">
+                    <option value="0" selected>Seleccione pais...</option>
+                    <option value="{{Respu.CodPais}}|{{Respu.NombrePais}}" *ngFor="let Respu of ArrayPais">
+                        {{Respu.NombrePais}}</option>
+                </select>
+            </div>
+
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Departamento</label>
+                <select class="form-control form-control-sm textBox" title="Seleccionar departamento"
+                    #selectDepartamento [(ngModel)]="Departamento" (change)="SelectListaDep(selectDepartamento.value)">
+                    <option value="0" selected>Seleccione departamento...</option>
+                    <option value="{{Respu.CodigoDepartamento}}|{{Respu.Nombre}}"
+                        *ngFor="let Respu of ArrayDepartamento">
+                        {{Respu.Nombre}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Ciudad</label>
+                <select class="form-control form-control-sm textBox" title="Seleccionar ciudad" #selectciudad
+                    [(ngModel)]="Ciudad" (change)="SelectListaciudad(selectciudad.value)">
+                    <option value="0" selected>Seleccione ciudad...</option>
+                    <option value="{{Respu.Codigo}}|{{Respu.Nombre}}" *ngFor="let Respu of ArrayCiudad">
+                        {{Respu.Nombre}}</option>
+                </select>
+            </div>
+
+            <div class="col-sm-12 br">
+                <label class="col-sm-12 Llave">Dirección</label>
+                <textarea class="form-control form-control-sm textArea" rows="3" maxlength="500" minlength="3"
+                    placeholder="Dirección" title="Direccion" [(ngModel)]="Direccion"></textarea>
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Correo</label>
+                <input type="text" title="Correo" class="form-control form-control-sm textBox" placeholder="Correo"
+                    [(ngModel)]="Correo">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Teléfono</label>
+                <input type="text" title="Telefono" class="form-control form-control-sm textBox" placeholder="Teléfono"
+                    [(ngModel)]="Telefono">
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Tipo persona</label>
+                <select class="form-control form-control-sm textBox" title="Seleccionar tipo persona"
+                    [(ngModel)]="TpoPersona">
+                    <option value="0" selected>Seleccione el tipo persona...</option>
+                    <option value="1"> Juridica </option>
+                    <option value="2"> Natural </option>
+                </select>
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Régimen</label>
+                <input type="text" title="Régimen" class="form-control form-control-sm textBox" placeholder="Régimen"
+                    [(ngModel)]="Regimen">
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Número matricula mercantil</label>
+                <input type="text" title="NumMatMercantil" class="form-control form-control-sm textBox"
+                    placeholder="Número matricula mercantil" [(ngModel)]="NumMatMercantil">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">ValCas53</label>
+                <input type="text" title="ValCas53" class="form-control form-control-sm textBox" placeholder="ValCas53"
+                    [(ngModel)]="ValCas53">
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">ValCas54</label>
+                <input type="text" title="ValCas54" class="form-control form-control-sm textBox" placeholder="ValCas54"
+                    [(ngModel)]="ValCas54">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Nit Código verificación</label>
+                <input type="text" title="NitCodVer" class="form-control form-control-sm textBox"
+                    placeholder="Nit Código verificación" [(ngModel)]="NitCodVer">
+            </div>
+
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Código postal</label>
+                <input type="text" title="CodPostal" class="form-control form-control-sm textBox"
+                    placeholder="Código postal" [(ngModel)]="CodPostal">
+            </div>
+            <div class="col-sm-6 br">
+                <label class="col-sm-12 Llave">Actividad económica</label>
+                <input type="text" title="ActEco" class="form-control form-control-sm textBox"
+                    placeholder="Actividad económica" [(ngModel)]="ActEco">
+            </div>
+        </div>
+        <br>
+        <div class="row br justify-content-center">
+            <div class="col-sm-3 col-12">
+                <button class="col-sm-12 btn BtnPrincipal" (click)="InsertarEmpresa(ModalRespuesta)">Guardar</button>
+            </div>
+            <div class="col-sm-3 col-12">
+                <button class="col-sm-12 btn BtnPrincipal" (click)="LimpiarCampos()">Limpiar</button>
+            </div>
+            <div class="col-sm-3 col-12">
+                <button class="col-sm-12 btn BtnCancel" (click)="Cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- formulario actualiza Empresas-->
+    <div class="row br" *ngIf="VerOcultarCamposAct == true">
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-sm-9 br" (keyup.enter)="BuscarEmpNit()">
+                <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
+                    placeholder="Nit empresa" [(ngModel)]="NitAct">
+            </div>
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
+                    (click)="BuscarEmpNit()">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- formulario Actualiza Empresas-->
+    <div class="row br justify-content-center" *ngIf="VerOcultarFormAct == true">
+        <div class="row" *ngFor="let RespEmp of arregloListaEmpresas">
+            <div class="row">
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Regional</label>
+                    <input type="text" title="Regional" class="form-control form-control-sm textBox" disabled
+                        placeholder="Regional" [(ngModel)]="RespEmp.IdCol">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Nombre empresa</label>
+                    <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
+                        placeholder="Nombre empresa" [(ngModel)]="RespEmp.Nombre">
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Nit</label>
+                    <input type="text" title="Nit" class="form-control form-control-sm textBox" placeholder="Nit"
+                        disabled [(ngModel)]="RespEmp.Nit">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Pais</label>
+                    <select class="form-control form-control-sm textBox" title="Seleccionar pais"
+                        [(ngModel)]="RespEmp.CodPais" #selectPais (change)="SelectListaPais(selectPais.value)">
+                        <option value="0" selected>Seleccione pais...</option>
+                        <option value="{{Respu.CodPais}}" *ngFor="let Respu of ArrayPais">
+                            {{Respu.NombrePais}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Departamento</label>
+                    <select class="form-control form-control-sm textBox" title="Seleccionar departamento"
+                        #selectDepartamento [(ngModel)]="RespEmp.CodigoDepartamento"
+                        (change)="SelectListaDep(selectDepartamento.value)">
+                        <option value="0" selected>Seleccione departamento...</option>
+                        <option value="{{Respu.CodigoDepartamento}}" *ngFor="let Respu of ArrayDepartamento">
+                            {{Respu.Nombre}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Ciudad</label>
+                    <select class="form-control form-control-sm textBox" title="Seleccionar ciudad" #selectciudad
+                        [(ngModel)]="RespEmp.CodMuni" (change)="SelectListaciudad(selectciudad.value)">
+                        <option value="0" selected>Seleccione ciudad...</option>
+                        <option value="{{Respu.Codigo}}" *ngFor="let Respu of ArrayCiudad">
+                            {{Respu.Nombre}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-12 br">
+                    <label class="col-sm-12 Llave">Dirección</label>
+                    <textarea class="form-control form-control-sm textArea" rows="3" maxlength="500" minlength="3"
+                        placeholder="Dirección" title="Direccion" [(ngModel)]="RespEmp.Direccion"></textarea>
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Correo</label>
+                    <input type="text" title="Correo" class="form-control form-control-sm textBox" placeholder="Correo"
+                        [(ngModel)]="RespEmp.Email">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Teléfono</label>
+                    <input type="text" title="Telefono" class="form-control form-control-sm textBox"
+                        placeholder="Teléfono" [(ngModel)]="RespEmp.Telefono">
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Tipo persona</label>
+                    <select class="form-control form-control-sm textBox" title="Seleccionar tipo persona"
+                        [(ngModel)]="RespEmp.TipoPersona">
+                        <option value="0" selected>Seleccione el tipo persona...</option>
+                        <option value="1"> Juridica </option>
+                        <option value="2"> Natural </option>
+                    </select>
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Régimen</label>
+                    <input type="text" title="Régimen" class="form-control form-control-sm textBox"
+                        placeholder="Régimen" [(ngModel)]="RespEmp.Regimen">
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Número matricula mercantil</label>
+                    <input type="text" title="NumMatMercantil" class="form-control form-control-sm textBox"
+                        placeholder="Número matricula mercantil" [(ngModel)]="RespEmp.NumMatMercantil">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">ValCas53</label>
+                    <input type="text" title="ValCas53" class="form-control form-control-sm textBox"
+                        placeholder="ValCas53" [(ngModel)]="RespEmp.ValCas53">
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">ValCas54</label>
+                    <input type="text" title="ValCas54" class="form-control form-control-sm textBox"
+                        placeholder="ValCas54" [(ngModel)]="RespEmp.ValCas54">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Nit Código verificación</label>
+                    <input type="text" title="NitCodVer" class="form-control form-control-sm textBox"
+                        placeholder="Nit Código verificación" [(ngModel)]="RespEmp.NitCodVer">
+                </div>
+
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Código postal</label>
+                    <input type="text" title="CodPostal" class="form-control form-control-sm textBox"
+                        placeholder="Código postal" [(ngModel)]="RespEmp.CodPostal">
+                </div>
+                <div class="col-sm-6 br">
+                    <label class="col-sm-12 Llave">Actividad económica</label>
+                    <input type="text" title="ActEco" class="form-control form-control-sm textBox"
+                        placeholder="Actividad económica" [(ngModel)]="RespEmp.ActEco">
+                </div>
+            </div>
+            <br>
+            <div class="row br justify-content-center">
+                <div class="col-sm-3 col-12">
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="BuscActEmpresa(ModalRespuesta)">Guardar</button>
+                </div>
+                <div class="col-sm-3 col-12">
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="LimpiarCampos()">Limpiar</button>
+                </div>
+                <div class="col-sm-3 col-12">
+                    <button class="col-sm-12 btn BtnCancel" (click)="Cancelar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+
+    <!-- Tarjeta Empresas-->
+    <div class="row justify-content-center br tarjetadetalle" *ngFor="let empresa of ArrayEmpresa">
+        <div class="row m-2" *ngIf="VerOcultarCamposTarget == true">
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12">
@@ -168,8 +447,6 @@
                             class="Valor">{{empresa.CodMuni}}</label>
                     </div>
                 </div>
-
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Pais:&nbsp;</label><label class="Valor">{{empresa.NomPais}}</label>
@@ -185,43 +462,95 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <label class="Llave">Usuario:&nbsp;</label><label class="Valor">{{empresa.Usuario}}</label>
+                        <label class="Llave">PrefijoNE:&nbsp;</label><label class="Valor">{{empresa.PrefijoNE}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Rango NE desde:&nbsp;</label><label
+                            class="Valor">{{empresa.RangoNED}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Rango NE hasta:&nbsp;</label><label
+                            class="Valor">{{empresa.RangoNEH}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="Llave">Contraseña NE:&nbsp;</label><label
+                            class="Valor">{{empresa.ContrasenaNE}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Prefijo NA:&nbsp;</label><label class="Valor">{{empresa.PrefijoNA}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Número resolución DS:&nbsp;</label><label
+                            class="Valor">{{empresa.NumResolucionDS}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="Llave">Prefijo DS:&nbsp;</label><label class="Valor">{{empresa.PrefijoDS}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Rango DS desde:&nbsp;</label><label
+                            class="Valor">{{empresa.RangoDS_D}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Rango DS hasta:&nbsp;</label><label
+                            class="Valor">{{empresa.RangoDS_H}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="Llave">Fecha inicio DS:&nbsp;</label><label
+                            class="Valor">{{empresa.FechaInicioDS}}</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="Llave">Fecha fin DS:&nbsp;</label><label
+                            class="Valor">{{empresa.FechaInicioDS}}</label>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="Llave">Usuario facturatech:&nbsp;</label><label
+                            class="Valor">{{empresa.Usuario}}</label>
                     </div>
                     <div class="col-sm-8">
-                        <label class="Llave">Contraseña:&nbsp;</label> <label
+                        <label class="Llave">Contraseña facturatech:&nbsp;</label> <label
                             class="Valor">{{empresa.Contrasena}}</label>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
     </div>
     <br>
+    <div class="row br text-center" *ngIf="verOcultarLabelC == true">
+        <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
+        <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>
+    </div>
 </div>
 
-
-
-
-
-<!--
-    <div class="row br" *ngIf="VerOcultarCampos == true">
-        <div class="col-sm-6 br">
-            <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
-                placeholder="Nit empresa" [(ngModel)]="Nit" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="col-sm-6 br">
-            <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
-                placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="row br justify-content-center">
-            <div class="col-sm-3 col-12">
-                <button class="col-sm-12 btn BtnPrincipal">Guardar</button>
-            </div>
-            <div class="col-sm-3 col-12">
-                <button class="col-sm-12 btn BtnPrincipal">Limpiar</button>
-            </div>
-            <div class="col-sm-3 col-12">
-                <button class="col-sm-12 btn BtnCancel">Cancelar</button>
+<!-- Template Modal RESPUESTA-->
+<ng-template #ModalRespuesta let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1>Respuesta</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close"
+            (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{Respuesta}}</h2>
             </div>
         </div>
     </div>
--->
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal"
+                (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>

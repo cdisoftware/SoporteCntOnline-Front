@@ -7,14 +7,20 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ContabilidadComponent } from './Proyectos/components/contabilidad/contabilidad.component';
-
+import { FacturacionComponent } from './Proyectos/components/facturacion/facturacion.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NominaComponent } from './Proyectos/components/nomina/nomina.component';
+import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ContabilidadComponent
+    ContabilidadComponent,
+    FacturacionComponent,
+    NominaComponent,
+    DocumentoComponent
     
   ],
   imports: [
@@ -22,7 +28,8 @@ import { ContabilidadComponent } from './Proyectos/components/contabilidad/conta
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

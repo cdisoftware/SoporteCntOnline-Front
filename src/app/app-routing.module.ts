@@ -4,7 +4,9 @@ import { LoginComponent } from './Usuario/components/login/login.component'
 import { LayoutprincipalComponent } from './shared/layoutprincipal/layoutprincipal.component';
 import { ContabilidadComponent } from './Proyectos/components/contabilidad/contabilidad.component';
 import { TableroComponent } from './Usuario/components/tablero/tablero.component';
-
+import { FacturacionComponent } from './Proyectos/components/facturacion/facturacion.component';
+import { NominaComponent } from './Proyectos/components/nomina/nomina.component';
+import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
 const routes: Routes = [
   {
     path: '',
@@ -21,11 +23,21 @@ const routes: Routes = [
       {
         path: 'contabilidad',
         component: ContabilidadComponent
+      },
+      {
+        path: 'facturacion',
+        component: FacturacionComponent
+      },
+      {
+        path: 'nomina',
+        component: NominaComponent
+      },
+      {
+        path: 'documento',
+        component: DocumentoComponent
       }
     ]
-
   },
- 
 ];
 
 @NgModule({
