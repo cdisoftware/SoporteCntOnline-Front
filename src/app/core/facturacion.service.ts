@@ -17,4 +17,10 @@ export class FacturacionService {
   ActFacturacion(Datos: any) {
     return this.http.post<any>(this.url_servidor + 'ActFacturacion', Datos)
   }
+  ActualizaNomina(Datos: any) {
+    return this.http.post<any>(this.url_servidor + 'ActNomina', Datos)
+  }
+  ActDocSoporte(Datos: any) {
+    return this.http.post<any>(this.url_servidor + 'ActDocumentoSoporte', Datos)
+  }
 }
