@@ -24,8 +24,8 @@ export class DocumentoComponent implements OnInit {
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
 
-
-  NitFact: string = '';
+  arregloListaDoc: any;
+  NitDoc: string = '';
 
   constructor(public rutas: Router,
     private modalService: NgbModal,
@@ -35,29 +35,68 @@ export class DocumentoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  HabilitarDoc(){
+  HabilitarDoc() {
     this.VerOcultarConsulta = false;
     this.VerOcultarActualizar = true;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
-    this.LimpiarConsulta();
+
   }
 
-  
+
   BuscarFactura() {
-
-  }
-
-  LimpiarConsulta() {
 
   }
 
 
   BuscarHabNomina() {
-
+    this.verOcultarLabel = false;
+    var auxNit: string = '';
+    if (this.NitDoc == '') {
+      auxNit = '1';
+    } else {
+      auxNit = this.NitDoc;
+    }
+    this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
+      if (Resultado != null && Resultado != undefined && Resultado != '') {
+        this.arregloListaDoc = Resultado;
+        this.VerOcultarFormAct = true;
+        this.NitDoc = '';
+      } else {
+        this.verOcultarLabel = true;
+        this.arregloListaDoc = [];
+      }
+    })
   }
 
+  ActualizarDocumento(templateMensaje: any) {
+    const body = {
+      NumResolucionDS: this.arregloListaDoc[0].NumResolucionDS,
+      PrefijoDS:  this.arregloListaDoc[0].PrefijoDS,
+      RangoDS_D: this.arregloListaDoc[0].RangoDS_D,
+      RangoDS_H: this.arregloListaDoc[0].RangoDS_H,
+      FechaInicioDS: this.arregloListaDoc[0].FechaInicioDS,
+      FechaFinDS: this.arregloListaDoc[0].FechaFinDS,
+      Nit: this.arregloListaDoc[0].Nit
+    }
+    console.log(body)
+    this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
+      this.Respuesta = Resultado;
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+      this.LimpiarActDoc();
+      this.Cancelar();
+    })
+  }
+
+  LimpiarActDoc() {
+    this.arregloListaDoc[0].NumResolucionDS = '';
+    this.arregloListaDoc[0].RangoDS_D = '';
+    this.arregloListaDoc[0].RangoDS_H = '';
+    this.arregloListaDoc[0].FechaInicioDS = '';
+    this.arregloListaDoc[0].FechaFinDS = '';
+    this.arregloListaDoc[0].PrefijoDS = '';
+  }
 
 
   Cancelar() {

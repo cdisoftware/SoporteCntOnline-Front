@@ -16,6 +16,7 @@ export class NominaComponent implements OnInit {
   NumFactura: string = '';
   Regnal: string = '';
   Pfjo: string = '';
+  NitNom: string = '';
 
   VerOcultarConsulta: boolean = false;
   VerOcultarActualizar: boolean = false;
@@ -23,9 +24,7 @@ export class NominaComponent implements OnInit {
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
 
-
-  NitFact: string = '';
-
+  arregloNomina: any;
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
@@ -34,7 +33,7 @@ export class NominaComponent implements OnInit {
   ngOnInit(): void {
   }
 
- 
+
 
   HabilitarNomina() {
     this.VerOcultarConsulta = false;
@@ -42,24 +41,58 @@ export class NominaComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
-    this.LimpiarConsulta();
-  }
-
-
-  BuscarFactura(){
-
-  }
-
-  LimpiarConsulta(){
 
   }
 
 
-  BuscarHabNomina(){
+  BuscarFactura() {
 
   }
 
+  BuscarHabNomina() {
+    this.verOcultarLabel = false;
+    var auxNit: string = '';
+    if (this.NitNom == '') {
+      auxNit = '1';
+    } else {
+      auxNit = this.NitNom;
+    }
+    this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
+      if (Resultado != null && Resultado != undefined && Resultado != '') {
+        this.arregloNomina = Resultado;
+        this.VerOcultarFormAct = true;
+        this.NitNom = '';
+      } else {
+        this.verOcultarLabel = true;
+        this.arregloNomina = [];
+      }
+    })
+  }
 
+  ActualizarNomina(templateMensaje: any) {
+    const body = {
+      PrefijoNE: this.arregloNomina[0].PrefijoNE,
+      RangoNED: this.arregloNomina[0].RangoNED,
+      RangoNEH: this.arregloNomina[0].RangoNEH,
+      ContrasenaNE: this.arregloNomina[0].ContrasenaNE,
+      PrefijoNA: this.arregloNomina[0].PrefijoNA,
+      Nit: this.arregloNomina[0].Nit
+    }
+    this.facturaServices.ActualizaNomina(body).subscribe(Resultado => {
+      this.Respuesta = Resultado;
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+      this.LimpiarActNom();
+      this.Cancelar();
+    })
+  }
+
+  LimpiarActNom() {
+    this.arregloNomina[0].ContrasenaNE = '';
+    this.arregloNomina[0].PrefijoNE = '';
+    this.arregloNomina[0].PrefijoNA = '';
+    this.arregloNomina[0].RangoNED = '';
+    this.arregloNomina[0].RangoNEH = '';
+  }
 
   Cancelar() {
     this.VerOcultarConsulta = false;

@@ -16,7 +16,6 @@
         </div>
     </div>
 
-
     <!-- filtros busqueda factura-->
     <div class="row br" *ngIf="VerOcultarConsulta == true">
         <hr>
@@ -71,7 +70,6 @@
     <div class="row br" *ngIf="VerOcultarFormAct == true">
         <div class="row justify-content-center" *ngFor="let RespFact of arregloListaFactura">
             <div class="row">
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-6 Llave">Nit</label>
                     <input type="text" title="Nit" class="form-control form-control-sm textBox" disabled
@@ -82,8 +80,6 @@
                     <input type="text" title="Número resolución" class="form-control form-control-sm textBox"
                         placeholder="Número resolución" [(ngModel)]="RespFact.NumResolucion">
                 </div>
-
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Usuario</label>
                     <input type="text" title="Usuario" class="form-control form-control-sm textBox"
@@ -94,8 +90,6 @@
                     <input type="text" title="Contraseña" class="form-control form-control-sm textBox"
                         placeholder="Contraseña" [(ngModel)]="RespFact.Contrasena">
                 </div>
-
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Prefijo</label>
                     <input type="text" title="Prefijo" class="form-control form-control-sm textBox"
@@ -106,7 +100,6 @@
                     <input type="text" title="PrefijoNC" class="form-control form-control-sm textBox"
                         placeholder="PrefijoNC" [(ngModel)]="RespFact.PrefijoNC">
                 </div>
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango desde</label>
                     <input type="text" class="form-control form-control-sm textBox" placeholder="Rango desde"
@@ -117,7 +110,6 @@
                     <input type="text" class="form-control form-control-sm textBox" placeholder="Rango hasta"
                         [(ngModel)]="RespFact.RangoH">
                 </div>
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango fecha inicio</label>
                     <input type="date" title="Rango fecha inicio" class="form-control form-control-sm textBox"
@@ -128,7 +120,6 @@
                     <input type="date" title="Rango fecha fin" class="form-control form-control-sm textBox"
                         placeholder="Rango fecha fin" [(ngModel)]="RespFact.RangoFecFin">
                 </div>
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">RangoNCD</label>
                     <input type="text" title="RangoNCD" class="form-control form-control-sm textBox"
@@ -139,9 +130,7 @@
                     <input type="text" title="RangoNCH" class="form-control form-control-sm textBox"
                         placeholder="RangoNCH" [(ngModel)]="RespFact.RangoNCH">
                 </div>
-
             </div>
-
             <div class="row br justify-content-center">
                 <div class="col-sm-3 col-12">
                     <button class="col-sm-12 btn BtnPrincipal"
@@ -155,7 +144,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <br>
     <!-- Tarjeta Factura-->
@@ -207,9 +195,8 @@
                 </div>
             </div>
         </div>
-        <br>
     </div>
-
+    <br>
     <div class="row br text-center" *ngIf="verOcultarLabel == true">
         <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
         <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>

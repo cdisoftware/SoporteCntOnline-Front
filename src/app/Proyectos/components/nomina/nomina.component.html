@@ -17,7 +17,7 @@
     </div>
 
 
-    <!-- filtros busqueda factura-->
+    <!-- filtros busqueda factura
     <div class="row br" *ngIf="VerOcultarConsulta == true">
         <hr>
         <div class="row">
@@ -48,7 +48,7 @@
                     (click)="LimpiarConsulta()">Limpiar</button>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- formulario actualiza Facturacion-->
     <div class="row br" *ngIf="VerOcultarActualizar == true">
@@ -57,10 +57,10 @@
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabNomina()">
                     <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
-                        placeholder="Nit empresa" [(ngModel)]="NitFact">
+                        placeholder="Nit empresa" [(ngModel)]="NitNom">
                 </div>
                 <div class="col-sm-3">
-                    <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
+                    <button class="col-sm-12 btn BtnPrincipal"
                         (click)="BuscarHabNomina()">Buscar</button>
                 </div>
             </div>
@@ -68,52 +68,47 @@
     </div>
 
     <!-- formulario Actualiza Facturacion-->
-    <div class="row br" *ngIf="VerOcultarFormAct == false">
-        <div class="row justify-content-center">
+    <div class="row br" *ngIf="VerOcultarFormAct == true">
+        <div class="row justify-content-center" *ngFor="let RespNomina of arregloNomina">
             <div class="row">
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-6 Llave">Nit</label>
                     <input type="text" title="Nit" class="form-control form-control-sm textBox" disabled
-                        placeholder="Nit">
+                        placeholder="Nit" [(ngModel)]="RespNomina.Nit">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Contraseña</label>
+                    <label class="col-sm-12 Llave">Contraseña NE</label>
                     <input type="text" title="Contraseña" class="form-control form-control-sm textBox"
-                        placeholder="Contraseña">
+                        placeholder="Contraseña" [(ngModel)]="RespNomina.ContrasenaNE">
                 </div>
-
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">PrefijoNE</label>
                     <input type="text" title="PrefijoNE" class="form-control form-control-sm textBox"
-                        placeholder="PrefijoNE">
+                        placeholder="PrefijoNE" [(ngModel)]="RespNomina.PrefijoNE">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">PrefijoNA</label>
                     <input type="text" title="PrefijoNA" class="form-control form-control-sm textBox"
-                        placeholder="PrefijoNA">
+                        placeholder="PrefijoNA" [(ngModel)]="RespNomina.PrefijoNA">
                 </div>
-
-
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">RangoNED</label>
                     <input type="text" title="RangoNED" class="form-control form-control-sm textBox"
-                        placeholder="RangoNED">
+                        placeholder="RangoNED" [(ngModel)]="RespNomina.RangoNED">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">RangoNEH</label>
                     <input type="text" title="RangoNEH" class="form-control form-control-sm textBox"
-                        placeholder="RangoNEH">
+                        placeholder="RangoNEH" [(ngModel)]="RespNomina.RangoNEH">
                 </div>
             </div>
 
             <div class="row br justify-content-center">
                 <div class="col-sm-3 col-12">
-                    <button class="col-sm-12 btn BtnPrincipal">Guardar</button>
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="ActualizarNomina(ModalRespuesta)">Guardar</button>
                 </div>
                 <div class="col-sm-3 col-12">
-                    <button class="col-sm-12 btn BtnPrincipal">Limpiar</button>
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="LimpiarActNom()">Limpiar</button>
                 </div>
                 <div class="col-sm-3 col-12">
                     <button class="col-sm-12 btn BtnCancel" (click)="Cancelar()">Cancelar</button>

@@ -25,7 +25,7 @@
     <!-- filtros busqueda empresas-->
     <div class="row br" *ngIf="VerOcultarCamposCons == true">
         <hr>
-        <div class="row" VerConsultaEmp>
+        <div class="row" (keyup.enter)="VerConsultaEmp()">
             <div class="col-sm-4">
                 <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
                     placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa">
@@ -351,7 +351,6 @@
                         <label class="Llave">Ciudad:&nbsp;</label><label class="Valor">{{empresa.Ciudad}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Dirección:&nbsp;</label><label class="Valor">{{empresa.Direccion}}</label>
@@ -363,7 +362,6 @@
                         <label class="Llave">Teléfono:&nbsp;</label><label class="Valor">{{empresa.Telefono}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Número resolución:&nbsp;</label><label
@@ -376,7 +374,6 @@
                         <label class="Llave">Rango desde:&nbsp;</label><label class="Valor">{{empresa.RangoD}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Rango hasta:&nbsp;</label><label class="Valor">{{empresa.RangoH}}</label>
@@ -390,7 +387,6 @@
                             class="Valor">{{empresa.RangoFecFin}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Tipo persona:&nbsp;</label><label *ngIf="empresa.TipoPersona == '1'"
@@ -404,7 +400,6 @@
                         <label class="Llave">Código pais:&nbsp;</label><label class="Valor">{{empresa.CodPais}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Código departamento:&nbsp;</label><label
@@ -418,7 +413,6 @@
                         <label class="Llave">ValCas53:&nbsp;</label><label class="Valor">{{empresa.ValCas53}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">ValCas54:&nbsp;</label><label class="Valor">{{empresa.ValCas54}}</label>
@@ -432,7 +426,6 @@
                             class="Valor">{{empresa.RangoNCD}}</label>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="Llave">Rango nota crédito hasta:&nbsp;</label><label
@@ -508,7 +501,6 @@
                         <label class="Llave">Fecha fin DS:&nbsp;</label><label
                             class="Valor">{{empresa.FechaInicioDS}}</label>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-sm-4">

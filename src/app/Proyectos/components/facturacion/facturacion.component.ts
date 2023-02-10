@@ -179,9 +179,7 @@ export class FacturacionComponent implements OnInit {
       RangoNCH: this.arregloListaFactura[0].RangoNCH,
       Nit: this.arregloListaFactura[0].Nit
     }
-    console.log(body)
     this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
-      console.log(Resultado)
       this.Respuesta = Resultado;
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
       this.LimpiarFormularioAct();
