@@ -10,6 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ContabilidadComponent implements OnInit {
 
 
+  public page!: number;
+
   ArrayEmpresa: any = [];
   Respuesta: string = '';
   //Variables Detalle Empresa
@@ -51,6 +53,7 @@ export class ContabilidadComponent implements OnInit {
   VerOcultarFormAct: boolean = false;
   verOcultarLabelC: boolean = false;
   arregloListaEmpresas: any;
+  verOcultarPge: boolean = false;
 
   NitAct: string = '';
 
@@ -73,6 +76,7 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabelC = false;
+    this.verOcultarPge = false;
     this.LimpiarCampos();
   }
   CrearEmpresa() {
@@ -82,6 +86,7 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabelC = false;
+    this.verOcultarPge = false;
     this.limpiar();
   }
 
@@ -91,6 +96,7 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposAct = true;
     this.VerOcultarCamposTarget = false;
     this.verOcultarLabelC = false;
+    this.verOcultarPge = false;
     this.limpiar();
     this.LimpiarCampos();
   }
@@ -122,6 +128,8 @@ export class ContabilidadComponent implements OnInit {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayEmpresa = Resultado;
         this.VerOcultarCamposTarget = true;
+        this.verOcultarPge = true;
+        this.verOcultarLabelC = false;
       } else {
         this.verOcultarLabelC = true;
         this.ArrayEmpresa = [];
@@ -148,7 +156,6 @@ export class ContabilidadComponent implements OnInit {
         this.ListarCiudad();
         this.arregloListaEmpresas[0].CodMuni = Resultado[0].CodMuni;
         this.VerOcultarFormAct = true;
-        this.NitAct = '';
       } else {
         this.verOcultarLabelC = true;
         this.arregloListaEmpresas = [];

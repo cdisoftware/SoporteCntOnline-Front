@@ -9,6 +9,7 @@ import { EmpresasService } from 'src/app/core/empresas.service';
   styleUrls: ['./facturacion.component.css']
 })
 export class FacturacionComponent implements OnInit {
+  public page!: number;
 
   Respuesta: string = '';
   NitEmpresa: string = '';
@@ -35,6 +36,7 @@ export class FacturacionComponent implements OnInit {
   VerOcultarCamposTarget: boolean = false;
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
+  verOcultarPge: boolean = false;
 
   NitFact: string = '';
   arregloListaFactura: any;
@@ -54,6 +56,7 @@ export class FacturacionComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
+    this.verOcultarPge = false;
     this.NitFact = '';
   }
 
@@ -63,6 +66,7 @@ export class FacturacionComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
+    this.verOcultarPge = false;
     this.LimpiarConsulta();
   }
 
@@ -71,11 +75,13 @@ export class FacturacionComponent implements OnInit {
     this.NumFactura = '';
     this.Regnal = '';
     this.Pfjo = '';
+    this.verOcultarPge = false;
     this.ArrayFactura = [];
   }
 
   BuscarFactura() {
-    this.VerOcultarCamposTarget = true;
+
+
     var auxNitEmp: string = '';
     var auxNumFactura: string = '';
     var auxIdCol: string = '';
@@ -103,7 +109,11 @@ export class FacturacionComponent implements OnInit {
     this.facturaServices.ConsultaFactura(auxNumFactura, auxIdCol, auxNitEmp, prefi).subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayFactura = Resultado;
+        this.VerOcultarCamposTarget = true;
+        this.verOcultarPge = true;
+        this.verOcultarLabel = false;
       } else {
+        this.verOcultarPge = false;
         this.verOcultarLabel = true;
         this.ArrayFactura = [];
       }

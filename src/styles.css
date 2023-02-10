@@ -20,6 +20,7 @@ h2 {
     color: white !important;
 }
 
+
 .BtnCancel {
     background-color: #575A5F !important;
     border-color: #575A5F !important;
@@ -63,6 +64,7 @@ h2 {
 .tarjetadetalle {
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: auto;
 }
 .textArea {
     border-top: solid 0.5px #f3f3f3;
