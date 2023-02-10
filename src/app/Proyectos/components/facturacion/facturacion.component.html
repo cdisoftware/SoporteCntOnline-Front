@@ -147,7 +147,8 @@
     </div>
     <br>
     <!-- Tarjeta Factura-->
-    <div class="row justify-content-center br tarjetadetalle" *ngFor="let factura of ArrayFactura">
+    <div class="row justify-content-center br tarjetadetalle"
+        *ngFor="let factura of ArrayFactura | paginate: {itemsPerPage: 5, currentPage: page}">
         <div class="row m-2" *ngIf="VerOcultarCamposTarget == true">
             <div class="col-sm-12">
                 <div class="row">
@@ -188,15 +189,21 @@
                             class="Valor">{{factura.Observaciones}}</label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="br col-sm-12 text-center">
-                        <label class="textblue col-sm-12"><strong>{{factura.Error}}</strong></label>
+                <div class="" style="height: auto; width: auto;">
+                    <div class="br">
+                        <label class="textblue col-sm-12">{{factura.Error}}</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
+
+    <div class="row text-center" *ngIf="verOcultarPge == true">
+        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
+            nextLabel="Siguiente"></pagination-controls>
+    </div>
+
     <div class="row br text-center" *ngIf="verOcultarLabel == true">
         <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
         <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>
