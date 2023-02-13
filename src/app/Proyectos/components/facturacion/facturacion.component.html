@@ -8,6 +8,12 @@
                 <label class="labelcont">Consultar factura</label>
             </div>
         </div>
+        <div class="col-sm-2 text-center" (click)="GenXml()">
+            <img src="../../../../assets/ImagenesSoporteTecntOnline/xml.png" class="imagendetalle">
+            <div>
+                <label class="labelcont">Generar xml</label>
+            </div>
+        </div>
         <div class="col-sm-2 text-center" (click)="HabilitarEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="imagendetalle">
             <div>
@@ -15,10 +21,55 @@
             </div>
         </div>
     </div>
+    <!-- filtros generacion XML factura-->
+    <div class="row br" *ngIf="verOcultarXML == true">
+        <hr>
+        <h6 class="tituloMod"><strong>Generar xml</strong></h6>
+        <div class="row" (keyup.enter)="BuscarFactura()">
+            <div class="col-sm-3">
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
+                    [(ngModel)]="Reg">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
+                    placeholder="Número de factura" [(ngModel)]="NumroFactura">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" title="Tipo" class="form-control form-control-sm textBox" placeholder="Tipo"
+                    [(ngModel)]="Tipo">
+            </div>
 
+            <div class="col-sm-3">
+                <input type="text" title="Prefijo" class="form-control form-control-sm textBox" placeholder="Prefijo"
+                    [(ngModel)]="Prefjo">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
+                    (click)="BuscarXML()">Buscar</button>
+            </div>
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla" (click)="LimpiarXml()">Limpiar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center br tarjetadetalle">
+            <div class="row m-2" *ngIf="VerOcultarTargetXML == true">
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="Llave">XML:&nbsp;</label>
+                            <label class="textblue">{{Xml}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- filtros busqueda factura-->
     <div class="row br" *ngIf="VerOcultarConsulta == true">
         <hr>
+        <h6 class="tituloMod"><strong>Consulta Factura</strong></h6>
         <div class="row" (keyup.enter)="BuscarFactura()">
             <div class="col-sm-3">
                 <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
@@ -37,7 +88,7 @@
                     [(ngModel)]="Pfjo">
             </div>
         </div>
-        <div class="row br justify-content-center">
+        <div class="row justify-content-center">
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
                     (click)="BuscarFactura()">Buscar</button>
@@ -52,6 +103,7 @@
     <!-- formulario actualiza Facturacion-->
     <div class="row br" *ngIf="VerOcultarActualizar == true">
         <hr>
+        <h6 class="tituloMod"><strong>Habilitar Empresa</strong></h6>
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabilitarEmpresa()">
@@ -198,12 +250,10 @@
         </div>
     </div>
     <br>
-
     <div class="row text-center" *ngIf="verOcultarPge == true">
         <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
             nextLabel="Siguiente"></pagination-controls>
     </div>
-
     <div class="row br text-center" *ngIf="verOcultarLabel == true">
         <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
         <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>

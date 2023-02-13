@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MetodosglobalesService } from './metodosglobales.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,5 +23,13 @@ export class FacturacionService {
   }
   ActDocSoporte(Datos: any) {
     return this.http.post<any>(this.url_servidor + 'ActDocumentoSoporte', Datos)
+  }
+
+  ConsultaXml(Datos: any) {
+    return this.http.post(this.url_servidor + 'GenXmlFacturacion', Datos, {responseType: "text"})
+  }
+
+  ConsultaXmlNomina(Datos: any) {
+    return this.http.post(this.url_servidor + 'GenXmlNomina', Datos, {responseType: "text"})
   }
 }

@@ -2,57 +2,54 @@
     <h1 class="br tituloMod"><strong>Nomina Electronica</strong></h1>
     <br>
     <div class="row br justify-content-center">
-        <!-- <div class="col-sm-2 text-center">
-            <img src="../../../../assets/ImagenesSoporteTecntOnline/buscar.png" class="imagendetalle">
+        <div class="col-sm-2 text-center" (click)="ConsultaXmlNom()">
+            <img src="../../../../assets/ImagenesSoporteTecntOnline/xml.png" class="imagendetalle">
             <div>
-                <label class="labelcont">Consultar factura</label>
+                <label class="labelcont">Consultar xml nomina</label>
             </div>
-        </div>-->
+        </div>
         <div class="col-sm-2 text-center" (click)="HabilitarNomina()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="imagendetalle">
             <div>
-                <label class="labelcont">Habilitar Nomina</label>
+                <label class="labelcont">Actualizar Nomina</label>
+            </div>
+        </div>
+    </div>
+  
+    <div class="row br" *ngIf="VerOcultarConsulta == true">
+        <hr>
+        <h6 class="tituloMod"><strong>Consulta xml nomina</strong></h6>
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
+                    [(ngModel)]="Reg">
+            </div>
+            <div class="col-sm-4">
+                <input type="date" title="Fecha inicio" class="form-control form-control-sm textBox"
+                    placeholder="Fecha inicio" [(ngModel)]="fechaIni">
+            </div>
+            <div class="col-sm-4">
+                <input type="date" title="Fecha fin" class="form-control form-control-sm textBox" placeholder="Fecha fin"
+                    [(ngModel)]="fechaFin">
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
+                   (click)="BuscarXml()">Buscar</button>
+            </div>
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla"
+                    (click)="LimpiarXml()">Limpiar</button>
             </div>
         </div>
     </div>
 
-
-    <!-- filtros busqueda factura
-    <div class="row br" *ngIf="VerOcultarConsulta == true">
-        <hr>
-        <div class="row">
-            <div class="col-sm-3">
-                <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
-                    placeholder="Nit empresa" [(ngModel)]="NitEmpresa">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
-                    placeholder="Número de factura" [(ngModel)]="NumFactura">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
-                    [(ngModel)]="Regnal">
-            </div>
-            <div class="col-sm-3">
-                <input type="text" title="Prefijo" class="form-control form-control-sm textBox" placeholder="Prefijo"
-                    [(ngModel)]="Pfjo">
-            </div>
-        </div>
-        <div class="row br justify-content-center">
-            <div class="col-sm-3 col-12 br">
-                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
-                    (click)="BuscarFactura()">Buscar</button>
-            </div>
-            <div class="col-sm-3 col-12 br">
-                <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla"
-                    (click)="LimpiarConsulta()">Limpiar</button>
-            </div>
-        </div>
-    </div>-->
-
     <!-- formulario actualiza Facturacion-->
     <div class="row br" *ngIf="VerOcultarActualizar == true">
         <hr>
+        <h6 class="tituloMod"><strong>Actualizar Nomina</strong></h6>
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabNomina()">
@@ -60,8 +57,7 @@
                         placeholder="Nit empresa" [(ngModel)]="NitNom">
                 </div>
                 <div class="col-sm-3">
-                    <button class="col-sm-12 btn BtnPrincipal"
-                        (click)="BuscarHabNomina()">Buscar</button>
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="BuscarHabNomina()">Buscar</button>
                 </div>
             </div>
         </div>
@@ -105,7 +101,8 @@
 
             <div class="row br justify-content-center">
                 <div class="col-sm-3 col-12">
-                    <button class="col-sm-12 btn BtnPrincipal" (click)="ActualizarNomina(ModalRespuesta)">Guardar</button>
+                    <button class="col-sm-12 btn BtnPrincipal"
+                        (click)="ActualizarNomina(ModalRespuesta)">Guardar</button>
                 </div>
                 <div class="col-sm-3 col-12">
                     <button class="col-sm-12 btn BtnPrincipal" (click)="LimpiarActNom()">Limpiar</button>

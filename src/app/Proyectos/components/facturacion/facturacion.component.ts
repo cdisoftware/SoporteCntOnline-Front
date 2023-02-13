@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacturacionService } from 'src/app/core/facturacion.service';
 import { EmpresasService } from 'src/app/core/empresas.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-facturacion',
   templateUrl: './facturacion.component.html',
@@ -37,14 +38,25 @@ export class FacturacionComponent implements OnInit {
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
   verOcultarPge: boolean = false;
+  verOcultarXML: boolean = false;
+  VerOcultarTargetXML: boolean = false;
 
   NitFact: string = '';
   arregloListaFactura: any;
 
+
+  Reg: string = '';
+  NumroFactura: string = '';
+  Tipo: string = '';
+  Prefjo: string = '';
+  Xml: string = '';
+  ocultaBtnBuscar: string = '1';
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
-    public empresaService: EmpresasService) { }
+    public empresaService: EmpresasService,
+    private formatofecha: DatePipe) { }
 
   ngOnInit(): void {
     this.LimpiarConsulta();
@@ -57,6 +69,8 @@ export class FacturacionComponent implements OnInit {
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
     this.verOcultarPge = false;
+    this.verOcultarXML = false;
+    this.VerOcultarTargetXML = false;
     this.NitFact = '';
   }
 
@@ -67,7 +81,20 @@ export class FacturacionComponent implements OnInit {
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
     this.verOcultarPge = false;
+    this.verOcultarXML = false;
+    this.VerOcultarTargetXML = false;
     this.LimpiarConsulta();
+  }
+
+  GenXml() {
+    this.VerOcultarConsulta = false;
+    this.VerOcultarActualizar = false;
+    this.VerOcultarCamposTarget = false;
+    this.VerOcultarFormAct = false;
+    this.verOcultarLabel = false;
+    this.verOcultarPge = false;
+    this.verOcultarXML = true;
+    this.VerOcultarTargetXML = false;
   }
 
   LimpiarConsulta() {
@@ -79,9 +106,53 @@ export class FacturacionComponent implements OnInit {
     this.ArrayFactura = [];
   }
 
+  BuscarXML() {
+    var auxReg: string = '';
+    var auxNumroFactura: string = '';
+    var auxTipo: string = '';
+    var auxPrefjo: string = '';
+    if (this.Reg == '') {
+      auxReg = '0';
+    } else {
+      auxReg = this.Reg;
+    }
+    if (this.NumroFactura == '') {
+      auxNumroFactura = '0';
+    } else {
+      auxNumroFactura = this.NumroFactura;
+    }
+    if (this.Tipo == '') {
+      auxTipo = '0';
+    } else {
+      auxTipo = this.Tipo;
+    }
+    if (this.Prefjo == '') {
+      auxPrefjo = '0';
+    } else {
+      auxPrefjo = this.Prefjo;
+    }
+    const Body = {
+      Reg: auxReg,
+      NumFac: auxNumroFactura,
+      Tipo: auxTipo,
+      Prefijo: auxPrefjo
+    }
+    this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
+      console.log(Resultado)
+      this.Xml = Resultado;
+      this.verOcultarXML = true;
+    })
+  }
+
+  LimpiarXml() {
+    this.Reg = '';
+    this.NumroFactura = '';
+    this.Tipo = '';
+    this.Prefjo = '';
+
+  }
+
   BuscarFactura() {
-
-
     var auxNitEmp: string = '';
     var auxNumFactura: string = '';
     var auxIdCol: string = '';
@@ -141,40 +212,14 @@ export class FacturacionComponent implements OnInit {
   }
 
   GuardarHabilitarEmpresa(templateMensaje: any) {
-    /* if (this.NumResolucion == undefined || this.NumResolucion == null || this.NumResolucion == '0' || this.NumResolucion == '') {
-       this.Respuesta = 'El campo número de resolución es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.Usuario == undefined || this.Usuario == null || this.Usuario == '0' || this.Usuario == '') {
-       this.Respuesta = 'El campo usuario es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.Contrasena == undefined || this.Contrasena == null || this.Contrasena == '0' || this.Contrasena == '') {
-       this.Respuesta = 'El campo contraseña es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.Prefijo == undefined || this.Prefijo == null || this.Prefijo == '0' || this.Prefijo == '') {
-       this.Respuesta = 'El campo prefijo es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.PrefijoNC == undefined || this.PrefijoNC == null || this.PrefijoNC == '0' || this.PrefijoNC == '') {
-       this.Respuesta = 'El campo prefijoNC es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoD == undefined || this.RangoD == null || this.RangoD == '0' || this.RangoD == '') {
-       this.Respuesta = 'El campo rango desde es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoH == undefined || this.RangoH == null || this.RangoH == '0' || this.RangoH == '') {
-       this.Respuesta = 'El campo rango hasta es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoFecIni == undefined || this.RangoFecIni == null || this.RangoFecIni == '0' || this.RangoFecIni == '') {
-       this.Respuesta = 'El campo rango fecha inicio es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoFecFin == undefined || this.RangoFecFin == null || this.RangoFecFin == '0' || this.RangoFecFin == '') {
-       this.Respuesta = 'El campo rango fecha fin es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoNCD == undefined || this.RangoNCD == null || this.RangoNCD == '0' || this.RangoNCD == '') {
-       this.Respuesta = 'El campo RangoNCD es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else if (this.RangoNCH == undefined || this.RangoNCH == null || this.RangoNCH == '0' || this.RangoNCH == '') {
-       this.Respuesta = 'El campo RangoNCH es obligatorio.';
-       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-     } else {*/
+
+    var rangoIni = this.RangoFecIni;
+    var rangoFin = this.RangoFecFin;
+
+    var auxRangoIni = this.formatofecha.transform(rangoIni, "yyyy-MM-dd")!;
+    var auxRangoIni = this.formatofecha.transform(rangoFin, "yyyy-MM-dd")!;
+
+
     const body = {
       NumResolucion: this.arregloListaFactura[0].NumResolucion,
       Usuario: this.arregloListaFactura[0].Usuario,
@@ -195,7 +240,7 @@ export class FacturacionComponent implements OnInit {
       this.LimpiarFormularioAct();
       this.ConsultaFactura();
     })
-    //}
+
   }
 
   LimpiarFormularioAct() {

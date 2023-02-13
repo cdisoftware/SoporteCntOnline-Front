@@ -121,9 +121,7 @@ export class ContabilidadComponent implements OnInit {
     } else {
       auxNomEmp = this.NombreEmpresa;
     }
-    this.VerOcultarCamposCons = true;
-    this.VerOcultarCamposInsert = false;
-    this.VerOcultarCamposAct = false;
+  
     this.empresaService.ConsultaEmpresas(auxNitEmp, auxRegional, auxNomEmp).subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayEmpresa = Resultado;
@@ -168,6 +166,7 @@ export class ContabilidadComponent implements OnInit {
     this.Nit = '';
     this.Regional = '';
     this.ArrayEmpresa = [];
+    this.verOcultarPge = false;
   }
 
 

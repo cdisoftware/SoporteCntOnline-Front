@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacturacionService } from 'src/app/core/facturacion.service';
 import { EmpresasService } from 'src/app/core/empresas.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-nomina',
   templateUrl: './nomina.component.html',
@@ -23,17 +24,30 @@ export class NominaComponent implements OnInit {
   VerOcultarCamposTarget: boolean = false;
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
+  VerOcultarXmlNom: boolean = false;
 
   arregloNomina: any;
+
+  Reg: string = '';
+  fechaIni: string = '';
+  fechaFin: string = '';
+  Xml: string = '';
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
-    public empresaService: EmpresasService) { }
+    public empresaService: EmpresasService,
+    private formatofecha: DatePipe) { }
 
   ngOnInit(): void {
   }
-
-
+  ConsultaXmlNom() {
+    this.VerOcultarConsulta = true;
+    this.VerOcultarActualizar = false;
+    this.VerOcultarCamposTarget = false;
+    this.VerOcultarFormAct = false;
+    this.verOcultarLabel = false;
+  }
 
   HabilitarNomina() {
     this.VerOcultarConsulta = false;
@@ -41,12 +55,46 @@ export class NominaComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
-
   }
 
+  BuscarXml() {
+    var fechai = this.fechaIni;
+    var fechaf = this.fechaFin;
+    var auxReg: string = '';
+    var auxfechaIni = this.formatofecha.transform(fechai, "yyyy-MM-dd")!;
+    var auxfechaFin = this.formatofecha.transform(fechaf, "yyyy-MM-dd")!;
 
-  BuscarFactura() {
+    if (this.Reg == '') {
+      auxReg = '0';
+    } else {
+      auxReg = this.Reg;
+    }
+    if (this.fechaIni == '') {
+      auxfechaIni = '0';
+    } else {
+      auxfechaIni = this.fechaIni;
+    }
+    if (this.fechaFin == '') {
+      auxfechaFin = '0';
+    } else {
+      auxfechaFin = this.fechaFin;
+    }
+    const Body = {
+      Regional: auxReg,
+      FechaI: auxfechaIni,
+      FechaF: auxfechaFin
+    }
+    this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
+      console.log(Resultado)
+      this.Xml = Resultado;
 
+    })
+  }
+
+  LimpiarXml() {
+    this.Reg = '';
+    this.fechaIni = '';
+    this.fechaFin = '';
   }
 
   BuscarHabNomina() {
