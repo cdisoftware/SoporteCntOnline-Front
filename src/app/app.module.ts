@@ -11,7 +11,7 @@ import { FacturacionComponent } from './Proyectos/components/facturacion/factura
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NominaComponent } from './Proyectos/components/nomina/nomina.component';
 import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { DocumentoComponent } from './Proyectos/components/documento/documento.c
     SharedModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [ DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
