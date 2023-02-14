@@ -61,7 +61,7 @@ export class NominaComponent implements OnInit {
     this.verOcultarLabel = false;
   }
 
-  BuscarXml() {
+  BuscarXml(ModalRespuesta: any) {
     var fechai = this.fechaIni;
     var fechaf = this.fechaFin;
     var auxReg: string = '';
@@ -90,8 +90,14 @@ export class NominaComponent implements OnInit {
     }
     this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
       this.Xml = Resultado;
-      this.ArrSplit = Resultado.split("|");
-      this.llenaArrayNominas(this.ArrSplit);
+      console.log(Resultado)
+      if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
+        this.ArrSplit = Resultado.split("|");
+        this.llenaArrayNominas(this.ArrSplit);
+      }else{
+        this.Respuesta = Resultado;
+        this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+      }
     })
   }
   llenaArrayNominas(Arr: any) {
