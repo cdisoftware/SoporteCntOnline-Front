@@ -37,11 +37,25 @@
         <div class="row justify-content-center">
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
-                   (click)="BuscarXml()">Buscar</button>
+                   (click)="BuscarXml(ModalRespuesta)">Buscar</button>
             </div>
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla"
                     (click)="LimpiarXml()">Limpiar</button>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center br tarjetadetalle" *ngFor="let resXml of ArrNomina">
+            <div class="row m-2">
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="Llave">{{resXml.Documento}}&nbsp;</label>
+                            <label class="textblue">{{resXml.NominaInD}}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,27 +87,27 @@
                         placeholder="Nit" [(ngModel)]="RespNomina.Nit">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Contraseña NE</label>
+                    <label class="col-sm-12 Llave">Contraseña Nómina electrónica</label>
                     <input type="text" title="Contraseña" class="form-control form-control-sm textBox"
                         placeholder="Contraseña" [(ngModel)]="RespNomina.ContrasenaNE">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">PrefijoNE</label>
+                    <label class="col-sm-12 Llave">Prefijo Nómina electrónica</label>
                     <input type="text" title="PrefijoNE" class="form-control form-control-sm textBox"
                         placeholder="PrefijoNE" [(ngModel)]="RespNomina.PrefijoNE">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">PrefijoNA</label>
+                    <label class="col-sm-12 Llave">Prefijo NA</label>
                     <input type="text" title="PrefijoNA" class="form-control form-control-sm textBox"
                         placeholder="PrefijoNA" [(ngModel)]="RespNomina.PrefijoNA">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">RangoNED</label>
+                    <label class="col-sm-12 Llave">Rango Nómina electrónica desde</label>
                     <input type="text" title="RangoNED" class="form-control form-control-sm textBox"
                         placeholder="RangoNED" [(ngModel)]="RespNomina.RangoNED">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">RangoNEH</label>
+                    <label class="col-sm-12 Llave">Rango Nómina electrónica hasta</label>
                     <input type="text" title="RangoNEH" class="form-control form-control-sm textBox"
                         placeholder="RangoNEH" [(ngModel)]="RespNomina.RangoNEH">
                 </div>
