@@ -17,10 +17,11 @@
         <div class="col-sm-2 text-center" (click)="HabilitarEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="imagendetalle">
             <div>
-                <label class="labelcont">Habilitar Empresa</label>
+                <label class="labelcont">Habilitar empresa facturacion</label>
             </div>
         </div>
     </div>
+    
     <!-- filtros generacion XML factura-->
     <div class="row br" *ngIf="verOcultarXML == true">
         <hr>
@@ -34,6 +35,13 @@
                 <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
                     placeholder="Número de factura" [(ngModel)]="NumroFactura">
             </div>
+            <!--<div class="col-sm-3">
+                <select class="form-control form-control-sm textBox" title="Seleccionar tipo" [(ngModel)]="Tipo">
+                    <option value="0" selected>Seleccione el tipo...</option>
+                    <option value="1"> fc </option>
+                    <option value="2"> nc </option>
+                </select>
+            </div>-->
             <div class="col-sm-3">
                 <input type="text" title="Tipo" class="form-control form-control-sm textBox" placeholder="Tipo"
                     [(ngModel)]="Tipo">
@@ -47,24 +55,13 @@
         <div class="row justify-content-center">
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
-                    (click)="BuscarXML()">Buscar</button>
+                    (click)="BuscarXML(ModalRespuesta)">Buscar</button>
             </div>
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla" (click)="LimpiarXml()">Limpiar</button>
             </div>
         </div>
-        <div class="row justify-content-center br tarjetadetalle">
-            <div class="row m-2" *ngIf="VerOcultarTargetXML == true">
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="Llave">XML:&nbsp;</label>
-                            <label class="textblue">{{Xml}}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <!-- filtros busqueda factura-->
     <div class="row br" *ngIf="VerOcultarConsulta == true">
@@ -247,6 +244,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center br tarjetadetalle" *ngIf="VerOcultarTargetXML == true">
+        <div class="col-sm-12 br">
+            <label class="col-sm-12 Llave">XML:</label>
+            <textarea name="caracteristicas" id="caracteristicas" class="form-control form-control-sm textArea"
+                cols="30" rows="15" [(ngModel)]="Xml"></textarea>
+            <br>
         </div>
     </div>
     <br>

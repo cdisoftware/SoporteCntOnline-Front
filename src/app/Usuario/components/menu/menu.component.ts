@@ -11,18 +11,20 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   NombreUser: string = "";
-
+  NombreUsu: string = '';
+  IdUser: string = '';
   constructor(private modalService: NgbModal,
     private cookie: MetodosglobalesService,
     public router: Router) {
-
+    //cookies nombre usuario
+    this.NombreUsu = this.cookie.GetCookie('NombreUser');
+    this.IdUser = this.cookie.GetCookie('IdUser');
   }
 
-  //cookies nombre usuario
-  NombreUsu: string = this.cookie.GetCookie('NombreUser');
-
   ngOnInit(): void {
-    this.NombreUser = this.cookie.GetCookie('NombreUser');
+    if (this.IdUser == '') {
+      this.router.navigate(['']);
+    }
   }
 
   CerrarSesion(templateConfirmacion: any) {

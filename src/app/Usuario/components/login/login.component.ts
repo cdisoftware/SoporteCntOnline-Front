@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
         Pasword: this.pass
       }
       this.servicioslogin.ConsultaInfoUsuario('1', DataLogin).subscribe(Resultado => {
-        console.log(Resultado);
         this.Respuesta = Resultado[0].Novedad;
         if (this.Respuesta == '') {
           this.ServiciosGlobales.CrearCookie('IdUser', Resultado[0].IdUser);
