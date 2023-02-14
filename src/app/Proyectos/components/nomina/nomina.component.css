@@ -1,0 +1,19 @@
+.imgxmlVer {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.imgTable {
+    text-align: end;
+}
+
+.TextDocTable {
+    text-align: start;
+    font-weight: 400;
+}
+
+.bodyW {
+    max-width: 500px;
+    overflow: auto;
+}

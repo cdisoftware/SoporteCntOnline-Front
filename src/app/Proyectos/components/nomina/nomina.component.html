@@ -21,23 +21,23 @@
         <h6 class="tituloMod"><strong>Consulta xml nomina</strong></h6>
         <div class="row" (keyup.enter)="BuscarXml(ModalRespuesta)">
             <div class="col-sm-4">
-                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
-                    [(ngModel)]="Reg">
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional" [(ngModel)]="Reg">
             </div>
             <div class="col-sm-4">
-                <input type="date" title="Fecha inicio" class="form-control form-control-sm textBox"
-                    placeholder="Fecha inicio" [(ngModel)]="fechaIni">
+                <input type="date" title="Fecha inicio" class="form-control form-control-sm textBox" placeholder="Fecha inicio" [(ngModel)]="fechaIni">
             </div>
             <div class="col-sm-4">
-                <input type="date" title="Fecha fin" class="form-control form-control-sm textBox"
-                    placeholder="Fecha fin" [(ngModel)]="fechaFin">
+
+                <input type="date" title="Fecha fin" class="form-control form-control-sm textBox" placeholder="Fecha fin" [(ngModel)]="fechaFin">
+
             </div>
 
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-3 col-12 br">
-                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
-                    (click)="BuscarXml(ModalRespuesta)">Buscar</button>
+
+                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla" (click)="BuscarXml(ModalRespuesta)">Buscar</button>
+
             </div>
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnCancel" title="Buscar plantilla" (click)="LimpiarXml()">Limpiar</button>
@@ -45,17 +45,19 @@
         </div>
 
 
-        <div class="row justify-content-center br tarjetadetalle" *ngFor="let resXml of ArrNomina">
-            <div class="row m-2">
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="textblue">{{resXml.Documento}}&nbsp;</label>
-                            <label class="Llave">{{resXml.NominaInD}}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="row justify-content-center br tarjetadetalle" *ngIf="VerRespuXml == true">
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let resXml of ArrNomina">
+                        <td class="Llave TextDocTable"><strong>{{resXml.Documento}}</strong></td>
+                        <td class="imgTable">
+                            <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="imgxmlVer" (click)="ConsTxtNomUsu(resXml,ModaltxtNom)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 
@@ -66,8 +68,7 @@
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabNomina()">
-                    <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"
-                        placeholder="Nit empresa" [(ngModel)]="NitNom">
+                    <input type="text" title="Nit empresa" class="form-control form-control-sm textBox" placeholder="Nit empresa" [(ngModel)]="NitNom">
                 </div>
                 <div class="col-sm-3">
                     <button class="col-sm-12 btn BtnPrincipal" (click)="BuscarHabNomina()">Buscar</button>
@@ -82,26 +83,30 @@
             <div class="row">
                 <div class="col-sm-6 br">
                     <label class="col-sm-6 Llave">Nit</label>
-                    <input type="text" title="Nit" class="form-control form-control-sm textBox" disabled
-                        placeholder="Nit" [(ngModel)]="RespNomina.Nit">
+                    <input type="text" title="Nit" class="form-control form-control-sm textBox" disabled placeholder="Nit" [(ngModel)]="RespNomina.Nit">
                 </div>
                 <div class="col-sm-6 br">
 
                     <label class="col-sm-12 Llave">Contraseña Nómina electrónica</label>
 
+
                     <input type="text" title="Contraseña Nómina electrónica"
                         class="form-control form-control-sm textBox" placeholder="Contraseña Nómina electrónica"
                         [(ngModel)]="RespNomina.ContrasenaNE">
+
                 </div>
                 <div class="col-sm-6 br">
 
                     <label class="col-sm-12 Llave">Prefijo nomina electronica</label>
 
+
                     <input type="text" title="Prefijo nomina electronica" class="form-control form-control-sm textBox"
                         placeholder="Prefijo nomina electronica" [(ngModel)]="RespNomina.PrefijoNE">
+
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Prefijo nota ajuste</label>
+
 
                     <input type="text" title="Prefijo nota ajuste" class="form-control form-control-sm textBox"
                         placeholder="Prefijo nota ajuste" [(ngModel)]="RespNomina.PrefijoNA">
@@ -117,12 +122,12 @@
                     <input type="number" title="Rango nomina electronica hasta"
                         class="form-control form-control-sm textBox" placeholder="Rango nomina electronica hasta"
                         [(ngModel)]="RespNomina.RangoNEH">
+
                 </div>
             </div>
             <div class="row br justify-content-center">
                 <div class="col-sm-3 col-12">
-                    <button class="col-sm-12 btn BtnPrincipal"
-                        (click)="ActualizarNomina(ModalRespuesta)">Guardar</button>
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="ActualizarNomina(ModalRespuesta)">Guardar</button>
                 </div>
                 <div class="col-sm-3 col-12">
                     <button class="col-sm-12 btn BtnPrincipal" (click)="LimpiarActNom()">Limpiar</button>
@@ -147,8 +152,7 @@
     <div class="modal-header">
         <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
         <h1>Respuesta</h1>
-        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close"
-            (click)="modal.dismiss()"></button>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
         <div class="row br">
@@ -159,8 +163,30 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-12 text-center">
-            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal"
-                (click)="modal.close()">Aceptar</button>
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>
+
+<!-- Template Modal RESPUESTA-->
+<ng-template #ModaltxtNom let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1>Nomina empleado {{DocUsu}}</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row justify-content-center br tarjetadetalle">
+            <div class="col-12 br">
+                <textarea class="form-control form-control-sm textArea" cols="30" rows="15" [(ngModel)]="Xml"></textarea>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
         </div>
     </div>
     <br>
