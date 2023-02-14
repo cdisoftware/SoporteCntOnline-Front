@@ -25,6 +25,7 @@
     <!-- filtros busqueda empresas-->
     <div class="row br" *ngIf="VerOcultarCamposCons == true">
         <hr>
+        <h6 class="tituloMod"><strong>Consultar empresa</strong></h6>
         <div class="row" (keyup.enter)="VerConsultaEmp()">
             <div class="col-sm-4">
                 <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox"
@@ -39,7 +40,7 @@
                     [(ngModel)]="Regional">
             </div>
         </div>
-        <div class="row br justify-content-center">
+        <div class="row justify-content-center">
             <div class="col-sm-3 col-12 br">
                 <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla"
                     (click)="VerConsultaEmp()">Buscar</button>
@@ -52,6 +53,8 @@
 
     <!-- formulario inserta Empresas-->
     <div class="row br justify-content-center" *ngIf="VerOcultarCamposInsert == true">
+        <hr>
+        <h6 class="tituloMod"><strong>Agregar empresa</strong></h6>
         <div class="row">
             <div class="col-sm-6 br">
                 <label class="col-sm-12 Llave">Regional</label>
@@ -182,6 +185,7 @@
     <!-- formulario actualiza Empresas-->
     <div class="row br" *ngIf="VerOcultarCamposAct == true">
         <hr>
+        <h6 class="tituloMod"><strong>Actualizar empresa</strong></h6>
         <div class="row justify-content-center">
             <div class="col-sm-9 br" (keyup.enter)="BuscarEmpNit()">
                 <input type="text" title="Nit empresa" class="form-control form-control-sm textBox"

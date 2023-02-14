@@ -50,6 +50,7 @@
     <!-- formulario actualiza Facturacion-->
     <div class="row br" *ngIf="VerOcultarActualizar == true">
         <hr>
+        <h6 class="tituloMod"><strong>Habilitar empresa documento</strong></h6>
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabNomina()">
@@ -74,34 +75,34 @@
                         placeholder="Nit" [(ngModel)]="RespDocu.Nit">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Número resolución DS</label>
-                    <input type="text" title="Número resolución DS" class="form-control form-control-sm textBox"
-                        placeholder="Número resolución DS" [(ngModel)]="RespDocu.NumResolucionDS">
+                    <label class="col-sm-12 Llave">Número resolución documento soporte</label>
+                    <input type="text" title="Número resolución documento soporte" class="form-control form-control-sm textBox"
+                        placeholder="Número resolución documento soporte" [(ngModel)]="RespDocu.NumResolucionDS">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango desde</label>
-                    <input type="text" title="RangoDS desde" class="form-control form-control-sm textBox"
-                        placeholder="RangoDS desde" [(ngModel)]="RespDocu.RangoDS_D">
+                    <input type="number" title="Rango desde" class="form-control form-control-sm textBox"
+                        placeholder="Rango desde" [(ngModel)]="RespDocu.RangoDS_D">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango hasta</label>
-                    <input type="text" title="RangoDS hasta" class="form-control form-control-sm textBox"
-                        placeholder="RangoDS hasta" [(ngModel)]="RespDocu.RangoDS_H">
+                    <input type="number" title="Rango hasta" class="form-control form-control-sm textBox"
+                        placeholder="Rango hasta" [(ngModel)]="RespDocu.RangoDS_H">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango fecha inicio</label>
-                    <input type="date" class="form-control form-control-sm textBox" placeholder="Fecha inicio DS"
+                    <input type="date" class="form-control form-control-sm textBox" placeholder="Rango fecha inicio"
                         [(ngModel)]="RespDocu.FechaInicioDS">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango fecha fin</label>
-                    <input type="date" class="form-control form-control-sm textBox" placeholder="Fecha fin DS"
+                    <input type="date" class="form-control form-control-sm textBox" placeholder="Rango fecha fin"
                         [(ngModel)]="RespDocu.FechaFinDS">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Prefijo</label>
-                    <input type="text" title="PrefijoDS" class="form-control form-control-sm textBox"
-                        placeholder="PrefijoDS" [(ngModel)]="RespDocu.PrefijoDS">
+                    <input type="text" title="Prefijo" class="form-control form-control-sm textBox"
+                        placeholder="Prefijo" [(ngModel)]="RespDocu.PrefijoDS">
                 </div>
             </div>
 

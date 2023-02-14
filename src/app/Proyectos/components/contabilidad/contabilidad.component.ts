@@ -78,7 +78,7 @@ export class ContabilidadComponent implements OnInit {
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
     this.LimpiarCampos();
-    
+
   }
   CrearEmpresa() {
     this.VerOcultarCamposCons = false;
@@ -89,7 +89,7 @@ export class ContabilidadComponent implements OnInit {
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
     this.limpiar();
-    
+
   }
 
   ActualizaEmpresa() {
@@ -160,7 +160,7 @@ export class ContabilidadComponent implements OnInit {
         this.verOcultarLabelC = true;
         this.arregloListaEmpresas = [];
       }
-    
+
     })
   }
 
@@ -260,26 +260,7 @@ export class ContabilidadComponent implements OnInit {
     }
   }
 
-  LimpiarCampos() {
-    this.Regional = '';
-    this.NombreEmpresa = '';
-    this.NitInsert = '';
-    this.Departamento = '0';
-    this.Ciudad = '0';
-    this.Direccion = '';
-    this.Correo = '';
-    this.Telefono = '';
-    this.TpoPersona = '0';
-    this.Regimen = '';
-    this.NumMatMercantil = '';
-    this.ValCas53 = '';
-    this.ValCas54 = '';
-    this.NitCodVer = '';
-    this.Pais = '0';
-    this.CodPostal = '';
-    this.ActEco = '';
-    this.NitAct = '';
-  }
+
   Cancelar() {
     this.VerOcultarCamposCons = false;
     this.VerOcultarCamposInsert = false;
@@ -351,51 +332,49 @@ export class ContabilidadComponent implements OnInit {
   }
 
   BuscActEmpresa(templateMensaje: any) {
-    if (this.NombreEmpresa == undefined || this.NombreEmpresa == null || this.NombreEmpresa == '0') {
+    if (this.arregloListaEmpresas[0].Nombre == undefined || this.arregloListaEmpresas[0].Nombre == null || this.arregloListaEmpresas[0].Nombre == '') {
       this.Respuesta = 'El campo nombre empresa es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Nit == undefined || this.Nit == null || this.Nit == '0') {
-      this.Respuesta = 'El campo nit es obligatorio.';
-    } else if (this.codpais == undefined || this.codpais == null || this.codpais == '0') {
+    } else if (this.arregloListaEmpresas[0].CodPais == undefined || this.arregloListaEmpresas[0].CodPais == null || this.arregloListaEmpresas[0].CodPais == '0') {
       this.Respuesta = 'El campo país es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.CodigoDepartamento == undefined || this.CodigoDepartamento == null || this.CodigoDepartamento == '0') {
+    } else if (this.arregloListaEmpresas[0].CodigoDepartamento == undefined || this.arregloListaEmpresas[0].CodigoDepartamento == null || this.arregloListaEmpresas[0].CodigoDepartamento == '0') {
       this.Respuesta = 'El campo departamento es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.CodigoCiudad == undefined || this.CodigoCiudad == null || this.CodigoCiudad == '0') {
+    } else if (this.arregloListaEmpresas[0].CodMuni == undefined || this.arregloListaEmpresas[0].CodMuni == null || this.arregloListaEmpresas[0].CodMuni == '0') {
       this.Respuesta = 'El campo ciudad es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Direccion == undefined || this.Direccion == null || this.Direccion == '0') {
+    } else if (this.arregloListaEmpresas[0].Direccion == undefined || this.arregloListaEmpresas[0].Direccion == null || this.arregloListaEmpresas[0].Direccion == '') {
       this.Respuesta = 'El campo dirección es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Correo == undefined || this.Correo == null || this.Correo == '0') {
+    } else if (this.arregloListaEmpresas[0].Email == undefined || this.arregloListaEmpresas[0].Email == null || this.arregloListaEmpresas[0].Email == '') {
       this.Respuesta = 'El campo correo es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Telefono == undefined || this.Telefono == null || this.Telefono == '0') {
+    } else if (this.arregloListaEmpresas[0].Telefono == undefined || this.arregloListaEmpresas[0].Telefono == null || this.arregloListaEmpresas[0].Telefono == '') {
       this.Respuesta = 'El campo teléfono es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.TipoPersona == undefined || this.TipoPersona == null || this.TipoPersona == '0') {
+    } else if (this.arregloListaEmpresas[0].TipoPersona == undefined || this.arregloListaEmpresas[0].TipoPersona == null || this.arregloListaEmpresas[0].TipoPersona == '0') {
       this.Respuesta = 'El campo tipo persona es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Regimen == undefined || this.Regimen == null || this.Regimen == '0') {
+    } else if (this.arregloListaEmpresas[0].Regimen == undefined || this.arregloListaEmpresas[0].Regimen == null || this.arregloListaEmpresas[0].Regimen == '') {
       this.Respuesta = 'El campo régimen es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NumMatMercantil == undefined || this.NumMatMercantil == null || this.NumMatMercantil == '0') {
+    } else if (this.arregloListaEmpresas[0].NumMatMercantil == undefined || this.arregloListaEmpresas[0].NumMatMercantil == null || this.arregloListaEmpresas[0].NumMatMercantil == '') {
       this.Respuesta = 'El campo numero matricula mercantil es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ValCas53 == undefined || this.ValCas53 == null || this.ValCas53 == '0') {
+    } else if (this.arregloListaEmpresas[0].ValCas53 == undefined || this.arregloListaEmpresas[0].ValCas53 == null || this.arregloListaEmpresas[0].ValCas53 == '') {
       this.Respuesta = 'El campo valCas53 es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ValCas54 == undefined || this.ValCas54 == null || this.ValCas54 == '0') {
+    } else if (this.arregloListaEmpresas[0].ValCas54 == undefined || this.arregloListaEmpresas[0].ValCas54 == null || this.arregloListaEmpresas[0].ValCas54 == '') {
       this.Respuesta = 'El campo valCas54 es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NitCodVer == undefined || this.NitCodVer == null || this.NitCodVer == '0') {
+    } else if (this.arregloListaEmpresas[0].NitCodVer == undefined || this.arregloListaEmpresas[0].NitCodVer == null || this.arregloListaEmpresas[0].NitCodVer == '') {
       this.Respuesta = 'El campo nit codigo verificación es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.CodPostal == undefined || this.CodPostal == null || this.CodPostal == '0') {
+    } else if (this.arregloListaEmpresas[0].CodPostal == undefined || this.arregloListaEmpresas[0].CodPostal == null || this.arregloListaEmpresas[0].CodPostal == '') {
       this.Respuesta = 'El campo código postal es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ActEco == undefined || this.ActEco == null || this.ActEco == '0') {
+    } else if (this.arregloListaEmpresas[0].ActEco == undefined || this.arregloListaEmpresas[0].ActEco == null || this.arregloListaEmpresas[0].ActEco == '') {
       this.Respuesta = 'El campo actividad economica es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
@@ -403,7 +382,7 @@ export class ContabilidadComponent implements OnInit {
         IdCol: this.arregloListaEmpresas[0].IdCol,
         Nombre: this.arregloListaEmpresas[0].Nombre,
         Nit: this.arregloListaEmpresas[0].Nit,
-        Departamento: this.arregloListaEmpresas[0].Departamento,
+        Departamento: this.arregloListaEmpresas[0].CodigoDepartamento,
         Ciudad: this.arregloListaEmpresas[0].Ciudad,
         Direccion: this.arregloListaEmpresas[0].Direccion,
         Email: this.arregloListaEmpresas[0].Email,
@@ -428,5 +407,24 @@ export class ContabilidadComponent implements OnInit {
         this.ConsultaEmpresa();
       })
     }
+  }
+
+  LimpiarCampos() {
+    this.arregloListaEmpresas[0].Nombre = '';
+    this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+    this.arregloListaEmpresas[0].CodMuni = '0';
+    this.arregloListaEmpresas[0].Direccion = '';
+    this.arregloListaEmpresas[0].Email = '';
+    this.arregloListaEmpresas[0].Telefono = '';
+    this.arregloListaEmpresas[0].TipoPersona = '0';
+    this.arregloListaEmpresas[0].Regimen = '';
+    this.arregloListaEmpresas[0].NumMatMercantil = '';
+    this.arregloListaEmpresas[0].ValCas53 = '';
+    this.arregloListaEmpresas[0].ValCas54 = '';
+    this.arregloListaEmpresas[0].NitCodVer = '';
+    this.arregloListaEmpresas[0].CodPais = '0';
+    this.arregloListaEmpresas[0].CodPostal = '';
+    this.arregloListaEmpresas[0].ActEco = '';
+
   }
 }
