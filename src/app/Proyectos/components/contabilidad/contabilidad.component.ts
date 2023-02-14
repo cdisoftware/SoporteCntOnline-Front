@@ -173,17 +173,35 @@ export class ContabilidadComponent implements OnInit {
     this.NitAct = '';
   }
 
-
+  LimpiarInsert() {
+    this.Regional = '';
+    this.NombreEmpresa = '';
+    this.NitInsert = '';
+    this.Pais = '0';
+    this.Departamento = '0';
+    this.Ciudad = '0';
+    this.Direccion = '';
+    this.Correo = '';
+    this.Telefono = '';
+    this.TpoPersona = '0';
+    this.Regimen = '';
+    this.NumMatMercantil = '';
+    this.ValCas53 = '';
+    this.ValCas54 = '';
+    this.NitCodVer = '';
+    this.CodPostal = '';
+    this.ActEco = '';
+  }
 
   InsertarEmpresa(templateMensaje: any) {
 
     if (this.Regional == undefined || this.Regional == null || this.Regional == '') {
       this.Respuesta = 'El campo regional es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NombreEmpresa == undefined || this.NombreEmpresa == null || this.NombreEmpresa == '0') {
+    } else if (this.NombreEmpresa == undefined || this.NombreEmpresa == null || this.NombreEmpresa == '') {
       this.Respuesta = 'El campo nombre empresa es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NitInsert == undefined || this.NitInsert == null || this.NitInsert == '0') {
+    } else if (this.NitInsert == undefined || this.NitInsert == null || this.NitInsert == '') {
       this.Respuesta = 'El campo nit es obligatorio.';
     } else if (this.Pais == undefined || this.Pais == null || this.Pais == '0') {
       this.Respuesta = 'El campo país es obligatorio.';
@@ -194,37 +212,37 @@ export class ContabilidadComponent implements OnInit {
     } else if (this.Ciudad == undefined || this.Ciudad == null || this.Ciudad == '0') {
       this.Respuesta = 'El campo ciudad es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Direccion == undefined || this.Direccion == null || this.Direccion == '0') {
+    } else if (this.Direccion == undefined || this.Direccion == null || this.Direccion == '') {
       this.Respuesta = 'El campo dirección es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Correo == undefined || this.Correo == null || this.Correo == '0') {
+    } else if (this.Correo == undefined || this.Correo == null || this.Correo == '') {
       this.Respuesta = 'El campo correo es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Telefono == undefined || this.Telefono == null || this.Telefono == '0') {
+    } else if (this.Telefono == undefined || this.Telefono == null || this.Telefono == '') {
       this.Respuesta = 'El campo teléfono es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else if (this.TpoPersona == undefined || this.TpoPersona == null || this.TpoPersona == '0') {
       this.Respuesta = 'El campo tipo persona es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.Regimen == undefined || this.Regimen == null || this.Regimen == '0') {
+    } else if (this.Regimen == undefined || this.Regimen == null || this.Regimen == '') {
       this.Respuesta = 'El campo régimen es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NumMatMercantil == undefined || this.NumMatMercantil == null || this.NumMatMercantil == '0') {
+    } else if (this.NumMatMercantil == undefined || this.NumMatMercantil == null || this.NumMatMercantil == '') {
       this.Respuesta = 'El campo numero matricula mercantil es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ValCas53 == undefined || this.ValCas53 == null || this.ValCas53 == '0') {
+    } else if (this.ValCas53 == undefined || this.ValCas53 == null || this.ValCas53 == '') {
       this.Respuesta = 'El campo valCas53 es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ValCas54 == undefined || this.ValCas54 == null || this.ValCas54 == '0') {
+    } else if (this.ValCas54 == undefined || this.ValCas54 == null || this.ValCas54 == '') {
       this.Respuesta = 'El campo valCas54 es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.NitCodVer == undefined || this.NitCodVer == null || this.NitCodVer == '0') {
+    } else if (this.NitCodVer == undefined || this.NitCodVer == null || this.NitCodVer == '') {
       this.Respuesta = 'El campo nit codigo verificación es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.CodPostal == undefined || this.CodPostal == null || this.CodPostal == '0') {
+    } else if (this.CodPostal == undefined || this.CodPostal == null || this.CodPostal == '') {
       this.Respuesta = 'El campo código postal es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.ActEco == undefined || this.ActEco == null || this.ActEco == '0') {
+    } else if (this.ActEco == undefined || this.ActEco == null || this.ActEco == '') {
       this.Respuesta = 'El campo actividad economica es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
 
@@ -254,7 +272,7 @@ export class ContabilidadComponent implements OnInit {
       this.empresaService.InsertEmpresa(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-        this.LimpiarCampos();
+        this.LimpiarInsert();
         this.ConsultaEmpresa();
       })
     }
@@ -267,6 +285,7 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposAct = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
+    this.LimpiarInsert();
     this.LimpiarCampos();
   }
 
