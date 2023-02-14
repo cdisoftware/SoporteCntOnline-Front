@@ -36,6 +36,7 @@ export class NominaComponent implements OnInit {
   //XmlNomina
   ArrSplit: any = [];
   ArrNomina: any = [];
+  VerRespuXml: boolean = false;
 
   //VerTxt
   Xml: string = '';
@@ -92,9 +93,11 @@ export class NominaComponent implements OnInit {
       this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
         console.log(Resultado)
         if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
+          this.VerRespuXml = true;
           this.ArrSplit = Resultado.split("|");
           this.llenaArrayNominas(this.ArrSplit);
         } else {
+          this.VerRespuXml = false;
           this.Respuesta = Resultado;
           this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
         }
@@ -123,6 +126,8 @@ export class NominaComponent implements OnInit {
 
 
   LimpiarXml() {
+    this.ArrNomina = [];
+    this.VerRespuXml = false;
     this.Reg = '';
     this.fechaIni = '';
     this.fechaFin = '';

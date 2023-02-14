@@ -41,13 +41,13 @@
         </div>
 
 
-        <div class="row justify-content-center br tarjetadetalle">
+        <div class="row justify-content-center br tarjetadetalle" *ngIf="VerRespuXml == true">
             <table class="table">
                 <tbody>
                     <tr *ngFor="let resXml of ArrNomina">
-                        <td class="textblue TextDocTable">{{resXml.Documento}}</td>
+                        <td class="Llave TextDocTable"><strong>{{resXml.Documento}}</strong></td>
                         <td class="imgTable">
-                            <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="imgxmlVer" />
+                            <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="imgxmlVer" (click)="ConsTxtNomUsu(resXml,ModaltxtNom)" />
                         </td>
                     </tr>
                 </tbody>
@@ -203,13 +203,12 @@
 <ng-template #ModaltxtNom let-modal>
     <div class="modal-header">
         <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
-        <h1>Nomina usuario {{DocUsu}}</h1>
+        <h1>Nomina empleado {{DocUsu}}</h1>
         <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
     </div>
     <div class="modal-body">
         <div class="row justify-content-center br tarjetadetalle">
             <div class="col-12 br">
-                <label class="col-12 Llave">XML:</label>
                 <textarea class="form-control form-control-sm textArea" cols="30" rows="15" [(ngModel)]="Xml"></textarea>
                 <br>
             </div>
