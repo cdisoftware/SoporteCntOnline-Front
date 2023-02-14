@@ -31,11 +31,15 @@ export class NominaComponent implements OnInit {
   Reg: string = '';
   fechaIni: string = '';
   fechaFin: string = '';
-  Xml: string = '';
+
 
   //XmlNomina
   ArrSplit: any = [];
   ArrNomina: any = [];
+
+  //VerTxt
+  Xml: string = '';
+  DocUsu: string = "";
 
   constructor(public rutas: Router,
     private modalService: NgbModal,
@@ -62,43 +66,39 @@ export class NominaComponent implements OnInit {
   }
 
   BuscarXml(ModalRespuesta: any) {
-    var fechai = this.fechaIni;
-    var fechaf = this.fechaFin;
-    var auxReg: string = '';
-    var auxfechaIni = this.formatofecha.transform(fechai, "yyyy-MM-dd")!;
-    var auxfechaFin = this.formatofecha.transform(fechaf, "yyyy-MM-dd")!;
+    var fechai = this.fechaIni.split("-");
+    var auxfechaIni = fechai[0] + "-" + fechai[1] + "-" + fechai[2];
 
-    if (this.Reg == '') {
-      auxReg = '0';
+    var fechaf = this.fechaFin.split("-");
+    var auxfechaFin = fechaf[0] + "-" + fechaf[1] + "-" + fechaf[2];
+
+    if (fechai[0] == "" || fechai[0] == undefined) {
+      this.Respuesta = "La fecha inicio no esta diligenciada valide su información.";
+      this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (fechaf[0] == "" || fechaf[0] == undefined) {
+      this.Respuesta = "La fecha fin no esta diligenciada valide su información.";
+      this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.Reg == "") {
+      this.Respuesta = "El regional no esta diligenciada valide su información.";
+      this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
-      auxReg = this.Reg;
-    }
-    if (this.fechaIni == '') {
-      auxfechaIni = '0';
-    } else {
-      auxfechaIni = this.fechaIni;
-    }
-    if (this.fechaFin == '') {
-      auxfechaFin = '0';
-    } else {
-      auxfechaFin = this.fechaFin;
-    }
-    const Body = {
-      Regional: auxReg,
-      FechaI: auxfechaIni,
-      FechaF: auxfechaFin
-    }
-    this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
-      this.Xml = Resultado;
-      console.log(Resultado)
-      if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
-        this.ArrSplit = Resultado.split("|");
-        this.llenaArrayNominas(this.ArrSplit);
-      }else{
-        this.Respuesta = Resultado;
-        this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+      const Body = {
+        Regional: this.Reg,
+        FechaI: auxfechaIni,
+        FechaF: auxfechaFin
       }
-    })
+      console.log(Body)
+      this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
+        console.log(Resultado)
+        if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
+          this.ArrSplit = Resultado.split("|");
+          this.llenaArrayNominas(this.ArrSplit);
+        } else {
+          this.Respuesta = Resultado;
+          this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        }
+      })
+    }
   }
   llenaArrayNominas(Arr: any) {
     this.ArrNomina = [];
@@ -112,6 +112,12 @@ export class NominaComponent implements OnInit {
     }
   }
 
+
+  ConsTxtNomUsu(Arr: any, ModaltxtNom: any) {
+    this.DocUsu = Arr.Documento;
+    this.Xml = Arr.NominaInD;
+    this.modalService.open(ModaltxtNom, { ariaLabelledBy: 'modal-basic-title', size: 'lg' })
+  }
 
 
 
