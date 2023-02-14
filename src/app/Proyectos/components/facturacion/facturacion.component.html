@@ -35,17 +35,17 @@
                 <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
                     placeholder="Número de factura" [(ngModel)]="NumroFactura">
             </div>
-            <!--<div class="col-sm-3">
+            <div class="col-sm-3">
                 <select class="form-control form-control-sm textBox" title="Seleccionar tipo" [(ngModel)]="Tipo">
                     <option value="0" selected>Seleccione el tipo...</option>
-                    <option value="1"> fc </option>
-                    <option value="2"> nc </option>
+                    <option value="fc"> fc </option>
+                    <option value="nc"> nc </option>
                 </select>
-            </div>-->
-            <div class="col-sm-3">
+            </div>
+            <!--<div class="col-sm-3">
                 <input type="text" title="Tipo" class="form-control form-control-sm textBox" placeholder="Tipo"
                     [(ngModel)]="Tipo">
-            </div>
+            </div>-->
 
             <div class="col-sm-3">
                 <input type="text" title="Prefijo" class="form-control form-control-sm textBox" placeholder="Prefijo"
@@ -145,18 +145,18 @@
                         placeholder="Prefijo" [(ngModel)]="RespFact.Prefijo">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">PrefijoNC</label>
-                    <input type="text" title="PrefijoNC" class="form-control form-control-sm textBox"
-                        placeholder="PrefijoNC" [(ngModel)]="RespFact.PrefijoNC">
+                    <label class="col-sm-12 Llave">Prefijo nota credito</label>
+                    <input type="text" title="Prefijo nota credito" class="form-control form-control-sm textBox"
+                        placeholder="Prefijo nota credito" [(ngModel)]="RespFact.PrefijoNC">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango desde</label>
-                    <input type="text" class="form-control form-control-sm textBox" placeholder="Rango desde"
+                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango desde"
                         [(ngModel)]="RespFact.RangoD">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango hasta</label>
-                    <input type="text" class="form-control form-control-sm textBox" placeholder="Rango hasta"
+                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango hasta"
                         [(ngModel)]="RespFact.RangoH">
                 </div>
                 <div class="col-sm-6 br">
@@ -170,14 +170,14 @@
                         placeholder="Rango fecha fin" [(ngModel)]="RespFact.RangoFecFin">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">RangoNCD</label>
-                    <input type="text" title="RangoNCD" class="form-control form-control-sm textBox"
-                        placeholder="RangoNCD" [(ngModel)]="RespFact.RangoNCD">
+                    <label class="col-sm-12 Llave">Rango nota credito desde</label>
+                    <input type="number" title="Rango nota credito desde" class="form-control form-control-sm textBox"
+                        placeholder="Rango nota credito desde" [(ngModel)]="RespFact.RangoNCD">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">RangoNCH</label>
-                    <input type="text" title="RangoNCH" class="form-control form-control-sm textBox"
-                        placeholder="RangoNCH" [(ngModel)]="RespFact.RangoNCH">
+                    <label class="col-sm-12 Llave">Rango nota credito hasta</label>
+                    <input type="number" title="Rango nota credito hasta" class="form-control form-control-sm textBox"
+                        placeholder="Rango nota credito hasta" [(ngModel)]="RespFact.RangoNCH">
                 </div>
             </div>
             <div class="row br justify-content-center">

@@ -85,7 +85,6 @@ export class DocumentoComponent implements OnInit {
       this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
         this.VerOcultarTargetXML = true;
         this.Xml = Resultado;
-
       })
     }
   }
@@ -120,22 +119,42 @@ export class DocumentoComponent implements OnInit {
   ActualizarDocumento(templateMensaje: any) {
     var auxFechaInicioDS = this.formatofecha.transform(this.arregloListaDoc[0].FechaInicioDS, "yyyy/MM/dd")!;
     var auxFechaFinDS = this.formatofecha.transform(this.arregloListaDoc[0].FechaFinDS, "yyyy/MM/dd")!;
-    const body = {
-      NumResolucionDS: this.arregloListaDoc[0].NumResolucionDS,
-      PrefijoDS: this.arregloListaDoc[0].PrefijoDS,
-      RangoDS_D: this.arregloListaDoc[0].RangoDS_D,
-      RangoDS_H: this.arregloListaDoc[0].RangoDS_H,
-      FechaInicioDS: auxFechaInicioDS,
-      FechaFinDS: auxFechaFinDS,
-      Nit: this.arregloListaDoc[0].Nit
-    }
-    console.log(body)
-    this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
-      this.Respuesta = Resultado;
+
+    if (this.arregloListaDoc[0].NumResolucionDS == undefined || this.arregloListaDoc[0].NumResolucionDS == null || this.arregloListaDoc[0].NumResolucionDS == '') {
+      this.Respuesta = 'El filtro número resolución documento soporte es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-      this.LimpiarActDoc();
-      this.Cancelar();
-    })
+    } else if (this.arregloListaDoc[0].RangoDS_D == undefined || this.arregloListaDoc[0].RangoDS_D == null || this.arregloListaDoc[0].RangoDS_D == '') {
+      this.Respuesta = 'El filtro rango desde es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaDoc[0].RangoDS_H == undefined || this.arregloListaDoc[0].RangoDS_H == null || this.arregloListaDoc[0].RangoDS_H == '') {
+      this.Respuesta = 'El filtro rango hasta es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaDoc[0].FechaInicioDS == undefined || this.arregloListaDoc[0].FechaInicioDS == null || this.arregloListaDoc[0].FechaInicioDS == '') {
+      this.Respuesta = 'El filtro rango fecha inicio es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaDoc[0].FechaFinDS == undefined || this.arregloListaDoc[0].FechaFinDS == null || this.arregloListaDoc[0].FechaFinDS == '') {
+      this.Respuesta = 'El filtro rango fecha fin es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaDoc[0].PrefijoDS == undefined || this.arregloListaDoc[0].PrefijoDS == null || this.arregloListaDoc[0].PrefijoDS == '') {
+      this.Respuesta = 'El filtro prefijo es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else {
+      const body = {
+        NumResolucionDS: this.arregloListaDoc[0].NumResolucionDS,
+        PrefijoDS: this.arregloListaDoc[0].PrefijoDS,
+        RangoDS_D: this.arregloListaDoc[0].RangoDS_D,
+        RangoDS_H: this.arregloListaDoc[0].RangoDS_H,
+        FechaInicioDS: auxFechaInicioDS,
+        FechaFinDS: auxFechaFinDS,
+        Nit: this.arregloListaDoc[0].Nit
+      }
+      this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
+        this.Respuesta = Resultado;
+        this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.LimpiarActDoc();
+        this.Cancelar();
+      })
+    }
   }
 
   LimpiarActDoc() {
@@ -146,13 +165,10 @@ export class DocumentoComponent implements OnInit {
     this.arregloListaDoc[0].FechaFinDS = '';
     this.arregloListaDoc[0].PrefijoDS = '';
   }
-
-
   Cancelar() {
     this.VerOcultarConsulta = false;
     this.VerOcultarActualizar = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
   }
-
 }

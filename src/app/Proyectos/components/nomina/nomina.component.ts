@@ -95,7 +95,7 @@ export class NominaComponent implements OnInit {
       if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
         this.ArrSplit = Resultado.split("|");
         this.llenaArrayNominas(this.ArrSplit);
-      }else{
+      } else {
         this.Respuesta = Resultado;
         this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
       }
@@ -143,20 +143,39 @@ export class NominaComponent implements OnInit {
   }
 
   ActualizarNomina(templateMensaje: any) {
-    const body = {
-      PrefijoNE: this.arregloNomina[0].PrefijoNE,
-      RangoNED: this.arregloNomina[0].RangoNED,
-      RangoNEH: this.arregloNomina[0].RangoNEH,
-      ContrasenaNE: this.arregloNomina[0].ContrasenaNE,
-      PrefijoNA: this.arregloNomina[0].PrefijoNA,
-      Nit: this.arregloNomina[0].Nit
-    }
-    this.facturaServices.ActualizaNomina(body).subscribe(Resultado => {
-      this.Respuesta = Resultado;
+
+    if (this.arregloNomina[0].ContrasenaNE == undefined || this.arregloNomina[0].ContrasenaNE == null || this.arregloNomina[0].ContrasenaNE == '') {
+      this.Respuesta = 'El filtro Contraseña Nómina electrónica es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-      this.LimpiarActNom();
-      this.Cancelar();
-    })
+    } else if (this.arregloNomina[0].PrefijoNE == undefined || this.arregloNomina[0].PrefijoNE == null || this.arregloNomina[0].PrefijoNE == '') {
+      this.Respuesta = 'El filtro Prefijo nomina electronica es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloNomina[0].PrefijoNA == undefined || this.arregloNomina[0].PrefijoNA == null || this.arregloNomina[0].PrefijoNA == '0') {
+      this.Respuesta = 'El filtro Prefijo nota ajuste es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloNomina[0].RangoNED == undefined || this.arregloNomina[0].RangoNED == null || this.arregloNomina[0].RangoNED == '') {
+      this.Respuesta = 'El filtro Rango nomina electronica desde es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloNomina[0].RangoNEH == undefined || this.arregloNomina[0].RangoNEH == null || this.arregloNomina[0].RangoNEH == '') {
+      this.Respuesta = 'El filtro Rango nomina electronica hasta es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else {
+
+      const body = {
+        PrefijoNE: this.arregloNomina[0].PrefijoNE,
+        RangoNED: this.arregloNomina[0].RangoNED,
+        RangoNEH: this.arregloNomina[0].RangoNEH,
+        ContrasenaNE: this.arregloNomina[0].ContrasenaNE,
+        PrefijoNA: this.arregloNomina[0].PrefijoNA,
+        Nit: this.arregloNomina[0].Nit
+      }
+      this.facturaServices.ActualizaNomina(body).subscribe(Resultado => {
+        this.Respuesta = Resultado;
+        this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.LimpiarActNom();
+        this.Cancelar();
+      })
+    }
   }
 
   LimpiarActNom() {

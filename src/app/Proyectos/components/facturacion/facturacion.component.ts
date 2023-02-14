@@ -47,7 +47,7 @@ export class FacturacionComponent implements OnInit {
 
   Reg: string = '';
   NumroFactura: string = '';
-  Tipo: string = '';
+  Tipo: string = '0';
   Prefjo: string = '';
   Xml: string = '';
   ocultaBtnBuscar: string = '1';
@@ -72,6 +72,7 @@ export class FacturacionComponent implements OnInit {
     this.verOcultarXML = false;
     this.VerOcultarTargetXML = false;
     this.NitFact = '';
+    this.LimpiarXml();
   }
 
   HabilitarEmpresa() {
@@ -84,6 +85,7 @@ export class FacturacionComponent implements OnInit {
     this.verOcultarXML = false;
     this.VerOcultarTargetXML = false;
     this.LimpiarConsulta();
+    this.LimpiarXml();
   }
 
   GenXml() {
@@ -131,9 +133,10 @@ export class FacturacionComponent implements OnInit {
         Prefijo: auxPrefjo
       }
       this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
-        this.VerOcultarTargetXML = true;
-        this.Xml = Resultado;
-        
+
+          this.VerOcultarTargetXML = true;
+          this.Xml = Resultado;
+       
       })
     }
   }
@@ -143,6 +146,7 @@ export class FacturacionComponent implements OnInit {
     this.NumroFactura = '';
     this.Tipo = '0';
     this.Prefjo = '';
+    this.Xml = '';
     this.VerOcultarTargetXML = false;
   }
 
@@ -196,7 +200,7 @@ export class FacturacionComponent implements OnInit {
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
 
       if (Resultado != null && Resultado != undefined && Resultado != '') {
-       console.log(Resultado)
+        console.log(Resultado)
         this.arregloListaFactura = Resultado;
         this.VerOcultarFormAct = true;
         this.NitFact = '';
@@ -210,7 +214,43 @@ export class FacturacionComponent implements OnInit {
   GuardarHabilitarEmpresa(templateMensaje: any) {
     var auxRangoIni = this.formatofecha.transform(this.arregloListaFactura[0].RangoFecIni, "yyyy/MM/dd")!;
     var auxRangofIN = this.formatofecha.transform(this.arregloListaFactura[0].RangoFecFin, "yyyy/MM/dd")!;
-   
+
+    if (this.arregloListaFactura[0].NumResolucion == undefined || this.arregloListaFactura[0].NumResolucion == null || this.arregloListaFactura[0].NumResolucion == '') {
+      this.Respuesta = 'El filtro Número resolución es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].Usuario == undefined || this.arregloListaFactura[0].Usuario == null || this.arregloListaFactura[0].Usuario == '') {
+      this.Respuesta = 'El filtro Usuario es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].Contrasena == undefined || this.arregloListaFactura[0].Contrasena == null || this.arregloListaFactura[0].Contrasena == '') {
+      this.Respuesta = 'El filtro Contraseña es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].Prefijo == undefined || this.arregloListaFactura[0].Prefijo == null || this.arregloListaFactura[0].Prefijo == '') {
+      this.Respuesta = 'El filtro prefijo es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].PrefijoNC == undefined || this.arregloListaFactura[0].PrefijoNC == null || this.arregloListaFactura[0].PrefijoNC == '') {
+      this.Respuesta = 'El filtro Prefijo nota credito es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoD == undefined || this.arregloListaFactura[0].RangoD == null || this.arregloListaFactura[0].RangoD == '') {
+      this.Respuesta = 'El filtro Rango desde es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoH == undefined || this.arregloListaFactura[0].RangoH == null || this.arregloListaFactura[0].RangoH == '') {
+      this.Respuesta = 'El filtro Rango hasta es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoFecIni == undefined || this.arregloListaFactura[0].RangoFecIni == null || this.arregloListaFactura[0].RangoFecIni == '') {
+      this.Respuesta = 'El filtro Rango fecha inicio es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoFecFin == undefined || this.arregloListaFactura[0].RangoFecFin == null || this.arregloListaFactura[0].RangoFecFin == '') {
+      this.Respuesta = 'El filtro Rango fecha fin es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoNCD == undefined || this.arregloListaFactura[0].RangoNCD == null || this.arregloListaFactura[0].RangoNCD == '') {
+      this.Respuesta = 'El filtro Rango nota credito desde es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.arregloListaFactura[0].RangoNCH == undefined || this.arregloListaFactura[0].RangoNCH == null || this.arregloListaFactura[0].RangoNCH == '') {
+      this.Respuesta = 'El filtro Rango nota credito hasta es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else {
+
+
     const body = {
       NumResolucion: this.arregloListaFactura[0].NumResolucion,
       Usuario: this.arregloListaFactura[0].Usuario,
@@ -232,7 +272,7 @@ export class FacturacionComponent implements OnInit {
       this.LimpiarFormularioAct();
       this.ConsultaFactura();
     })
-
+  }
   }
 
   LimpiarFormularioAct() {
