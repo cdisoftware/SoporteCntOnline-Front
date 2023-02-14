@@ -106,50 +106,44 @@ export class FacturacionComponent implements OnInit {
     this.ArrayFactura = [];
   }
 
-  BuscarXML() {
-    var auxReg: string = '';
-    var auxNumroFactura: string = '';
-    var auxTipo: string = '';
-    var auxPrefjo: string = '';
-    if (this.Reg == '') {
-      auxReg = '0';
+  BuscarXML(templateMensaje: any) {
+    var auxReg = this.Reg;
+    var auxNumroFactura = this.NumroFactura;
+    var auxTipo = this.Tipo;
+    var auxPrefjo = this.Prefjo;
+    if (this.Reg == undefined || this.Reg == null || this.Reg == '') {
+      this.Respuesta = 'El filtro regional es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.NumroFactura == undefined || this.NumroFactura == null || this.NumroFactura == '') {
+      this.Respuesta = 'El filtro número de factura es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.Tipo == undefined || this.Tipo == null || this.Tipo == '0') {
+      this.Respuesta = 'El filtro tipo es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+    } else if (this.Prefjo == undefined || this.Prefjo == null || this.Prefjo == '') {
+      this.Respuesta = 'El filtro prefijo es obligatorio.';
+      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
-      auxReg = this.Reg;
+      const Body = {
+        Reg: auxReg,
+        NumFac: auxNumroFactura,
+        Tipo: auxTipo,
+        Prefijo: auxPrefjo
+      }
+      this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
+        this.VerOcultarTargetXML = true;
+        this.Xml = Resultado;
+        
+      })
     }
-    if (this.NumroFactura == '') {
-      auxNumroFactura = '0';
-    } else {
-      auxNumroFactura = this.NumroFactura;
-    }
-    if (this.Tipo == '') {
-      auxTipo = '0';
-    } else {
-      auxTipo = this.Tipo;
-    }
-    if (this.Prefjo == '') {
-      auxPrefjo = '0';
-    } else {
-      auxPrefjo = this.Prefjo;
-    }
-    const Body = {
-      Reg: auxReg,
-      NumFac: auxNumroFactura,
-      Tipo: auxTipo,
-      Prefijo: auxPrefjo
-    }
-    this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
-      console.log(Resultado)
-      this.Xml = Resultado;
-      this.verOcultarXML = true;
-    })
   }
 
   LimpiarXml() {
     this.Reg = '';
     this.NumroFactura = '';
-    this.Tipo = '';
+    this.Tipo = '0';
     this.Prefjo = '';
-
+    this.VerOcultarTargetXML = false;
   }
 
   BuscarFactura() {
@@ -200,7 +194,9 @@ export class FacturacionComponent implements OnInit {
       auxNit = this.NitFact;
     }
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
+
       if (Resultado != null && Resultado != undefined && Resultado != '') {
+       console.log(Resultado)
         this.arregloListaFactura = Resultado;
         this.VerOcultarFormAct = true;
         this.NitFact = '';
@@ -212,14 +208,9 @@ export class FacturacionComponent implements OnInit {
   }
 
   GuardarHabilitarEmpresa(templateMensaje: any) {
-
-    var rangoIni = this.RangoFecIni;
-    var rangoFin = this.RangoFecFin;
-
-    var auxRangoIni = this.formatofecha.transform(rangoIni, "yyyy-MM-dd")!;
-    var auxRangoIni = this.formatofecha.transform(rangoFin, "yyyy-MM-dd")!;
-
-
+    var auxRangoIni = this.formatofecha.transform(this.arregloListaFactura[0].RangoFecIni, "yyyy/MM/dd")!;
+    var auxRangofIN = this.formatofecha.transform(this.arregloListaFactura[0].RangoFecFin, "yyyy/MM/dd")!;
+   
     const body = {
       NumResolucion: this.arregloListaFactura[0].NumResolucion,
       Usuario: this.arregloListaFactura[0].Usuario,
@@ -227,13 +218,14 @@ export class FacturacionComponent implements OnInit {
       Prefijo: this.arregloListaFactura[0].Prefijo,
       RangoD: this.arregloListaFactura[0].RangoD,
       RangoH: this.arregloListaFactura[0].RangoH,
-      RangoFecIni: this.arregloListaFactura[0].RangoFecIni,
-      RangoFecFin: this.arregloListaFactura[0].RangoFecFin,
+      RangoFecIni: auxRangoIni,
+      RangoFecFin: auxRangofIN,
       PrefijoNC: this.arregloListaFactura[0].PrefijoNC,
       RangoNCD: this.arregloListaFactura[0].RangoNCD,
       RangoNCH: this.arregloListaFactura[0].RangoNCH,
       Nit: this.arregloListaFactura[0].Nit
     }
+    console.log(body)
     this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
       this.Respuesta = Resultado;
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })

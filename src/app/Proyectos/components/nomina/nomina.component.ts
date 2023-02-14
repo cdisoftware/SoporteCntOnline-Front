@@ -64,9 +64,10 @@ export class NominaComponent implements OnInit {
   BuscarXml(ModalRespuesta: any) {
     var fechai = this.fechaIni;
     var fechaf = this.fechaFin;
+    console.log(this.fechaFin)
     var auxReg: string = '';
-    var auxfechaIni = this.formatofecha.transform(fechai, "yyyy-MM-dd")!;
-    var auxfechaFin = this.formatofecha.transform(fechaf, "yyyy-MM-dd")!;
+    var auxfechaIni = this.formatofecha.transform(fechai, "yyyy/MM/dd")!;
+    var auxfechaFin = this.formatofecha.transform(fechaf, "yyyy/MM/dd")!;
 
     if (this.Reg == '') {
       auxReg = '0';

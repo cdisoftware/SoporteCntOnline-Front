@@ -24,7 +24,6 @@ export class TableroComponent implements OnInit {
 
   ConsultaProyects() {
     this.servicioslogin.ConsultaProyectos().subscribe(Resultado => {
-      console.log(Resultado)
       if (Resultado.length > 0) {
         this.ValidaConsulta = '0';
         this.DatProyectos = Resultado;
@@ -36,8 +35,8 @@ export class TableroComponent implements OnInit {
     })
   }
 
-  RedireccionCont(path:string) {
-    this.rutas.navigateByUrl('/home/'+ path);
+  RedireccionCont(path: string) {
+    this.rutas.navigateByUrl('/home/' + path);
   }
 
 }
