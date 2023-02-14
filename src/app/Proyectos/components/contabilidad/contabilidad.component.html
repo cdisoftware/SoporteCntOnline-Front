@@ -116,7 +116,7 @@
             </div>
             <div class="col-sm-6 br">
                 <label class="col-sm-12 Llave">Teléfono</label>
-                <input type="text" title="Telefono" class="form-control form-control-sm textBox" placeholder="Teléfono"
+                <input type="number" title="Telefono" class="form-control form-control-sm textBox" placeholder="Teléfono"
                     [(ngModel)]="Telefono">
             </div>
 
@@ -137,7 +137,7 @@
 
             <div class="col-sm-6 br">
                 <label class="col-sm-12 Llave">Número matricula mercantil</label>
-                <input type="text" title="NumMatMercantil" class="form-control form-control-sm textBox"
+                <input type="number" title="NumMatMercantil" class="form-control form-control-sm textBox"
                     placeholder="Número matricula mercantil" [(ngModel)]="NumMatMercantil">
             </div>
             <div class="col-sm-6 br">
@@ -222,7 +222,7 @@
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Pais</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar pais"
-                        [(ngModel)]="RespEmp.CodPais" #selectPais (change)="SelectListaPais(selectPais.value)">
+                        [(ngModel)]="RespEmp.CodPais" #selectPais (change)="SelectListaPaisAct(selectPais.value)">
                         <option value="0" selected>Seleccione pais...</option>
                         <option value="{{Respu.CodPais}}" *ngFor="let Respu of ArrayPais">
                             {{Respu.NombrePais}}</option>
@@ -232,8 +232,8 @@
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Departamento</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar departamento"
-                        #selectDepartamento [(ngModel)]="RespEmp.CodigoDepartamento"
-                        (change)="SelectListaDep(selectDepartamento.value)">
+                        #selectDepartamento [(ngModel)]="RespEmp.CodDepto"
+                        (change)="SelectListaDepAct(selectDepartamento.value)">
                         <option value="0" selected>Seleccione departamento...</option>
                         <option value="{{Respu.CodigoDepartamento}}" *ngFor="let Respu of ArrayDepartamento">
                             {{Respu.Nombre}}</option>
@@ -242,7 +242,7 @@
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Ciudad</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar ciudad" #selectciudad
-                        [(ngModel)]="RespEmp.CodMuni" (change)="SelectListaciudad(selectciudad.value)">
+                        [(ngModel)]="RespEmp.CodMuni" (change)="SelectListaciudadAct(selectciudad.value)">
                         <option value="0" selected>Seleccione ciudad...</option>
                         <option value="{{Respu.Codigo}}" *ngFor="let Respu of ArrayCiudad">
                             {{Respu.Nombre}}</option>
@@ -262,7 +262,7 @@
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Teléfono</label>
-                    <input type="text" title="Telefono" class="form-control form-control-sm textBox"
+                    <input type="number" title="Telefono" class="form-control form-control-sm textBox"
                         placeholder="Teléfono" [(ngModel)]="RespEmp.Telefono">
                 </div>
 
@@ -283,7 +283,7 @@
 
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Número matricula mercantil</label>
-                    <input type="text" title="NumMatMercantil" class="form-control form-control-sm textBox"
+                    <input type="number" title="NumMatMercantil" class="form-control form-control-sm textBox"
                         placeholder="Número matricula mercantil" [(ngModel)]="RespEmp.NumMatMercantil">
                 </div>
                 <div class="col-sm-6 br">

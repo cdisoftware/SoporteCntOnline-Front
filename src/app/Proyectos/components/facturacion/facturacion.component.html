@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- filtros generacion XML factura-->
     <div class="row br" *ngIf="verOcultarXML == true">
         <hr>
@@ -32,7 +32,7 @@
                     [(ngModel)]="Reg">
             </div>
             <div class="col-sm-3">
-                <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
+                <input type="number" title="Número de factura" class="form-control form-control-sm textBox"
                     placeholder="Número de factura" [(ngModel)]="NumroFactura">
             </div>
             <div class="col-sm-3">
@@ -42,11 +42,6 @@
                     <option value="nc"> nc </option>
                 </select>
             </div>
-            <!--<div class="col-sm-3">
-                <input type="text" title="Tipo" class="form-control form-control-sm textBox" placeholder="Tipo"
-                    [(ngModel)]="Tipo">
-            </div>-->
-
             <div class="col-sm-3">
                 <input type="text" title="Prefijo" class="form-control form-control-sm textBox" placeholder="Prefijo"
                     [(ngModel)]="Prefjo">
@@ -73,7 +68,7 @@
                     placeholder="Nit empresa" [(ngModel)]="NitEmpresa">
             </div>
             <div class="col-sm-3">
-                <input type="text" title="Número de factura" class="form-control form-control-sm textBox"
+                <input type="number" title="Número de factura" class="form-control form-control-sm textBox"
                     placeholder="Número de factura" [(ngModel)]="NumFactura">
             </div>
             <div class="col-sm-3">
@@ -100,7 +95,7 @@
     <!-- formulario actualiza Facturacion-->
     <div class="row br" *ngIf="VerOcultarActualizar == true">
         <hr>
-        <h6 class="tituloMod"><strong>Habilitar Empresa</strong></h6>
+        <h6 class="tituloMod"><strong>Habilitar Empresa Facturación</strong></h6>
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabilitarEmpresa()">
@@ -126,7 +121,7 @@
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Número resolución</label>
-                    <input type="text" title="Número resolución" class="form-control form-control-sm textBox"
+                    <input type="number" title="Número resolución" class="form-control form-control-sm textBox"
                         placeholder="Número resolución" [(ngModel)]="RespFact.NumResolucion">
                 </div>
                 <div class="col-sm-6 br">
@@ -151,13 +146,13 @@
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango facturación desde</label>
-                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango facturación desde"
-                        [(ngModel)]="RespFact.RangoD">
+                    <input type="number" class="form-control form-control-sm textBox"
+                        placeholder="Rango facturación desde" [(ngModel)]="RespFact.RangoD">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango facturación hasta</label>
-                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango facturación hasta"
-                        [(ngModel)]="RespFact.RangoH">
+                    <input type="number" class="form-control form-control-sm textBox"
+                        placeholder="Rango facturación hasta" [(ngModel)]="RespFact.RangoH">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango fecha facturación inicio</label>
