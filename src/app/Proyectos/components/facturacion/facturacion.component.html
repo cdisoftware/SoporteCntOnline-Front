@@ -17,7 +17,7 @@
         <div class="col-sm-2 text-center" (click)="HabilitarEmpresa()">
             <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="imagendetalle">
             <div>
-                <label class="labelcont">Habilitar empresa facturacion</label>
+                <label class="labelcont">Habilitar empresa facturación</label>
             </div>
         </div>
     </div>
@@ -150,24 +150,24 @@
                         placeholder="Prefijo nota credito" [(ngModel)]="RespFact.PrefijoNC">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Rango desde</label>
-                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango desde"
+                    <label class="col-sm-12 Llave">Rango facturación desde</label>
+                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango facturación desde"
                         [(ngModel)]="RespFact.RangoD">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Rango hasta</label>
-                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango hasta"
+                    <label class="col-sm-12 Llave">Rango facturación hasta</label>
+                    <input type="number" class="form-control form-control-sm textBox" placeholder="Rango facturación hasta"
                         [(ngModel)]="RespFact.RangoH">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Rango fecha inicio</label>
+                    <label class="col-sm-12 Llave">Rango fecha facturación inicio</label>
                     <input type="date" title="Rango fecha inicio" class="form-control form-control-sm textBox"
                         placeholder="Rango fecha inicio" [(ngModel)]="RespFact.RangoFecIni">
                 </div>
                 <div class="col-sm-6 br">
-                    <label class="col-sm-12 Llave">Rango fecha fin</label>
-                    <input type="date" title="Rango fecha fin" class="form-control form-control-sm textBox"
-                        placeholder="Rango fecha fin" [(ngModel)]="RespFact.RangoFecFin">
+                    <label class="col-sm-12 Llave">Rango fecha facturación fin</label>
+                    <input type="date" title="Rango fecha facturación fin" class="form-control form-control-sm textBox"
+                        placeholder="Rango fecha facturación fin" [(ngModel)]="RespFact.RangoFecFin">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango nota credito desde</label>
@@ -238,7 +238,7 @@
                             class="Valor">{{factura.Observaciones}}</label>
                     </div>
                 </div>
-                <div class="" style="height: auto; width: auto;">
+                <div class="" style="overflow: auto;">
                     <div class="br">
                         <label class="textblue col-sm-12">{{factura.Error}}</label>
                     </div>
