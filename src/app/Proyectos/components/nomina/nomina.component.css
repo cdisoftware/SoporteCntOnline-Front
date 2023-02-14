@@ -17,3 +17,7 @@
     max-width: 500px;
     overflow: auto;
 }
+
+.contentXml {
+    overflow: auto;
+}
