@@ -78,6 +78,7 @@ export class ContabilidadComponent implements OnInit {
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
     this.LimpiarCampos();
+    
   }
   CrearEmpresa() {
     this.VerOcultarCamposCons = false;
@@ -88,6 +89,7 @@ export class ContabilidadComponent implements OnInit {
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
     this.limpiar();
+    
   }
 
   ActualizaEmpresa() {
@@ -121,7 +123,7 @@ export class ContabilidadComponent implements OnInit {
     } else {
       auxNomEmp = this.NombreEmpresa;
     }
-  
+
     this.empresaService.ConsultaEmpresas(auxNitEmp, auxRegional, auxNomEmp).subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayEmpresa = Resultado;
@@ -158,6 +160,7 @@ export class ContabilidadComponent implements OnInit {
         this.verOcultarLabelC = true;
         this.arregloListaEmpresas = [];
       }
+    
     })
   }
 
@@ -167,6 +170,7 @@ export class ContabilidadComponent implements OnInit {
     this.Regional = '';
     this.ArrayEmpresa = [];
     this.verOcultarPge = false;
+    this.NitAct = '';
   }
 
 
@@ -274,6 +278,7 @@ export class ContabilidadComponent implements OnInit {
     this.Pais = '0';
     this.CodPostal = '';
     this.ActEco = '';
+    this.NitAct = '';
   }
   Cancelar() {
     this.VerOcultarCamposCons = false;
@@ -281,6 +286,7 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposAct = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
+    this.LimpiarCampos();
   }
 
   ListarPais() {

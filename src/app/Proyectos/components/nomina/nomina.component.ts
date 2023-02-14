@@ -69,6 +69,7 @@ export class NominaComponent implements OnInit {
     var fechai = this.fechaIni.split("-");
     var auxfechaIni = fechai[0] + "-" + fechai[1] + "-" + fechai[2];
 
+
     var fechaf = this.fechaFin.split("-");
     var auxfechaFin = fechaf[0] + "-" + fechaf[1] + "-" + fechaf[2];
 
