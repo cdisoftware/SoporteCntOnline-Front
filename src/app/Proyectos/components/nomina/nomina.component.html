@@ -21,7 +21,7 @@
         <h6 class="tituloMod"><strong>Consulta xml nomina</strong></h6>
         <div class="row" (keyup.enter)="BuscarXml(ModalRespuesta)">
             <div class="col-sm-4">
-                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional" [(ngModel)]="Reg">
+                <input type="number" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional" [(ngModel)]="Reg">
             </div>
             <div class="col-sm-4">
                 <input type="date" title="Fecha inicio" class="form-control form-control-sm textBox" placeholder="Fecha inicio" [(ngModel)]="fechaIni">
@@ -68,7 +68,7 @@
         <div class="row justify-content-center">
             <div class="row">
                 <div class="col-sm-9" (keyup.enter)="BuscarHabNomina()">
-                    <input type="text" title="Nit empresa" class="form-control form-control-sm textBox" placeholder="Nit empresa" [(ngModel)]="NitNom">
+                    <input type="number" title="Nit empresa" class="form-control form-control-sm textBox" placeholder="Nit empresa" [(ngModel)]="NitNom">
                 </div>
                 <div class="col-sm-3">
                     <button class="col-sm-12 btn BtnPrincipal" (click)="BuscarHabNomina()">Buscar</button>
@@ -90,9 +90,7 @@
                     <label class="col-sm-12 Llave">Contraseña Nómina electrónica</label>
 
 
-                    <input type="text" title="Contraseña Nómina electrónica"
-                        class="form-control form-control-sm textBox" placeholder="Contraseña Nómina electrónica"
-                        [(ngModel)]="RespNomina.ContrasenaNE">
+                    <input type="text" title="Contraseña Nómina electrónica" class="form-control form-control-sm textBox" placeholder="Contraseña Nómina electrónica" [(ngModel)]="RespNomina.ContrasenaNE">
 
                 </div>
                 <div class="col-sm-6 br">
@@ -100,28 +98,22 @@
                     <label class="col-sm-12 Llave">Prefijo nomina electronica</label>
 
 
-                    <input type="text" title="Prefijo nomina electronica" class="form-control form-control-sm textBox"
-                        placeholder="Prefijo nomina electronica" [(ngModel)]="RespNomina.PrefijoNE">
+                    <input type="text" title="Prefijo nomina electronica" class="form-control form-control-sm textBox" placeholder="Prefijo nomina electronica" [(ngModel)]="RespNomina.PrefijoNE">
 
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Prefijo nota ajuste</label>
 
 
-                    <input type="text" title="Prefijo nota ajuste" class="form-control form-control-sm textBox"
-                        placeholder="Prefijo nota ajuste" [(ngModel)]="RespNomina.PrefijoNA">
+                    <input type="text" title="Prefijo nota ajuste" class="form-control form-control-sm textBox" placeholder="Prefijo nota ajuste" [(ngModel)]="RespNomina.PrefijoNA">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango nomina electronica desde</label>
-                    <input type="number" title="Rango nomina electronica desde"
-                        class="form-control form-control-sm textBox" placeholder="Rango nomina electronica desde"
-                        [(ngModel)]="RespNomina.RangoNED">
+                    <input type="number" title="Rango nomina electronica desde" class="form-control form-control-sm textBox" placeholder="Rango nomina electronica desde" [(ngModel)]="RespNomina.RangoNED">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango nomina electronica hasta</label>
-                    <input type="number" title="Rango nomina electronica hasta"
-                        class="form-control form-control-sm textBox" placeholder="Rango nomina electronica hasta"
-                        [(ngModel)]="RespNomina.RangoNEH">
+                    <input type="number" title="Rango nomina electronica hasta" class="form-control form-control-sm textBox" placeholder="Rango nomina electronica hasta" [(ngModel)]="RespNomina.RangoNEH">
 
                 </div>
             </div>
@@ -140,7 +132,7 @@
 
     </div>
     <br>
-    
+
     <div class="row br text-center" *ngIf="verOcultarLabel == true">
         <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
         <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>
@@ -178,8 +170,8 @@
     </div>
     <div class="modal-body">
         <div class="row justify-content-center br tarjetadetalle">
-            <div class="col-12 br">
-                <textarea class="form-control form-control-sm textArea" cols="30" rows="15" [(ngModel)]="Xml"></textarea>
+            <div class="col-12 contentXml">
+                <label class="p-2">{{Xml}}</label>
                 <br>
             </div>
         </div>

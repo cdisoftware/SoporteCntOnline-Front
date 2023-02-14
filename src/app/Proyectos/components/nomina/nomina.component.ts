@@ -121,7 +121,7 @@ export class NominaComponent implements OnInit {
   ConsTxtNomUsu(Arr: any, ModaltxtNom: any) {
     this.DocUsu = Arr.Documento;
     this.Xml = Arr.NominaInD;
-    this.modalService.open(ModaltxtNom, { ariaLabelledBy: 'modal-basic-title', size: 'lg' })
+    this.modalService.open(ModaltxtNom, { ariaLabelledBy: 'modal-basic-title', size: 'xl' })
   }
 
 
