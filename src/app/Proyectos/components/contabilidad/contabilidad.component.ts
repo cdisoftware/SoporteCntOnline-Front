@@ -52,7 +52,7 @@ export class ContabilidadComponent implements OnInit {
   VerOcultarCamposTarget: boolean = false;
   VerOcultarFormAct: boolean = false;
   verOcultarLabelC: boolean = false;
-  arregloListaEmpresas: any;
+  arregloListaEmpresas: any = [];
   verOcultarPge: boolean = false;
 
   NitAct: string = '';
@@ -125,6 +125,7 @@ export class ContabilidadComponent implements OnInit {
     }
 
     this.empresaService.ConsultaEmpresas(auxNitEmp, auxRegional, auxNomEmp).subscribe(Resultado => {
+
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayEmpresa = Resultado;
         this.VerOcultarCamposTarget = true;
@@ -148,14 +149,16 @@ export class ContabilidadComponent implements OnInit {
     }
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
+        console.log(Resultado)
         this.arregloListaEmpresas = Resultado;
         this.codpais = Resultado[0].CodPais;
-        this.ListarDep();
-        this.arregloListaEmpresas[0].CodigoDepartamento = Resultado[0].CodDepto;
         this.CodigoDepartamento = Resultado[0].CodDepto;
+
+        this.ListarDep();
         this.ListarCiudad();
-        this.arregloListaEmpresas[0].CodMuni = Resultado[0].CodMuni;
+
         this.VerOcultarFormAct = true;
+        this.NitAct = '';
       } else {
         this.verOcultarLabelC = true;
         this.arregloListaEmpresas = [];
@@ -296,16 +299,20 @@ export class ContabilidadComponent implements OnInit {
   }
   ListarDep() {
     this.empresaService.ConsultaDepartamento(this.codpais).subscribe(Resultado => {
+      console.log(Resultado)
       this.ArrayDepartamento = Resultado;
     })
   }
 
   ListarCiudad() {
     this.empresaService.ConsultaCiudad(this.CodigoDepartamento).subscribe(Resultado => {
+      console.log(Resultado)
       this.ArrayCiudad = Resultado;
     })
   }
   SelectListaPais(codigoNombrePais: any) {
+    this.Departamento = '0';
+    this.Ciudad = '0';
     var arraypai = codigoNombrePais.split('|');
     if (arraypai[0] != "0") {
       this.codpais = arraypai[0];
@@ -314,16 +321,15 @@ export class ContabilidadComponent implements OnInit {
     } else {
       this.ArrayDepartamento = [];
       this.ArrayCiudad = [];
-      this.codpais = '';
-      this.NomPais = '';
-      this.CodigoDepartamento = '';
-      this.NombreDep = '';
-      this.Departamento = '0';
-      this.Ciudad = '0';
+      this.codpais = '0';
+      this.NomPais = '0';
+      this.CodigoDepartamento = '0';
+      this.NombreDep = '0';
     }
   }
 
   SelectListaDep(selectDepartamento: any) {
+    this.Ciudad = '0';
     var arrdep = selectDepartamento.split('|');
     if (arrdep[0] != "0") {
       this.CodigoDepartamento = arrdep[0];
@@ -332,10 +338,10 @@ export class ContabilidadComponent implements OnInit {
       this.Ciudad = '0';
     } else {
       this.ArrayCiudad = [];
-      this.CodigoDepartamento = '';
-      this.NombreDep = '';
-      this.CodigoCiudad = '';
-      this.NombreCiudad = '';
+      this.CodigoDepartamento = '0';
+      this.NombreDep = '0';
+      this.CodigoCiudad = '0';
+      this.NombreCiudad = '0';
     }
 
   }
@@ -345,8 +351,8 @@ export class ContabilidadComponent implements OnInit {
       this.CodigoCiudad = arrCiudad[0];
       this.NombreCiudad = arrCiudad[1];
     } else {
-      this.CodigoCiudad = '';
-      this.NombreCiudad = '';
+      this.CodigoCiudad = '0';
+      this.NombreCiudad = '0';
     }
   }
 
@@ -428,22 +434,72 @@ export class ContabilidadComponent implements OnInit {
     }
   }
 
-  LimpiarCampos() {
-    this.arregloListaEmpresas[0].Nombre = '';
+  SelectListaPaisAct(codigoNombrePais: any) {
     this.arregloListaEmpresas[0].CodigoDepartamento = '0';
     this.arregloListaEmpresas[0].CodMuni = '0';
-    this.arregloListaEmpresas[0].Direccion = '';
-    this.arregloListaEmpresas[0].Email = '';
-    this.arregloListaEmpresas[0].Telefono = '';
-    this.arregloListaEmpresas[0].TipoPersona = '0';
-    this.arregloListaEmpresas[0].Regimen = '';
-    this.arregloListaEmpresas[0].NumMatMercantil = '';
-    this.arregloListaEmpresas[0].ValCas53 = '';
-    this.arregloListaEmpresas[0].ValCas54 = '';
-    this.arregloListaEmpresas[0].NitCodVer = '';
-    this.arregloListaEmpresas[0].CodPais = '0';
-    this.arregloListaEmpresas[0].CodPostal = '';
-    this.arregloListaEmpresas[0].ActEco = '';
+    var arraypai = codigoNombrePais.split('|');
+    if (arraypai[0] != "0") {
+      this.codpais = arraypai[0];
+      this.NomPais = arraypai[1];
+      this.ListarDep();
+      this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+    } else {
+      this.ArrayDepartamento = [];
+      this.ArrayCiudad = [];
+      this.arregloListaEmpresas[0].CodDepto = '0';
+      this.arregloListaEmpresas[0].CodMuni = '0';
+    }
+  }
+
+  SelectListaDepAct(selectDepartamento: any) {
+    this.arregloListaEmpresas[0].CodMuni = '0';
+    var arrdep = selectDepartamento.split('|');
+    console.log(arrdep)
+    if (arrdep[0] != "0") {
+      this.arregloListaEmpresas[0].CodDepto = arrdep[0];
+      this.arregloListaEmpresas[0].Departamento = arrdep[1];
+      this.CodigoDepartamento = arrdep[0];
+      this.ListarCiudad();
+      this.arregloListaEmpresas[0].CodigoDepartamento = arrdep[0];
+    } else {
+      this.ArrayCiudad = [];
+      this.arregloListaEmpresas[0].CodDepto = '0';
+    }
+  }
+
+  SelectListaciudadAct(selectciudad: any) {
+    //this.arregloListaEmpresas[0].CodMuni = '0';
+    this.arregloListaEmpresas[0].Ciudad = '0';
+    var arrCiudad = selectciudad.split('|');
+    console.log(arrCiudad)
+    if (arrCiudad[0] != "0") {
+      this.CodigoCiudad = arrCiudad[0];
+      this.NombreCiudad = arrCiudad[1];
+      this.arregloListaEmpresas[0].CodMuni = arrCiudad[0];
+    } else {
+      this.arregloListaEmpresas[0].CodMuni = '0';
+      this.arregloListaEmpresas[0].Ciudad = '0';
+    }
+  }
+
+  LimpiarCampos() {
+    if (this.arregloListaEmpresas.length > 0) {
+      this.arregloListaEmpresas[0].Nombre = '';
+      this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+      this.arregloListaEmpresas[0].CodMuni = '0';
+      this.arregloListaEmpresas[0].Direccion = '';
+      this.arregloListaEmpresas[0].Email = '';
+      this.arregloListaEmpresas[0].Telefono = '';
+      this.arregloListaEmpresas[0].TipoPersona = '0';
+      this.arregloListaEmpresas[0].Regimen = '';
+      this.arregloListaEmpresas[0].NumMatMercantil = '';
+      this.arregloListaEmpresas[0].ValCas53 = '';
+      this.arregloListaEmpresas[0].ValCas54 = '';
+      this.arregloListaEmpresas[0].NitCodVer = '';
+      this.arregloListaEmpresas[0].CodPais = '0';
+      this.arregloListaEmpresas[0].CodPostal = '';
+      this.arregloListaEmpresas[0].ActEco = '';
+    }
 
   }
 }
