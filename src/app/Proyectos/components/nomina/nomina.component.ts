@@ -33,6 +33,10 @@ export class NominaComponent implements OnInit {
   fechaFin: string = '';
   Xml: string = '';
 
+  //XmlNomina
+  ArrSplit: any = [];
+  ArrNomina: any = [];
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
@@ -57,7 +61,7 @@ export class NominaComponent implements OnInit {
     this.verOcultarLabel = false;
   }
 
-  BuscarXml() {
+  BuscarXml(ModalRespuesta: any) {
     var fechai = this.fechaIni;
     var fechaf = this.fechaFin;
     console.log(this.fechaFin)
@@ -86,11 +90,31 @@ export class NominaComponent implements OnInit {
       FechaF: auxfechaFin
     }
     this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
-      console.log(Resultado)
       this.Xml = Resultado;
-
+      console.log(Resultado)
+      if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
+        this.ArrSplit = Resultado.split("|");
+        this.llenaArrayNominas(this.ArrSplit);
+      }else{
+        this.Respuesta = Resultado;
+        this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+      }
     })
   }
+  llenaArrayNominas(Arr: any) {
+    this.ArrNomina = [];
+
+    for (var i = 0; i < Arr.length; i++) {
+      var splitNom = Arr[i].split("@");
+      var Nom = splitNom[0];
+      var Doc = splitNom[1];
+
+      this.ArrNomina.push({ Documento: Doc, NominaInD: Nom })
+    }
+  }
+
+
+
 
   LimpiarXml() {
     this.Reg = '';
