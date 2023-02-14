@@ -33,6 +33,10 @@ export class NominaComponent implements OnInit {
   fechaFin: string = '';
   Xml: string = '';
 
+  //XmlNomina
+  ArrSplit: any = [];
+  ArrNomina: any = [];
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
@@ -85,11 +89,25 @@ export class NominaComponent implements OnInit {
       FechaF: auxfechaFin
     }
     this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
-      console.log(Resultado)
       this.Xml = Resultado;
-
+      this.ArrSplit = Resultado.split("|");
+      this.llenaArrayNominas(this.ArrSplit);
     })
   }
+  llenaArrayNominas(Arr: any) {
+    this.ArrNomina = [];
+
+    for (var i = 0; i < Arr.length; i++) {
+      var splitNom = Arr[i].split("@");
+      var Nom = splitNom[0];
+      var Doc = splitNom[1];
+
+      this.ArrNomina.push({ Documento: Doc, NominaInD: Nom })
+    }
+  }
+
+
+
 
   LimpiarXml() {
     this.Reg = '';
