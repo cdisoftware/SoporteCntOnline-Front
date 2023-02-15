@@ -45,10 +45,10 @@ export class FacturacionComponent implements OnInit {
   arregloListaFactura: any;
 
 
-  Reg: string = '168';
-  NumroFactura: string = '1801';
-  Tipo: string = 'fc';
-  Prefjo: string = 'NC';
+  Reg: string = '';
+  NumroFactura: string = '';
+  Tipo: string = '0';
+  Prefjo: string = '';
   Xml: string = '';
   ocultaBtnBuscar: string = '1';
 
@@ -268,9 +268,10 @@ export class FacturacionComponent implements OnInit {
       this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.facturaServices.InsertLogUsers("Habilita empresa facturacion", "ActFacturacion " + Resultado);
         this.LimpiarFormularioAct();
         this.ConsultaFactura();
-        this.facturaServices.InsertLogUsers();
+     
       })
     }
   }

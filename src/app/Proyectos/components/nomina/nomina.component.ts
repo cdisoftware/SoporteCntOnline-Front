@@ -184,9 +184,10 @@ export class NominaComponent implements OnInit {
       this.facturaServices.ActualizaNomina(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.facturaServices.InsertLogUsers("Habilita empresa nomina","ActNomina "+ Resultado);
         this.LimpiarActNom();
         this.Cancelar();
-        this.facturaServices.InsertLogUsers();
+
       })
     }
   }
@@ -211,6 +212,6 @@ export class NominaComponent implements OnInit {
     input.select();
     document.execCommand('copy');
     input.setSelectRange();
-   
+
   }
 }
