@@ -222,9 +222,9 @@
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Pais</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar pais"
-                        [(ngModel)]="RespEmp.CodPais" #selectPais (change)="SelectListaPaisAct(selectPais.value)">
-                        <option value="0" selected>Seleccione pais...</option>
-                        <option value="{{Respu.CodPais}}" *ngFor="let Respu of ArrayPais">
+                        [(ngModel)]="RespEmp.CodPais+'|'+RespEmp.NomPais" #selectPaisUpdate (change)="SelectListaPaisAct(selectPaisUpdate.value)">
+                        <option value="0|0" selected>Seleccione pais...</option>
+                        <option value="{{Respu.CodPais}}|{{Respu.NombrePais}}" *ngFor="let Respu of ArrayPais">
                             {{Respu.NombrePais}}</option>
                     </select>
                 </div>
@@ -232,19 +232,19 @@
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Departamento</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar departamento"
-                        #selectDepartamento [(ngModel)]="RespEmp.CodDepto"
+                        #selectDepartamento [(ngModel)]="RespEmp.CodDepto+'|'+RespEmp.Departamento"
                         (change)="SelectListaDepAct(selectDepartamento.value)">
                         <option value="0" selected>Seleccione departamento...</option>
-                        <option value="{{Respu.CodigoDepartamento}}" *ngFor="let Respu of ArrayDepartamento">
+                        <option value="{{Respu.CodigoDepartamento}}|{{Respu.Nombre}}" *ngFor="let Respu of ArrayDepartamento">
                             {{Respu.Nombre}}</option>
                     </select>
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Ciudad</label>
                     <select class="form-control form-control-sm textBox" title="Seleccionar ciudad" #selectciudad
-                        [(ngModel)]="RespEmp.CodMuni" (change)="SelectListaciudadAct(selectciudad.value)">
-                        <option value="0" selected>Seleccione ciudad...</option>
-                        <option value="{{Respu.Codigo}}" *ngFor="let Respu of ArrayCiudad">
+                        [(ngModel)]="RespEmp.CodMuni+'|'+RespEmp.Ciudad" (change)="SelectListaciudadAct(selectciudad.value)">
+                        <option value="0|0" selected>Seleccione ciudad...</option>
+                        <option value="{{Respu.Codigo}}|{{Respu.Nombre}}" *ngFor="let Respu of ArrayCiudad">
                             {{Respu.Nombre}}</option>
                     </select>
                 </div>

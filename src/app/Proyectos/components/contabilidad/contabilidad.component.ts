@@ -42,7 +42,7 @@ export class ContabilidadComponent implements OnInit {
   NombreCiudad: string = '';
 
   ArrayPais: any;
-  ArrayDepartamento: any;
+  ArrayDepartamento: any = [];
   ArrayCiudad: any;
   ArrayTipoPersona: any;
 
@@ -149,8 +149,9 @@ export class ContabilidadComponent implements OnInit {
     }
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
-        console.log(Resultado)
         this.arregloListaEmpresas = Resultado;
+        console.log(this.arregloListaEmpresas)
+        console.log(this.arregloListaEmpresas[0].CodMuni + '|' + this.arregloListaEmpresas[0].Ciudad)
         this.codpais = Resultado[0].CodPais;
         this.CodigoDepartamento = Resultado[0].CodDepto;
 
@@ -272,6 +273,7 @@ export class ContabilidadComponent implements OnInit {
         CodPostal: this.CodPostal,
         ActEco: this.ActEco
       }
+      console.log(body)
       this.empresaService.InsertEmpresa(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
@@ -299,14 +301,12 @@ export class ContabilidadComponent implements OnInit {
   }
   ListarDep() {
     this.empresaService.ConsultaDepartamento(this.codpais).subscribe(Resultado => {
-      console.log(Resultado)
       this.ArrayDepartamento = Resultado;
     })
   }
 
   ListarCiudad() {
     this.empresaService.ConsultaCiudad(this.CodigoDepartamento).subscribe(Resultado => {
-      console.log(Resultado)
       this.ArrayCiudad = Resultado;
     })
   }
@@ -363,7 +363,7 @@ export class ContabilidadComponent implements OnInit {
     } else if (this.arregloListaEmpresas[0].CodPais == undefined || this.arregloListaEmpresas[0].CodPais == null || this.arregloListaEmpresas[0].CodPais == '0') {
       this.Respuesta = 'El campo país es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    } else if (this.arregloListaEmpresas[0].CodigoDepartamento == undefined || this.arregloListaEmpresas[0].CodigoDepartamento == null || this.arregloListaEmpresas[0].CodigoDepartamento == '0') {
+    } else if (this.arregloListaEmpresas[0].CodDepto == undefined || this.arregloListaEmpresas[0].CodDepto == null || this.arregloListaEmpresas[0].CodDepto == '0') {
       this.Respuesta = 'El campo departamento es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else if (this.arregloListaEmpresas[0].CodMuni == undefined || this.arregloListaEmpresas[0].CodMuni == null || this.arregloListaEmpresas[0].CodMuni == '0') {
@@ -407,21 +407,21 @@ export class ContabilidadComponent implements OnInit {
         IdCol: this.arregloListaEmpresas[0].IdCol,
         Nombre: this.arregloListaEmpresas[0].Nombre,
         Nit: this.arregloListaEmpresas[0].Nit,
-        Departamento: this.arregloListaEmpresas[0].CodigoDepartamento,
+        Departamento: this.arregloListaEmpresas[0].Departamento,
         Ciudad: this.arregloListaEmpresas[0].Ciudad,
         Direccion: this.arregloListaEmpresas[0].Direccion,
         Email: this.arregloListaEmpresas[0].Email,
         Telefono: this.arregloListaEmpresas[0].Telefono,
         TipoPersona: this.arregloListaEmpresas[0].TipoPersona,
         Regimen: this.arregloListaEmpresas[0].Regimen,
-        CodPais: this.arregloListaEmpresas[0].CodPais,
+        CodPais: this.codpais,
         CodDepto: this.arregloListaEmpresas[0].CodDepto,
         NumMatMercantil: this.arregloListaEmpresas[0].NumMatMercantil,
         ValCas53: this.arregloListaEmpresas[0].ValCas53,
         ValCas54: this.arregloListaEmpresas[0].ValCas54,
         NitCodVer: this.arregloListaEmpresas[0].NitCodVer,
         CodMuni: this.arregloListaEmpresas[0].CodMuni,
-        NomPais: this.arregloListaEmpresas[0].NomPais,
+        NomPais: this.NomPais,
         CodPostal: this.arregloListaEmpresas[0].CodPostal,
         ActEco: this.arregloListaEmpresas[0].ActEco
       }
@@ -435,15 +435,26 @@ export class ContabilidadComponent implements OnInit {
   }
 
   SelectListaPaisAct(codigoNombrePais: any) {
-    this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+
+    this.ArrayDepartamento = [];
+    this.ArrayCiudad = [];
+
+    this.arregloListaEmpresas[0].CodDepto = '0';
     this.arregloListaEmpresas[0].CodMuni = '0';
+
     var arraypai = codigoNombrePais.split('|');
     if (arraypai[0] != "0") {
       this.codpais = arraypai[0];
       this.NomPais = arraypai[1];
+
+      this.arregloListaEmpresas[0].CodPais = arraypai[0];
+      this.arregloListaEmpresas[0].NomPais = arraypai[1];
+
       this.ListarDep();
-      this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+      this.arregloListaEmpresas[0].CodDepto = '0';
     } else {
+      this.arregloListaEmpresas[0].CodPais = '0';
+      this.arregloListaEmpresas[0].NomPais = '0';
       this.ArrayDepartamento = [];
       this.ArrayCiudad = [];
       this.arregloListaEmpresas[0].CodDepto = '0';
@@ -452,7 +463,9 @@ export class ContabilidadComponent implements OnInit {
   }
 
   SelectListaDepAct(selectDepartamento: any) {
+    this.ArrayCiudad = [];
     this.arregloListaEmpresas[0].CodMuni = '0';
+      this.arregloListaEmpresas[0].Ciudad = '0';
     var arrdep = selectDepartamento.split('|');
     console.log(arrdep)
     if (arrdep[0] != "0") {
@@ -460,22 +473,22 @@ export class ContabilidadComponent implements OnInit {
       this.arregloListaEmpresas[0].Departamento = arrdep[1];
       this.CodigoDepartamento = arrdep[0];
       this.ListarCiudad();
-      this.arregloListaEmpresas[0].CodigoDepartamento = arrdep[0];
     } else {
       this.ArrayCiudad = [];
       this.arregloListaEmpresas[0].CodDepto = '0';
+      this.arregloListaEmpresas[0].Departamento = '0';
     }
   }
 
   SelectListaciudadAct(selectciudad: any) {
-    //this.arregloListaEmpresas[0].CodMuni = '0';
-    this.arregloListaEmpresas[0].Ciudad = '0';
+    console.log(selectciudad)
     var arrCiudad = selectciudad.split('|');
-    console.log(arrCiudad)
     if (arrCiudad[0] != "0") {
       this.CodigoCiudad = arrCiudad[0];
       this.NombreCiudad = arrCiudad[1];
+
       this.arregloListaEmpresas[0].CodMuni = arrCiudad[0];
+      this.arregloListaEmpresas[0].Ciudad = arrCiudad[1];
     } else {
       this.arregloListaEmpresas[0].CodMuni = '0';
       this.arregloListaEmpresas[0].Ciudad = '0';
@@ -485,7 +498,7 @@ export class ContabilidadComponent implements OnInit {
   LimpiarCampos() {
     if (this.arregloListaEmpresas.length > 0) {
       this.arregloListaEmpresas[0].Nombre = '';
-      this.arregloListaEmpresas[0].CodigoDepartamento = '0';
+      this.arregloListaEmpresas[0].CodDepto = '0';
       this.arregloListaEmpresas[0].CodMuni = '0';
       this.arregloListaEmpresas[0].Direccion = '';
       this.arregloListaEmpresas[0].Email = '';
