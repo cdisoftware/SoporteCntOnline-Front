@@ -76,8 +76,9 @@
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Número resolución documento soporte</label>
-                    <input type="number" title="Número resolución documento soporte" class="form-control form-control-sm textBox"
-                        placeholder="Número resolución documento soporte" [(ngModel)]="RespDocu.NumResolucionDS">
+                    <input type="number" title="Número resolución documento soporte"
+                        class="form-control form-control-sm textBox" placeholder="Número resolución documento soporte"
+                        [(ngModel)]="RespDocu.NumResolucionDS">
                 </div>
                 <div class="col-sm-6 br">
                     <label class="col-sm-12 Llave">Rango desde</label>
@@ -123,10 +124,16 @@
     <br>
     <div class="row justify-content-center br tarjetadetalle" *ngIf="VerOcultarTargetXML == true">
         <div class="col-sm-12 br">
-            <label class="col-sm-12 Llave">XML:</label>
-            <textarea name="caracteristicas" id="caracteristicas" class="form-control form-control-sm textArea"
-                cols="30" rows="15" [(ngModel)]="Xml"></textarea>
-            <br>
+            <label class="col-sm-12 Llave">Resultado:</label>
+            <textarea name="xml" #textAreaxml class="form-control form-control-sm textArea"
+             cols="30" rows="15"
+                [(ngModel)]="Xml" ></textarea>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center">
+                <button type="button" class="col-sm-2 btn BtnPrincipal mt-2 mb-2"
+                    (click)="copiarXml(textAreaxml)">Copiar</button>
+            </div>
         </div>
     </div>
     <div class="row br text-center" *ngIf="verOcultarLabel == true">

@@ -18,4 +18,9 @@ export class LoginService {
   ConsultaProyectos() {
     return this.http.get<any>(this.url_servidor + 'consproyectos')
   }
+
+
+
+
+
 }

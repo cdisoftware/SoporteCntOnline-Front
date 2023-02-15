@@ -26,7 +26,7 @@
     <div class="row br" *ngIf="verOcultarXML == true">
         <hr>
         <h6 class="tituloMod"><strong>Generar xml</strong></h6>
-        <div class="row" (keyup.enter)="BuscarFactura()">
+        <div class="row" (keyup.enter)="BuscarXML(ModalRespuesta)">
             <div class="col-sm-3">
                 <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
                     [(ngModel)]="Reg">
@@ -243,14 +243,22 @@
     </div>
 
     <div class="row justify-content-center br tarjetadetalle" *ngIf="VerOcultarTargetXML == true">
-        <div class="col-sm-12 br">
-            <label class="col-sm-12 Llave">XML:</label>
-            <textarea name="caracteristicas" id="caracteristicas" class="form-control form-control-sm textArea"
-                cols="30" rows="15" [(ngModel)]="Xml"></textarea>
-            <br>
+        <div class="row">
+            <div class="col-sm-12 br">
+                <label class="col-sm-12 Llave">Resultado:</label>
+                <textarea name="xml" #textAreaxml class="form-control form-control-sm textArea"
+                    cols="30" rows="15" [(ngModel)]="Xml"></textarea>
+            </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 text-center">
+                <button type="button" class="col-sm-2 btn BtnPrincipal mt-2 mb-2" (click)="copiarXml(textAreaxml)">Copiar</button>
+            </div>
+        </div>
+        <br>
     </div>
     <br>
+
     <div class="row text-center" *ngIf="verOcultarPge == true">
         <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
             nextLabel="Siguiente"></pagination-controls>

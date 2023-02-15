@@ -7,7 +7,14 @@ import { MetodosglobalesService } from './metodosglobales.service';
 })
 export class FacturacionService {
 
-  constructor(private http: HttpClient, private metodosglobales: MetodosglobalesService) { }
+  Respu: string = '';
+  IdUser: string = '';
+
+  constructor(private http: HttpClient,
+    private metodosglobales: MetodosglobalesService,
+    private cookie: MetodosglobalesService,) {
+    this.IdUser = this.cookie.GetCookie('IdUser');
+  }
 
   url_servidor = this.metodosglobales.SeleccionAmbiente();
 
@@ -26,10 +33,33 @@ export class FacturacionService {
   }
 
   ConsultaXml(Datos: any) {
-    return this.http.post(this.url_servidor + 'GenXmlFacturacion', Datos, {responseType: "text"})
+    return this.http.post(this.url_servidor + 'GenXmlFacturacion', Datos, { responseType: "text" })
   }
 
   ConsultaXmlNomina(Datos: any) {
-    return this.http.post(this.url_servidor + 'GenXmlNomina', Datos, {responseType: "text"})
+    return this.http.post(this.url_servidor + 'GenXmlNomina', Datos, { responseType: "text" })
   }
+
+  ConsultaXmlDoc(Datos: any) {
+    return this.http.post(this.url_servidor + 'GenXmlDocumentoS', Datos, { responseType: "text" })
+  }
+
+  InsertaLog(Origen: string, Datos: any) {
+    return this.http.post<any>(this.url_servidor + 'InserLog/' + Origen, Datos)
+  }
+
+  InsertLogUsers() {
+    const Body = {
+      Componente: "",
+      Tipo: "Log",
+      Mensaje: "",
+      IdUser: this.IdUser
+    }
+    console.log(Body)
+    this.InsertaLog('1', Body).subscribe(Resultado => {
+      console.log(Resultado)
+      this.Respu = Resultado;
+    })
+  }
+
 }
