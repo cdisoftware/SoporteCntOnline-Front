@@ -155,7 +155,7 @@ export class DocumentoComponent implements OnInit {
       this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-        this.facturaServices.InsertLogUsers();
+        this.facturaServices.InsertLogUsers("Habilita empresa documento","ActDocumentoSoporte "+ Resultado);
         this.LimpiarActDoc();
         this.Cancelar();
         

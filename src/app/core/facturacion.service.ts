@@ -7,7 +7,7 @@ import { MetodosglobalesService } from './metodosglobales.service';
 })
 export class FacturacionService {
 
-  Respu: string = '';
+  Respu: any;
   IdUser: string = '';
 
   constructor(private http: HttpClient,
@@ -45,18 +45,19 @@ export class FacturacionService {
   }
 
   InsertaLog(Origen: string, Datos: any) {
-    return this.http.post<any>(this.url_servidor + 'InserLog/' + Origen, Datos)
+    return this.http.post(this.url_servidor + 'InserLog/' + Origen, Datos, { responseType: "text" })
   }
 
-  InsertLogUsers() {
+  InsertLogUsers(componente: string, mensaje: string) {
+
     const Body = {
-      Componente: "",
+      Componente: componente,
       Tipo: "Log",
-      Mensaje: "",
+      Mensaje: mensaje,
       IdUser: this.IdUser
     }
     console.log(Body)
-    this.InsertaLog('1', Body).subscribe(Resultado => {
+    this.InsertaLog('2', Body).subscribe(Resultado => {
       console.log(Resultado)
       this.Respu = Resultado;
     })
