@@ -80,11 +80,15 @@ export class DocumentoComponent implements OnInit {
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
       const Body = {
-
+        Regional:auxReg,
+        Folio:auxFolio,
+        Prefijo:auxPrefjo
       }
-      this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
-        this.VerOcultarTargetXML = true;
+      console.log(Body)
+      this.facturaServices.ConsultaXmlDoc(Body).subscribe(Resultado => {
+        console.log(Resultado)
         this.Xml = Resultado;
+        this.VerOcultarTargetXML = true;
       })
     }
   }
@@ -151,8 +155,10 @@ export class DocumentoComponent implements OnInit {
       this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.facturaServices.InsertLogUsers();
         this.LimpiarActDoc();
         this.Cancelar();
+        
       })
     }
   }
@@ -170,5 +176,12 @@ export class DocumentoComponent implements OnInit {
     this.VerOcultarActualizar = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
+  }
+
+  copiarXml(input: any) {
+    input.select();
+    document.execCommand('copy');
+    input.setSelectRange(0,0);
+   
   }
 }

@@ -45,10 +45,10 @@ export class FacturacionComponent implements OnInit {
   arregloListaFactura: any;
 
 
-  Reg: string = '';
-  NumroFactura: string = '';
-  Tipo: string = '0';
-  Prefjo: string = '';
+  Reg: string = '168';
+  NumroFactura: string = '1801';
+  Tipo: string = 'fc';
+  Prefjo: string = 'NC';
   Xml: string = '';
   ocultaBtnBuscar: string = '1';
 
@@ -134,9 +134,9 @@ export class FacturacionComponent implements OnInit {
       }
       this.facturaServices.ConsultaXml(Body).subscribe(Resultado => {
 
-          this.VerOcultarTargetXML = true;
-          this.Xml = Resultado;
-       
+        this.VerOcultarTargetXML = true;
+        this.Xml = Resultado;
+
       })
     }
   }
@@ -200,7 +200,6 @@ export class FacturacionComponent implements OnInit {
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
 
       if (Resultado != null && Resultado != undefined && Resultado != '') {
-        console.log(Resultado)
         this.arregloListaFactura = Resultado;
         this.VerOcultarFormAct = true;
         this.NitFact = '';
@@ -251,28 +250,29 @@ export class FacturacionComponent implements OnInit {
     } else {
 
 
-    const body = {
-      NumResolucion: this.arregloListaFactura[0].NumResolucion,
-      Usuario: this.arregloListaFactura[0].Usuario,
-      Contrasena: this.arregloListaFactura[0].Contrasena,
-      Prefijo: this.arregloListaFactura[0].Prefijo,
-      RangoD: this.arregloListaFactura[0].RangoD,
-      RangoH: this.arregloListaFactura[0].RangoH,
-      RangoFecIni: auxRangoIni,
-      RangoFecFin: auxRangofIN,
-      PrefijoNC: this.arregloListaFactura[0].PrefijoNC,
-      RangoNCD: this.arregloListaFactura[0].RangoNCD,
-      RangoNCH: this.arregloListaFactura[0].RangoNCH,
-      Nit: this.arregloListaFactura[0].Nit
+      const body = {
+        NumResolucion: this.arregloListaFactura[0].NumResolucion,
+        Usuario: this.arregloListaFactura[0].Usuario,
+        Contrasena: this.arregloListaFactura[0].Contrasena,
+        Prefijo: this.arregloListaFactura[0].Prefijo,
+        RangoD: this.arregloListaFactura[0].RangoD,
+        RangoH: this.arregloListaFactura[0].RangoH,
+        RangoFecIni: auxRangoIni,
+        RangoFecFin: auxRangofIN,
+        PrefijoNC: this.arregloListaFactura[0].PrefijoNC,
+        RangoNCD: this.arregloListaFactura[0].RangoNCD,
+        RangoNCH: this.arregloListaFactura[0].RangoNCH,
+        Nit: this.arregloListaFactura[0].Nit
+      }
+
+      this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
+        this.Respuesta = Resultado;
+        this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
+        this.LimpiarFormularioAct();
+        this.ConsultaFactura();
+        this.facturaServices.InsertLogUsers();
+      })
     }
-    console.log(body)
-    this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
-      this.Respuesta = Resultado;
-      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-      this.LimpiarFormularioAct();
-      this.ConsultaFactura();
-    })
-  }
   }
 
   LimpiarFormularioAct() {
@@ -294,5 +294,12 @@ export class FacturacionComponent implements OnInit {
     this.VerOcultarActualizar = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
+  }
+
+  copiarXml(input: any) {
+    input.select();
+    document.execCommand('copy');
+    input.setSelectRange();
+
   }
 }

@@ -186,6 +186,7 @@ export class NominaComponent implements OnInit {
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
         this.LimpiarActNom();
         this.Cancelar();
+        this.facturaServices.InsertLogUsers();
       })
     }
   }
@@ -205,4 +206,11 @@ export class NominaComponent implements OnInit {
     this.VerOcultarFormAct = false;
   }
 
+
+  copiarXml(input: any) {
+    input.select();
+    document.execCommand('copy');
+    input.setSelectRange();
+   
+  }
 }
