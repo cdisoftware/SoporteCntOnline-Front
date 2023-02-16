@@ -133,6 +133,7 @@ export class ContabilidadComponent implements OnInit {
         this.verOcultarLabelC = false;
       } else {
         this.verOcultarLabelC = true;
+        this.verOcultarPge = false;
         this.ArrayEmpresa = [];
       }
     })
