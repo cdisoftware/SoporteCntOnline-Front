@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NominaComponent } from './Proyectos/components/nomina/nomina.component';
 import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
 import { DatePipe } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { DatePipe } from '@angular/common';
     SharedModule,
     NgxPaginationModule
   ],
-  providers: [ DatePipe],
+  providers: [ DatePipe,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

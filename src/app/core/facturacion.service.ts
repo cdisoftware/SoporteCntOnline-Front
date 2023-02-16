@@ -49,7 +49,6 @@ export class FacturacionService {
   }
 
   InsertLogUsers(componente: string, mensaje: string) {
-
     const Body = {
       Componente: componente,
       Tipo: "Log",
