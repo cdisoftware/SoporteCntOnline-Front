@@ -27,14 +27,15 @@
         <hr>
         <h6 class="tituloMod"><strong>Generar xml</strong></h6>
         <div class="row" (keyup.enter)="BuscarXML(ModalRespuesta)">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional"
                     [(ngModel)]="Reg">
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <input type="number" title="Número de factura" class="form-control form-control-sm textBox"
                     placeholder="Número de factura" [(ngModel)]="NumroFactura">
             </div>
+            <!--
             <div class="col-sm-3">
                 <select class="form-control form-control-sm textBox" title="Seleccionar tipo" [(ngModel)]="Tipo">
                     <option value="0" selected>Seleccione el tipo...</option>
@@ -42,7 +43,8 @@
                     <option value="nc"> nc </option>
                 </select>
             </div>
-            <div class="col-sm-3">
+            -->
+            <div class="col-sm-4">
                 <input type="text" title="Prefijo" class="form-control form-control-sm textBox" placeholder="Prefijo"
                     [(ngModel)]="Prefjo">
             </div>
