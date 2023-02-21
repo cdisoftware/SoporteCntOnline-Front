@@ -80,9 +80,9 @@ export class DocumentoComponent implements OnInit {
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
       const Body = {
-        Regional:auxReg,
-        Folio:auxFolio,
-        Prefijo:auxPrefjo
+        regional:auxReg,
+        folio:auxFolio,
+        prefijo:auxPrefjo
       }
       console.log(Body)
       this.facturaServices.ConsultaXmlDoc(Body).subscribe(Resultado => {
