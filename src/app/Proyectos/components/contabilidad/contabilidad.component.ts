@@ -125,7 +125,6 @@ export class ContabilidadComponent implements OnInit {
     }
 
     this.empresaService.ConsultaEmpresas(auxNitEmp, auxRegional, auxNomEmp).subscribe(Resultado => {
-
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.ArrayEmpresa = Resultado;
         this.VerOcultarCamposTarget = true;
@@ -151,8 +150,6 @@ export class ContabilidadComponent implements OnInit {
     this.empresaService.ConsultaEmpresas(auxNit, '0', '0').subscribe(Resultado => {
       if (Resultado != null && Resultado != undefined && Resultado != '') {
         this.arregloListaEmpresas = Resultado;
-        console.log(this.arregloListaEmpresas)
-        console.log(this.arregloListaEmpresas[0].CodMuni + '|' + this.arregloListaEmpresas[0].Ciudad)
         this.codpais = Resultado[0].CodPais;
         this.CodigoDepartamento = Resultado[0].CodDepto;
 
@@ -274,7 +271,6 @@ export class ContabilidadComponent implements OnInit {
         CodPostal: this.CodPostal,
         ActEco: this.ActEco
       }
-      console.log(body)
       this.empresaService.InsertEmpresa(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
@@ -426,7 +422,6 @@ export class ContabilidadComponent implements OnInit {
         CodPostal: this.arregloListaEmpresas[0].CodPostal,
         ActEco: this.arregloListaEmpresas[0].ActEco
       }
-      console.log(body)
       this.empresaService.ActEmpresa(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
@@ -468,7 +463,6 @@ export class ContabilidadComponent implements OnInit {
     this.arregloListaEmpresas[0].CodMuni = '0';
       this.arregloListaEmpresas[0].Ciudad = '0';
     var arrdep = selectDepartamento.split('|');
-    console.log(arrdep)
     if (arrdep[0] != "0") {
       this.arregloListaEmpresas[0].CodDepto = arrdep[0];
       this.arregloListaEmpresas[0].Departamento = arrdep[1];
@@ -482,7 +476,6 @@ export class ContabilidadComponent implements OnInit {
   }
 
   SelectListaciudadAct(selectciudad: any) {
-    console.log(selectciudad)
     var arrCiudad = selectciudad.split('|');
     if (arrCiudad[0] != "0") {
       this.CodigoCiudad = arrCiudad[0];

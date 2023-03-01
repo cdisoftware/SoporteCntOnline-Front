@@ -10,6 +10,7 @@ export class MetodosglobalesService {
   ambientedetrabajo: string = '1';
 
   public url_DesarrolloCnt = 'http://190.147.38.91:1020/SoporteCntOnlineBack/';
+  //public url_DesarrolloCnt = 'http://localhost:1020/SoporteCntOnlineBack/';
 
   SeleccionAmbiente() {
     if (this.ambientedetrabajo == '1') {

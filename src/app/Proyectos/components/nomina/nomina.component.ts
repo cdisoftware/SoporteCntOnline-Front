@@ -90,9 +90,7 @@ export class NominaComponent implements OnInit {
         FechaI: auxfechaIni,
         FechaF: auxfechaFin
       }
-      console.log(Body)
       this.facturaServices.ConsultaXmlNomina(Body).subscribe(Resultado => {
-        console.log(Resultado)
         if (Resultado != "No fue posible encontrar el archivo si esta incidencia persiste comunícate con el área de administración") {
           this.VerRespuXml = true;
           this.ArrSplit = Resultado.split("|");

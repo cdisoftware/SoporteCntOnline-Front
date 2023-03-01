@@ -84,9 +84,7 @@ export class DocumentoComponent implements OnInit {
         folio:auxFolio,
         prefijo:auxPrefjo
       }
-      console.log(Body)
       this.facturaServices.ConsultaXmlDoc(Body).subscribe(Resultado => {
-        console.log(Resultado)
         this.Xml = Resultado;
         this.VerOcultarTargetXML = true;
       })

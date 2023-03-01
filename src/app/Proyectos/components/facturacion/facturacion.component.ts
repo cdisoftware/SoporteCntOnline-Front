@@ -119,9 +119,9 @@ export class FacturacionComponent implements OnInit {
     } else if (this.NumroFactura == undefined || this.NumroFactura == null || this.NumroFactura == '') {
       this.Respuesta = 'El filtro número de factura es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
-    /*} else if (this.Tipo == undefined || this.Tipo == null || this.Tipo == '0') {
-      this.Respuesta = 'El filtro tipo es obligatorio.';
-      this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })*/
+      /*} else if (this.Tipo == undefined || this.Tipo == null || this.Tipo == '0') {
+        this.Respuesta = 'El filtro tipo es obligatorio.';
+        this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })*/
     } else if (this.Prefjo == undefined || this.Prefjo == null || this.Prefjo == '') {
       this.Respuesta = 'El filtro prefijo es obligatorio.';
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
@@ -262,16 +262,16 @@ export class FacturacionComponent implements OnInit {
         PrefijoNC: this.arregloListaFactura[0].PrefijoNC,
         RangoNCD: this.arregloListaFactura[0].RangoNCD,
         RangoNCH: this.arregloListaFactura[0].RangoNCH,
+        NumFacturaAct: this.arregloListaFactura[0].NotaCreditoActual,
         Nit: this.arregloListaFactura[0].Nit
       }
-
       this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
         this.facturaServices.InsertLogUsers("Habilita empresa facturacion", "ActFacturacion " + Resultado);
         this.LimpiarFormularioAct();
         this.ConsultaFactura();
-     
+
       })
     }
   }
