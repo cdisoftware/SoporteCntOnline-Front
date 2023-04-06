@@ -249,13 +249,12 @@ export class FacturacionComponent implements OnInit {
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
 
-
       const body = {
         NumResolucion: this.arregloListaFactura[0].NumResolucion,
         Usuario: this.arregloListaFactura[0].Usuario,
         Contrasena: this.arregloListaFactura[0].Contrasena,
         Prefijo: this.arregloListaFactura[0].Prefijo,
-        RangoD: this.arregloListaFactura[0].RangoD,
+        RangoD: "" + this.arregloListaFactura[0].RangoD,
         RangoH: this.arregloListaFactura[0].RangoH,
         RangoFecIni: auxRangoIni,
         RangoFecFin: auxRangofIN,
@@ -265,6 +264,7 @@ export class FacturacionComponent implements OnInit {
         NumFacturaAct: this.arregloListaFactura[0].NotaCreditoActual,
         Nit: this.arregloListaFactura[0].Nit
       }
+      console.log(body)
       this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
