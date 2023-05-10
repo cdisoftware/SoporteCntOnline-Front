@@ -142,14 +142,15 @@ export class DocumentoComponent implements OnInit {
       this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
     } else {
       const body = {
-        NumResolucionDS: this.arregloListaDoc[0].NumResolucionDS,
-        PrefijoDS: this.arregloListaDoc[0].PrefijoDS,
-        RangoDS_D: this.arregloListaDoc[0].RangoDS_D,
-        RangoDS_H: this.arregloListaDoc[0].RangoDS_H,
+        NumResolucionDS: "" + this.arregloListaDoc[0].NumResolucionDS,
+        PrefijoDS: "" + this.arregloListaDoc[0].PrefijoDS,
+        RangoDS_D: "" + this.arregloListaDoc[0].RangoDS_D,
+        RangoDS_H: "" + this.arregloListaDoc[0].RangoDS_H,
         FechaInicioDS: auxFechaInicioDS,
         FechaFinDS: auxFechaFinDS,
-        Nit: this.arregloListaDoc[0].Nit
+        Nit: "" + this.arregloListaDoc[0].Nit
       }
+      console.log(body)
       this.facturaServices.ActDocSoporte(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
