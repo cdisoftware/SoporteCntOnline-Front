@@ -9,12 +9,14 @@ export class MetodosglobalesService {
   //ambiente de trabajo 1 desarrollo 
   ambientedetrabajo: string = '1';
 
-  public url_DesarrolloCnt = 'http://190.147.38.91:1020/SoporteCntOnlineBack/';
-  //public url_DesarrolloCnt = 'http://localhost:1020/SoporteCntOnlineBack/';
+  public url_DesarrolloCnt = 'http://190.147.38.91:8099/SoporteCntOnlineBack/';
+  public url_ProduccionCnt = 'http://localhost:1020/SoporteCntOnlineBack/';
 
   SeleccionAmbiente() {
     if (this.ambientedetrabajo == '1') {
       return this.url_DesarrolloCnt;
+    } else if(this.ambientedetrabajo == '2'){
+      return this.url_ProduccionCnt;
     } else {
       return "Valida ambiente seleccionado";
     }
