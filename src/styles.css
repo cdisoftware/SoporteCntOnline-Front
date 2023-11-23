@@ -88,3 +88,7 @@ h2 {
 .centradoTarget {
     text-align: center;
 }
+.sinMp{
+    margin: 0;
+    padding: 0;
+}

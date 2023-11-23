@@ -1,0 +1,7 @@
+{
+    "/NE_WEB/*": {
+        "target": "https://api.apptotrip.com",
+        "secure" : false,
+        "changeOrigin": true
+    }
+}

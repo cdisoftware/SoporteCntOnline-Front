@@ -1,0 +1,213 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="tituloMod">Nomina Electronica</h1>
+            <br>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-3">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" class="form-control textBox" name="usuario" id="usuario" placeholder="Ingrese el usuario" [(ngModel)]="Usuario">
+                </div>
+                <div class="col-md-3">
+                    <label for="fechaInicio">Fecha inicio</label>
+                    <input type="date" class="form-control textBox" name="fechaInicio" id="fechaInicio" [(ngModel)]="FechaInicio">
+                </div>
+                <div class="col-md-3">
+                    <label for="fechaFin">Fecha fin</label>
+                    <input type="date" class="form-control textBox" name="fechaFin" id="fechaFin" [(ngModel)]="FechaFin">
+                </div>
+                <div class="col-md-3">
+                    <label for="empleado">Empleado</label>
+                    <input type="text" class="form-control textBox" name="empleado" id="empleado" placeholder="Ingrese el empleado" [(ngModel)]="Empleado">
+                </div>
+                <div class="col-md-6 text-md-end text-center">
+                    <button type="submit" class="btn btn-primary w-75 BtnPrincipal" (click)="consNominaElectronica(PopUpError)">Buscar</button>
+                </div>
+                <div class="col-md-6 text-md-start text-center">
+                    <button type="submit" class="btn btn-primary w-75 BtnCancel" (click)="BtnLimpiar()">Limpiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container-fluid">
+    <div class="row sinMp" *ngIf="MostrarTabla == true">
+        <div class="col">
+            <div class="table-responsive-sm table-bordered">
+                <table class="table">
+                    <tr>
+                        <th scope="col" class="text-center">Usuario</th>
+                        <th scope="col" class="text-center">Contraseña</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Prefijo</th>
+                        <th scope="col" class="text-center">Folio</th>
+                        <th scope="col" class="text-center">TransID</th>
+                        <th scope="col" class="text-center">EstadoNE</th>
+                        <th scope="col" class="text-center">DocumentacionNE</th>
+                        <th scope="col" class="text-center">Empleado</th>
+                        <th scope="col" class="text-center">Mes</th>
+                        <th scope="col" class="text-center">Fecha inicio</th>
+                        <th scope="col" class="text-center">Fecha final</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                    <tr *ngFor="let resultNE of resultNominaElectronica">
+                        <td scope="row" class="text-center">{{resultNE.Usuario}}</td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resultNE.Contrasena}}</div>
+                        </td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resultNE.Nombre}}</div>
+                        </td>
+                        <td class="text-center">{{resultNE.Prefijo}}</td>
+                        <td class="text-center">{{resultNE.Folio}}</td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resultNE.TransID}}</div>
+                        </td>
+                        <td class="text-center">{{resultNE.EstadoNE}}</td>
+                        <td class="text-center">{{resultNE.DocumentacionNE}}</td>
+                        <td class="text-center">{{resultNE.Empleado}}</td>
+                        <td class="text-center">{{resultNE.Mes}}</td>
+                        <td class="text-center">{{resultNE.FechaInicio}}</td>
+                        <td class="text-center">{{resultNE.FechaFinal}}</td>
+                        <td *ngIf="resultNE.DocumentacionNE == 1">
+                            <div class="text-center">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerPdf.png" class="rounded img-fluid imagenDetalleTabla" alt="Boton PDF" (click)="AbrirAccionPdf(PopUpAccionPdf, PopUpErrorAcciones, resultNE.UrlPdf)">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="rounded img-fluid imagenDetalleTabla" alt="Boton XML" (click)="AbrirAccionXml(PopUpAccionXml, PopUpErrorAcciones, resultNE.UrlXml)">
+                            </div>
+                        </td>
+                        <td *ngIf="resultNE.DocumentacionNE == 0">
+                            <div class="text-center">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="rounded img-fluid imagenDetalleTabla" alt="Boton Actualizar" (click)="AbrirModalActualizar(PopUpActualizar, resultNE)">
+                            </div>
+                        </td>
+                        <!-- MODAL ERROR 404 -->
+                        <ng-template #PopUpErrorAcciones let-modal>
+                            <div class="modal-header">
+                                <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+                                <h1 class="modal-title">Error de Descarga</h1>
+                                <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row br">
+                                    <div class="col-sm-12">
+                                        <h2 class="TituloDetalle">{{MensajePopUpError}}</h2>
+                                    </div>
+                                    <br>
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" class="btn btn-primary BtnCancel" style="width: 100px;" (click)="AbrirModalActualizar(PopUpActualizar, resultNE)">Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+                                    <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+                                </div>
+                            </div>
+                            <br>
+                        </ng-template>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL DEDICADO A ERRORES -->
+<ng-template #PopUpError let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Nomina Electronica</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{MensajePopUp}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>
+
+<!-- MODAL DESCARGA DE PDF -->
+<ng-template #PopUpAccionPdf let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion PDF</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="EnlacePdf"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+
+<!-- MODAL DESCARGA DE XML -->
+<ng-template #PopUpAccionXml let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion XML</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="EnlaceXml"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+
+<!-- MODAL ACTUALIZAR REGISTROS O DOCUMENTACION -->
+<ng-template #PopUpActualizar let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Actualizacion</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{MensajePopUp}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>
+
+
+<ng-template #PopUpErrorAcciones let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Actualizacion</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{MensajePopUpError}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>

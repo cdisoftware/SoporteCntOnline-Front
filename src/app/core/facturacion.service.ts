@@ -9,6 +9,7 @@ export class FacturacionService {
 
   Respu: any;
   IdUser: string = '';
+  httpClient: any;
 
   constructor(private http: HttpClient,
     private metodosglobales: MetodosglobalesService,
@@ -48,6 +49,22 @@ export class FacturacionService {
     return this.http.post(this.url_servidor + 'InserLog/' + Origen, Datos, { responseType: "text" })
   }
 
+  ConFacturas(NitEmpresa: string, FechaInicio: string, FechaFin: string, NumeroFactura: number) {
+    return this.http.get<any>(this.url_servidor + 'confacturas/' + NitEmpresa + '/' + FechaInicio + '/' + FechaFin + '/' + NumeroFactura)
+  }
+
+  ModDocumentacionFacturas(bandera:number ,NitEmpresa: string, NumeroFactura: number) {
+    return this.http.get<any>(this.url_servidor + 'ModDocumentacionFacturas/' + bandera + '/' + NitEmpresa + '/' + NumeroFactura)
+  }
+
+  ConsNominas(Usuario:string, Datos:any){
+    return this.http.post(this.url_servidor + 'ConsNominas/' + Usuario , Datos)
+  }
+
+  ModDocumentacionNominas(Bandera:string, Datos:any){
+    return this.http.post(this.url_servidor + 'ModDocumentacionNominas/' + Bandera, Datos)
+  }
+  
   InsertLogUsers(componente: string, mensaje: string) {
     const Body = {
       Componente: componente,
