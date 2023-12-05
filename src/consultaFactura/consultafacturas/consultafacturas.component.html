@@ -1,0 +1,164 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="tituloMod">Consulta Facturas</h1>
+            <br>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-3">
+                    <label for="nitEmpresa" class="form-label">Nit empresa</label>
+                    <input type="text" class="form-control textBox"  title="nitEmpresa" min="1900-12-31" max="2999-12-31" placeholder="Ingrese Nit empresa" [(ngModel)]="NitEmpresa">
+                </div>
+                <div class="col-md-3">
+                    <label for="fechaInicio" class="form-label">Fecha inicio</label>
+                    <input type="text" class="form-control textBox" title="fechaInicio" min="1900-12-31" max="2999-12-31" placeholder="Ingrese fecha inicio" [(ngModel)]="fechaInicio">
+                </div>
+                <div class="col-md-3">
+                    <label for="fechaFin" class="form-label">Fecha fin</label>
+                    <input type="date" class="form-control textBox" title="fechaFin" placeholder="Ingrese fecha fin" [(ngModel)]="fechaFin">
+                </div>
+                <div class="col-md-3">
+                    <label for="numeroFactura" class="form-label">Numero de factura</label>
+                    <input type="number" class="form-control textBox" title="numeroFactura" placeholder="Ingrese el numero de la factura" [(ngModel)]="numeroFactura">
+                </div>
+                <div class="col-md-6 text-md-end text-center">
+                    <button type="submit" class="btn btn-primary w-75 BtnPrincipal" title="btnBuscar" (click)="consultaFacturas(popUpError)">Buscar</button>
+                </div>
+                <div class="col-md-6 text-md-start text-center">
+                    <button type="submit" class="btn btn-primary w-75 BtnCancel"  title="btnLimpiar" (click)="limpiarConsulta()">Limpiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container-fluid">
+    <div class="row sinMp" *ngIf="mostrarTabla == true">
+        <div class="col">
+            <div class="table-responsive-sm table-bordered">
+                <table class="table">
+                    <tr>
+                        <th scope="col" class="text-center">Numero factura</th>
+                        <th scope="col" class="text-center">Nit empresa</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Email cliente</th>
+                        <th scope="col" class="text-center">Nombre del cliente</th>
+                        <th scope="col" class="text-center">Fecha</th>
+                        <th scope="col" class="text-center">CUFE</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-center">Gen Doc</th>
+                        <th scope="col" class="text-center">Num nota credito</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                    <tr *ngFor="let result of resultadoConFacturas">
+                        <th scope="row" class="text-center">{{result.NumeroFactura}}</th>
+                        <td class="text-center">{{result.NitEmpresa}}</td>
+                        <td class="text-center">{{result.Nombre}}</td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width:200px;">
+                                {{result.MailCliente}}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width:200px;">
+                                {{result.NombreCliente}}
+                            </div>
+                        </td>
+                        <td class="text-center">{{result.Fecha}}</td>
+                        <td class="text-center">
+                            <div style="overflow:auto; width: 200px;">
+                                {{result.CUFE}}
+                            </div>
+                        </td>
+                        <td class="text-center">{{result.Estado}}</td>
+                        <td class="text-center">{{result.GenDoc}}</td>
+                        <td class="text-center">{{result.NumNotaCredito}}</td>
+                        <td *ngIf="result.GenDoc == 1">
+                            <div class="text-center" style="display: flex; align-items: center;">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerPdf.png" class="rounded img-fluid imagenDetalleTabla" (click)="abrirAccionPdf(popUpAccionPdf, result.UrlPdf)">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="rounded img-fluid imagenDetalleTabla" (click)="abrirAccionXml(popUpAccionXml, result.UrlXml)">
+                            </div>
+                        </td>
+                        <td *ngIf="result.GenDoc == 0">
+                            <div class="text-center">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="rounded img-fluid imagenDetalleTabla" (click)="modalActualizar(popUpActualizacion, result)">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DESCARGA PDF -->
+<ng-template #popUpAccionPdf let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion PDF</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="urlPdf"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+<!-- MODAL DESCARGA XML -->
+<ng-template #popUpAccionXml let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion XML</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="urlXml"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+<!-- MODAL ERRORES CONTABILIDAD -->
+<ng-template #popUpError let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Contabilidad</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{mensajePopUp}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>
+<!-- MODAL ACTUALIZACION -->
+<ng-template #popUpActualizacion let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Actualizacion</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{mensajePopUp}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>

@@ -31,4 +31,7 @@ export class EmpresasService {
   ConsultaCiudad(CodDepartamento: string) {
     return this.http.get<any>(this.url_servidor + 'consmuni/' + CodDepartamento)
   }
+  EliminarEmpresa (Datos:any) {
+    return this.http.post<any>(this.url_servidor + 'DeleteEmpresa', Datos)
+  }
 }
