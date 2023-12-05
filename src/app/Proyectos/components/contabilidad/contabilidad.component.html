@@ -20,6 +20,12 @@
                 <label class="labelcont">Actualizar empresa</label>
             </div>
         </div>
+        <div class="col-sm-2 text-center" (click)="EliminarEmpresa()">
+            <img src="../../../../assets/ImagenesSoporteTecntOnline/Borrar.png" class="imagendetalle">
+            <div>
+                <label class="labelcont">Eliminar empresa</label>
+            </div>
+        </div>
     </div>
 
     <!-- filtros busqueda empresas-->
@@ -328,204 +334,303 @@
             </div>
         </div>
         <br>
-
     </div>
 
+    <!-- BUSCADOR ELIMINAR EMPRESA -->
+    <div class="row br" *ngIf="verOcultarCamposEli == true">
+        <hr>
+        <h6 class="tituloMod"><strong>Eliminar empresa</strong></h6>
+        <div class="row justify-content-center">
+            <div class="col-md-4 br">
+                <input type="text" title="Nombre empresa" class="form-control form-control-sm textBox" placeholder="Nombre empresa" [(ngModel)]="NombreEmpresa">
+            </div>
+            <div class="col-md-4 br">
+                <input type="text" title="Nit empresa" class="form-control form-control-sm textBox" placeholder="Nit empresa" [(ngModel)]="Nit">
+            </div>
+            <div class="col-md-4 br">
+                <input type="text" title="Regional" class="form-control form-control-sm textBox" placeholder="Regional" [(ngModel)]="Regional">
+            </div>
+            <div class="col-sm-3 col-12 br">
+                <button class="col-sm-12 btn BtnPrincipal" title="Buscar plantilla" (click)="VerEliminarEmpresa(InfoEliminar)">Buscar</button>
+            </div>
+        </div>
+    </div>
+    <!-- FORMULARIO RESULTADO ELIMINAR EMPRESA -->
+    <div class="row br justify-content-center" *ngIf="verOcultarFormEli == true">
+        <div class="row" *ngFor="let EmpresaEliminar of ArrayEmpresa">
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-6">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Nombre empresa:&nbsp;</span>
+                        {{EmpresaEliminar.Nombre}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Regional:&nbsp;</span>
+                        {{EmpresaEliminar.Departamento}}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Fecha inicio facturación:&nbsp;</span>
+                        {{EmpresaEliminar.RangoFecIni}}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Fecha fin facturación:&nbsp;</span>
+                        {{EmpresaEliminar.RangoFecFin}}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Prefijo:&nbsp;</span>
+                        {{EmpresaEliminar.Prefijo}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Usuario:&nbsp;</span>
+                        {{EmpresaEliminar.Usuario}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="textBox" style="display: flex; align-items: center; font-size: medium;">
+                        <span class="Llave">Contraseña:&nbsp;</span>
+                        {{EmpresaEliminar.Contrasena}}
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="row br justify-content-center">
+                <div class="col-sm-3 col-12">
+                    <button class="col-sm-12 btn BtnPrincipal" (click)="BtnEliminarEmp(modalEliminarEmpresa)">Eliminar</button>
+                </div>
+                <div class="col-sm-3 col-12">
+                    <button class="col-sm-12 btn BtnCancel" (click)="limpiar()">Cancelar</button>
+                </div>
+            </div>
+
+            <ng-template #modalEliminarEmpresa let-modal>
+                <div class="modal-header">
+                    <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+                    <h1 class="modal-title">Eliminar empresa</h1>
+                    <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row br">
+                        <div class="col-sm-12">
+                            <h2 class="TituloDetalle"> Señor usuario, se encuentra seguro de eliminar la empresa {{EmpresaEliminar.Nombre}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mb-3">
+                    <div class="col-sm-12 text-center">
+                        <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()" (click)="BtnInfoEliminar(InfoEliminar, EmpresaEliminar)" (click)="limpiar()">Si</button>
+                        &nbsp;
+                        <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnCancel" (click)="modal.close()" (click)="limpiar()">No</button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
 
     <!-- Tarjeta Empresas-->
-    <div class="row justify-content-center br tarjetadetalle"
-        *ngFor="let empresa of ArrayEmpresa | paginate: {itemsPerPage: 3, currentPage: page}">
-        <div class="row m-2" *ngIf="VerOcultarCamposTarget == true">
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label class="Llave">Nombre empresa:&nbsp;</label><label
-                            class="textblue"><strong>{{empresa.Nombre}}</strong></label>
+    <div *ngIf="VerOcultarCamposTarget == true">
+        <div class="row justify-content-center br tarjetadetalle" *ngFor="let empresa of ArrayEmpresa | paginate: {itemsPerPage: 3, currentPage: page}">
+            <div class="row m-2">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="Llave">Nombre empresa:&nbsp;</label><label
+                                class="textblue"><strong>{{empresa.Nombre}}</strong></label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Nit:&nbsp;</label><label
-                            class="textblue"><strong>{{empresa.Nit}}</strong></label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Nit:&nbsp;</label><label
+                                class="textblue"><strong>{{empresa.Nit}}</strong></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Departamento:&nbsp;</label><label
+                                class="Valor">{{empresa.Departamento}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Ciudad:&nbsp;</label><label class="Valor">{{empresa.Ciudad}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Departamento:&nbsp;</label><label
-                            class="Valor">{{empresa.Departamento}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Dirección:&nbsp;</label><label class="Valor">{{empresa.Direccion}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Correo:&nbsp;</label><label class="Valor">{{empresa.Email}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Teléfono:&nbsp;</label><label class="Valor">{{empresa.Telefono}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Ciudad:&nbsp;</label><label class="Valor">{{empresa.Ciudad}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Número resolución:&nbsp;</label><label
+                                class="Valor">{{empresa.NumResolucion}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Prefijo:&nbsp;</label><label class="Valor">{{empresa.Prefijo}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango desde:&nbsp;</label><label class="Valor">{{empresa.RangoD}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Dirección:&nbsp;</label><label class="Valor">{{empresa.Direccion}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango hasta:&nbsp;</label><label class="Valor">{{empresa.RangoH}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango fecha inicio:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoFecIni}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango fecha fin:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoFecFin}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Correo:&nbsp;</label><label class="Valor">{{empresa.Email}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Tipo persona:&nbsp;</label><label *ngIf="empresa.TipoPersona == '1'"
+                                class="Valor">Juridica</label>
+                            <label *ngIf="empresa.TipoPersona == '2'" class="Valor">Natural</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Régimen:&nbsp;</label><label class="Valor">{{empresa.Regimen}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Código pais:&nbsp;</label><label class="Valor">{{empresa.CodPais}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Teléfono:&nbsp;</label><label class="Valor">{{empresa.Telefono}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Código departamento:&nbsp;</label><label
+                                class="Valor">{{empresa.CodDepto}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Número matricula mercantil:&nbsp;</label><label
+                                class="Valor">{{empresa.NumMatMercantil}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">ValCas53:&nbsp;</label><label class="Valor">{{empresa.ValCas53}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Número resolución:&nbsp;</label><label
-                            class="Valor">{{empresa.NumResolucion}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">ValCas54:&nbsp;</label><label class="Valor">{{empresa.ValCas54}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Prefijo nota crédito:&nbsp;</label><label
+                                class="Valor">{{empresa.PrefijoNC}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango nota crédito desde:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoNCD}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Prefijo:&nbsp;</label><label class="Valor">{{empresa.Prefijo}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango nota crédito hasta:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoNCH}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Nit código verificación:&nbsp;</label><label
+                                class="Valor">{{empresa.NitCodVer}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Numero de nota credito Actual:&nbsp;</label><label
+                                class="Valor">{{empresa.NotaCreditoActual}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango desde:&nbsp;</label><label class="Valor">{{empresa.RangoD}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Código municipio:&nbsp;</label><label
+                                class="Valor">{{empresa.CodMuni}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Pais:&nbsp;</label><label class="Valor">{{empresa.NomPais}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Código postal:&nbsp;</label><label
+                                class="Valor">{{empresa.CodPostal}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango hasta:&nbsp;</label><label class="Valor">{{empresa.RangoH}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">PrefijoNE:&nbsp;</label><label class="Valor">{{empresa.PrefijoNE}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango NE desde:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoNED}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango NE hasta:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoNEH}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango fecha inicio:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoFecIni}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Contraseña NE:&nbsp;</label><label
+                                class="Valor">{{empresa.ContrasenaNE}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Prefijo NA:&nbsp;</label><label class="Valor">{{empresa.PrefijoNA}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Número resolución DS:&nbsp;</label><label
+                                class="Valor">{{empresa.NumResolucionDS}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango fecha fin:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoFecFin}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Prefijo DS:&nbsp;</label><label class="Valor">{{empresa.PrefijoDS}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango DS desde:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoDS_D}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Rango DS hasta:&nbsp;</label><label
+                                class="Valor">{{empresa.RangoDS_H}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Tipo persona:&nbsp;</label><label *ngIf="empresa.TipoPersona == '1'"
-                            class="Valor">Juridica</label>
-                        <label *ngIf="empresa.TipoPersona == '2'" class="Valor">Natural</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Fecha inicio DS:&nbsp;</label><label
+                                class="Valor">{{empresa.FechaInicioDS}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Fecha fin DS:&nbsp;</label><label
+                                class="Valor">{{empresa.FechaInicioDS}}</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="Llave">Actividad económica:&nbsp;</label><label
+                                class="Valor">{{empresa.ActEco}}</label>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Régimen:&nbsp;</label><label class="Valor">{{empresa.Regimen}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Código pais:&nbsp;</label><label class="Valor">{{empresa.CodPais}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Código departamento:&nbsp;</label><label
-                            class="Valor">{{empresa.CodDepto}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Número matricula mercantil:&nbsp;</label><label
-                            class="Valor">{{empresa.NumMatMercantil}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">ValCas53:&nbsp;</label><label class="Valor">{{empresa.ValCas53}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">ValCas54:&nbsp;</label><label class="Valor">{{empresa.ValCas54}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Prefijo nota crédito:&nbsp;</label><label
-                            class="Valor">{{empresa.PrefijoNC}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango nota crédito desde:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoNCD}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango nota crédito hasta:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoNCH}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Nit código verificación:&nbsp;</label><label
-                            class="Valor">{{empresa.NitCodVer}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Numero de nota credito Actual:&nbsp;</label><label
-                            class="Valor">{{empresa.NotaCreditoActual}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Código municipio:&nbsp;</label><label
-                            class="Valor">{{empresa.CodMuni}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Pais:&nbsp;</label><label class="Valor">{{empresa.NomPais}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Código postal:&nbsp;</label><label
-                            class="Valor">{{empresa.CodPostal}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">PrefijoNE:&nbsp;</label><label class="Valor">{{empresa.PrefijoNE}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango NE desde:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoNED}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango NE hasta:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoNEH}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Contraseña NE:&nbsp;</label><label
-                            class="Valor">{{empresa.ContrasenaNE}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Prefijo NA:&nbsp;</label><label class="Valor">{{empresa.PrefijoNA}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Número resolución DS:&nbsp;</label><label
-                            class="Valor">{{empresa.NumResolucionDS}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Prefijo DS:&nbsp;</label><label class="Valor">{{empresa.PrefijoDS}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango DS desde:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoDS_D}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Rango DS hasta:&nbsp;</label><label
-                            class="Valor">{{empresa.RangoDS_H}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Fecha inicio DS:&nbsp;</label><label
-                            class="Valor">{{empresa.FechaInicioDS}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Fecha fin DS:&nbsp;</label><label
-                            class="Valor">{{empresa.FechaInicioDS}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="Llave">Actividad económica:&nbsp;</label><label
-                            class="Valor">{{empresa.ActEco}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="Llave">Usuario facturatech:&nbsp;</label><label
-                            class="Valor">{{empresa.Usuario}}</label>
-                    </div>
-                    <div class="col-sm-8">
-                        <label class="Llave">Contraseña facturatech:&nbsp;</label> <label
-                            class="Valor">{{empresa.Contrasena}}</label>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="Llave">Usuario facturatech:&nbsp;</label><label
+                                class="Valor">{{empresa.Usuario}}</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <label class="Llave">Contraseña facturatech:&nbsp;</label> <label
+                                class="Valor">{{empresa.Contrasena}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
+            <br>
         </div>
-        <br>
+        <br> 
     </div>
-    <br>
 
     <div class="row text-center" *ngIf="verOcultarPge == true">
         <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
@@ -561,3 +666,25 @@
     </div>
     <br>
 </ng-template>
+
+<ng-template #InfoEliminar let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Eliminar empresa</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row br">
+            <div class="col-sm-12">
+                <h2 class="TituloDetalle">{{MensajeModal}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center">
+            <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+        </div>
+    </div>
+    <br>
+</ng-template>
+

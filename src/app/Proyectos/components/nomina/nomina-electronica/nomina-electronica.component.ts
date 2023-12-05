@@ -50,9 +50,9 @@ export class NominaElectronicaComponent implements OnInit {
         FechaFinal: this.FechaFin,
         Empleado: AuxEmpleado
       }
+      
       this.ConsNominasServicio.ConsNominas(this.Usuario, body).subscribe(registroConsNominas => {
         this.resultNominaElectronica = registroConsNominas;
-        console.log(this.resultNominaElectronica);
         if (this.resultNominaElectronica.length > 0) {
           this.MostrarTabla = true;
         } else {
@@ -84,7 +84,7 @@ export class NominaElectronicaComponent implements OnInit {
         this.MensajePopUpError = "Lastimosamente no se ha podido descargar el archivo PDF, por favor de click en el botón actualizar para recargar el archivo.";
         this.ModalErrorAccion.open(PopUpErrorAcciones, {size:'lg'})
       }  else {
-        this.ModalXml.open(PopUpAccionPdf, {size:'lg'});
+        this.ModalPdf.open(PopUpAccionPdf, {size:'lg'});
       }
     });
   }
@@ -112,7 +112,6 @@ export class NominaElectronicaComponent implements OnInit {
     }
     this.ModDocuNominas.ModDocumentacionNominas('2', body).subscribe(RegistroActualizar => {
       this.ResultModNominaElec = RegistroActualizar;
-      console.log (this.ResultModNominaElec);
       this.SplitModNominaElec = this.ResultModNominaElec.split('|');
       if (Number(this.SplitModNominaElec[0]) > 0) {
         this.MensajePopUp = "Registro actualizado. Recuerde que los documentos se mostraran en cinco minutos.";

@@ -65,7 +65,7 @@ export class ConsultafacturasComponent implements OnInit {
       } else {
         auxNumeroFactura = Number(this.numeroFactura);
       }
-  
+
       this.servicioConFacturas.ConFacturas(auxNitEmpresa, auxFechaInicio, auxFechaFin, auxNumeroFactura).subscribe(registroConFacturas =>{
         this.resultadoConFacturas = registroConFacturas;
         if (this.resultadoConFacturas.length > 0) {
@@ -107,7 +107,6 @@ export class ConsultafacturasComponent implements OnInit {
         this.mensajePopUp = "No se han podido actualziar los documentos. Por favor, comuníquese lo más pronto posible con soporte.";
         this.modalActualizacion.open(popUpActualizacion, {size:'md'});
       }
-      console.log(this.splitModDocFacturas);
     })
   }
 }

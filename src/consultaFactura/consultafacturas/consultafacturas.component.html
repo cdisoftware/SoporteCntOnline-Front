@@ -1,16 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="tituloMod">Facturacion Electronica</h1>
+            <h1 class="tituloMod">Consulta Facturas</h1>
             <br>
             <div class="row g-3 justify-content-center">
                 <div class="col-md-3">
                     <label for="nitEmpresa" class="form-label">Nit empresa</label>
-                    <input type="text" class="form-control textBox"  title="nitEmpresa" placeholder="Ingrese Nit empresa" [(ngModel)]="NitEmpresa">
+                    <input type="text" class="form-control textBox"  title="nitEmpresa" min="1900-12-31" max="2999-12-31" placeholder="Ingrese Nit empresa" [(ngModel)]="NitEmpresa">
                 </div>
                 <div class="col-md-3">
                     <label for="fechaInicio" class="form-label">Fecha inicio</label>
-                    <input type="date" class="form-control textBox" title="fechaInicio" placeholder="Ingrese fecha inicio" [(ngModel)]="fechaInicio">
+                    <input type="text" class="form-control textBox" title="fechaInicio" min="1900-12-31" max="2999-12-31" placeholder="Ingrese fecha inicio" [(ngModel)]="fechaInicio">
                 </div>
                 <div class="col-md-3">
                     <label for="fechaFin" class="form-label">Fecha fin</label>
@@ -46,7 +46,7 @@
                         <th scope="col" class="text-center">CUFE</th>
                         <th scope="col" class="text-center">Estado</th>
                         <th scope="col" class="text-center">Gen Doc</th>
-                        <th scope="col" class="text-center">Numero nota credito</th>
+                        <th scope="col" class="text-center">Num nota credito</th>
                         <th scope="col" class="text-center">Acciones</th>
                     </tr>
                     <tr *ngFor="let result of resultadoConFacturas">
@@ -73,7 +73,7 @@
                         <td class="text-center">{{result.GenDoc}}</td>
                         <td class="text-center">{{result.NumNotaCredito}}</td>
                         <td *ngIf="result.GenDoc == 1">
-                            <div class="text-center">
+                            <div class="text-center" style="display: flex; align-items: center;">
                                 <img src="../../../../assets/ImagenesSoporteTecntOnline/VerPdf.png" class="rounded img-fluid imagenDetalleTabla" (click)="abrirAccionPdf(popUpAccionPdf, result.UrlPdf)">
                                 <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" class="rounded img-fluid imagenDetalleTabla" (click)="abrirAccionXml(popUpAccionXml, result.UrlXml)">
                             </div>

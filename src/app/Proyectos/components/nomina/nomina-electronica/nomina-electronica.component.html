@@ -10,11 +10,11 @@
                 </div>
                 <div class="col-md-3">
                     <label for="fechaInicio">Fecha inicio</label>
-                    <input type="date" class="form-control textBox" name="fechaInicio" id="fechaInicio" [(ngModel)]="FechaInicio">
+                    <input type="date" class="form-control textBox" name="fechaInicio" id="fechaInicio" min="1900-12-31" max="2999-12-31" [(ngModel)]="FechaInicio">
                 </div>
                 <div class="col-md-3">
                     <label for="fechaFin">Fecha fin</label>
-                    <input type="date" class="form-control textBox" name="fechaFin" id="fechaFin" [(ngModel)]="FechaFin">
+                    <input type="date" class="form-control textBox" name="fechaFin" id="fechaFin" min="1900-12-31" max="2999-12-31" [(ngModel)]="FechaFin">
                 </div>
                 <div class="col-md-3">
                     <label for="empleado">Empleado</label>
@@ -30,9 +30,10 @@
         </div>
     </div>
 </div>
-<hr>
-<div class="container-fluid">
+
+<div class="container-fluid" style="margin-top: 30px;">
     <div class="row sinMp" *ngIf="MostrarTabla == true">
+        <hr>
         <div class="col">
             <div class="table-responsive-sm table-bordered">
                 <table class="table">
