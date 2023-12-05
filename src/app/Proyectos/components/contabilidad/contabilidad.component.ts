@@ -40,6 +40,7 @@ export class ContabilidadComponent implements OnInit {
   NombreDep: string = '';
   CodigoCiudad: string = '';
   NombreCiudad: string = '';
+  MensajeModal: string = '';
 
   ArrayPais: any;
   ArrayDepartamento: any = [];
@@ -54,12 +55,16 @@ export class ContabilidadComponent implements OnInit {
   verOcultarLabelC: boolean = false;
   arregloListaEmpresas: any = [];
   verOcultarPge: boolean = false;
+  verOcultarCamposEli: boolean = false;
+  verOcultarFormEli:boolean = false;
 
   NitAct: string = '';
 
   constructor(public rutas: Router,
     public empresaService: EmpresasService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private modalInfoEliminar: NgbModal,
+    private modalEliminarEmpresa: NgbModal) { }
 
   ngOnInit(): void {
     this.ListarPais();
@@ -77,8 +82,10 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarFormAct = false;
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
+    this.verOcultarCamposEli = false;
+    this.verOcultarFormEli = false;
+    this.limpiar();
     this.LimpiarCampos();
-
   }
   CrearEmpresa() {
     this.VerOcultarCamposCons = false;
@@ -88,10 +95,10 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarFormAct = false;
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
+    this.verOcultarCamposEli = false;
+    this.verOcultarFormEli = false;
     this.limpiar();
-
   }
-
   ActualizaEmpresa() {
     this.VerOcultarCamposCons = false;
     this.VerOcultarCamposInsert = false;
@@ -99,8 +106,20 @@ export class ContabilidadComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.verOcultarLabelC = false;
     this.verOcultarPge = false;
+    this.verOcultarCamposEli = false;
+    this.verOcultarFormEli = false;
     this.limpiar();
     this.LimpiarCampos();
+  }
+  EliminarEmpresa() {
+    this.VerOcultarCamposCons = false;
+    this.VerOcultarCamposInsert = false;
+    this.VerOcultarCamposAct = false;
+    this.VerOcultarCamposTarget = false;
+    this.verOcultarLabelC = false;
+    this.verOcultarPge = false;
+    this.verOcultarCamposEli = true;
+    this.verOcultarFormEli = false;
   }
 
   VerConsultaEmp() {
@@ -172,6 +191,7 @@ export class ContabilidadComponent implements OnInit {
     this.Regional = '';
     this.ArrayEmpresa = [];
     this.verOcultarPge = false;
+    this.verOcultarFormEli = false;
     this.NitAct = '';
   }
 
@@ -508,5 +528,76 @@ export class ContabilidadComponent implements OnInit {
       this.arregloListaEmpresas[0].ActEco = '';
     }
 
+  }
+
+  VerEliminarEmpresa(InfoEliminar:any) {
+    if (this.Nit == '') {
+      this.MensajeModal = "Señor usuario, para eliminar una empresa por lo menos debe ingresar el numero de Nit de la empresa a eliminar.";
+      this.modalInfoEliminar.open (InfoEliminar, {size: 'md'})
+    } else {
+      var auxNomEmp:string = '';
+      var auxNitEmp:string = '';
+      var auxRegional:string = '';
+
+      if (this.NombreEmpresa == '') {
+        auxNomEmp = '0';
+      } else {
+        auxNomEmp = this.NombreEmpresa;
+      }
+      if (this.Nit == '') {
+        auxNitEmp = '0';
+      } else {
+        auxNitEmp = this.Nit;
+      }
+      if (this.Regional == '') {
+        auxRegional = '0'
+      } else {
+        auxRegional = this.Regional;
+      }
+
+      this.empresaService.ConsultaEmpresas(auxNitEmp, auxRegional, auxNomEmp).subscribe(ResultadoEliminar => {
+        if (ResultadoEliminar != null && ResultadoEliminar != undefined && ResultadoEliminar!= '') {
+          this.ArrayEmpresa = ResultadoEliminar;
+          this.verOcultarFormEli = true;
+        } else {
+          this.ArrayEmpresa = [];
+          this.MensajeModal = "Señor usuario, no se encuentra ninguna empresa con el número de Nit ingresado. Por favor verifique.";
+          this.modalInfoEliminar.open (InfoEliminar, {size: 'md'});
+        }
+      })
+    }
+  }
+
+  BtnInfoEliminar (InfoEliminar:any, EmpresaEliminar:any) {
+    const body = {
+      IdCol: '0',
+      Nombre: '0',
+      Nit: EmpresaEliminar.Nit,
+      Departamento: '0',
+      Ciudad: '0',
+      Direccion: '0',
+      Email: '0',
+      Telefono: '0',
+      TipoPersona: '0',
+      Regimen: '0',
+      CodPais: '0',
+      CodDepto: '0',
+      NumMatMercantil: '0',
+      ValCas53: '0',
+      ValCas54: '0',
+      NitCodVer: '0',
+      CodMuni: '0',
+      NomPais: '0',
+      CodPostal: '0',
+      ActEco: '0'
+    }
+    this.empresaService.EliminarEmpresa(body).subscribe(ResultEliminarEmpresa => {
+      this.MensajeModal = ResultEliminarEmpresa;  
+      this.modalEliminarEmpresa.open(InfoEliminar, {size: 'md'});
+    });
+  }
+
+  BtnEliminarEmp (BtnEliminarEmp:any) {
+    this.modalEliminarEmpresa.open(BtnEliminarEmp, {size: 'md'});
   }
 }

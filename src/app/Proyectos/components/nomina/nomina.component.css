@@ -21,3 +21,9 @@
 .contentXml {
     overflow: auto;
 }
+
+.imagenDetalleTabla {
+    width: 45px;
+    margin: auto;
+    cursor: pointer;
+}

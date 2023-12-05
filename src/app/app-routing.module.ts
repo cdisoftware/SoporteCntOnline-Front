@@ -7,6 +7,8 @@ import { TableroComponent } from './Usuario/components/tablero/tablero.component
 import { FacturacionComponent } from './Proyectos/components/facturacion/facturacion.component';
 import { NominaComponent } from './Proyectos/components/nomina/nomina.component';
 import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
+import { ConsultafacturasComponent } from 'src/consultaFactura/consultafacturas/consultafacturas.component';
+import { NominaElectronicaComponent } from './Proyectos/components/nomina/nomina-electronica/nomina-electronica.component';
 const routes: Routes = [
   {
     path: '',
@@ -35,6 +37,14 @@ const routes: Routes = [
       {
         path: 'documento',
         component: DocumentoComponent
+      }, 
+      {
+        path: 'consultafacturas',
+        component: ConsultafacturasComponent
+      },
+      {
+        path: 'nominaelectronica',
+        component: NominaElectronicaComponent
       }
     ]
   },

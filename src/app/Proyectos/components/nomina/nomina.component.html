@@ -14,6 +14,12 @@
                 <label class="labelcont">Habilitar empresa Nomina</label>
             </div>
         </div>
+        <div class="col-sm-2 text-center" (click)="ActualizarDocumentacion()">
+            <img src="../../../../assets/ImagenesSoporteTecntOnline/actualizarDocumentacion.png" class="imagendetalle">
+            <div>
+                <label class="labelcont">Actualizar documentación</label>
+            </div>
+        </div>
     </div>
 
     <div class="row br" *ngIf="VerOcultarConsulta == true">
@@ -149,6 +155,135 @@
     </div>
     <br>
 
+    <!-- FORMULARIO CONSULTA ACTUALIZAR DOCUMENTOS -->
+    <div class="row br" style="margin-top: -4px;" *ngIf="VerOcultarFormActu == true">
+        <hr>
+        <h6 class="tituloMod mb-2"><strong>Actualizar documentación</strong></h6>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-3 br">
+                <input type="text" class="form-control textBox" title="Usuario" placeholder="Usuario" [(ngModel)]="Usuario">
+            </div>
+            <div class="col-md-3 br">
+                <input type="date" class="form-control textBox" title="Fecha inicio" min="1900-12-31" max="2999-12-31" [(ngModel)]="fechaIni">
+            </div>
+            <div class="col-md-3 br">
+                <input type="date" class="form-control textBox" title="Fecha fin" min="1900-12-31" max="2999-12-31" [(ngModel)]="fechaFin">
+            </div>
+            <div class="col-md-3 br">
+                <input type="text" class="form-control textBox" title="Empleado" placeholder="Empleado" [(ngModel)]="Empleado">
+            </div>
+            <div class="col-md-6 text-md-end text-center">
+                <button type="submit" class="btn btn-primary w-50 BtnPrincipal" (click)="ConsulActuDocu(ModalRespuesta)">Buscar</button>
+            </div>
+            <div class="col-md-6 text-md-start text-center">
+                <button type="submit" class="btn btn-primary w-50 BtnCancel" (click)="LimpiarActuDocu()">Limpiar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA RESULTADO ACTUALIZAR DOCUMENTOS -->
+    <div class="row mt-2 sinMp" *ngIf="VerOcultarResulActuDocu == true">
+        <hr>
+        <div class="col">
+            <div class="table-responsive-sm table-bordered">
+                <table class="table">
+                    <tr>
+                        <th scope="col" class="text-center">Usuario</th>
+                        <th scope="col" class="text-center">Contraseña</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Prefijo</th>
+                        <th scope="col" class="text-center">Folio</th>
+                        <th scope="col" class="text-center">TransID</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-center">Doc</th>
+                        <th scope="col" class="text-center">Empleado</th>
+                        <th scope="col" class="text-center">Mes</th>
+                        <th scope="col" class="text-center">Fecha inicio</th>
+                        <th scope="col" class="text-center">Fecha final</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                    <tr *ngFor="let resulActDoc of ResulActuDocu">
+                        <td scope="row" class="text-center">{{resulActDoc.Usuario}}</td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resulActDoc.Contrasena}}</div>
+                        </td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resulActDoc.Nombre}}</div>
+                        </td>
+                        <td class="text-center">{{resulActDoc.Prefijo}}</td>
+                        <td class="text-center">{{resulActDoc.Folio}}</td>
+                        <td class="text-center">
+                            <div style="overflow: auto; width: 200px;">{{resulActDoc.TransID}}</div>
+                        </td>
+                        <td class="text-center">{{resulActDoc.EstadoNE}}</td>
+                        <td class="text-center">{{resulActDoc.DocumentacionNE}}</td>
+                        <td class="text-center">{{resulActDoc.Empleado}}</td>
+                        <td class="text-center">{{resulActDoc.Mes}}</td>
+                        <td class="text-center">{{resulActDoc.FechaInicio}}</td>
+                        <td class="text-center">{{resulActDoc.FechaFinal}}</td>
+                        <td *ngIf="resulActDoc.DocumentacionNE == 1">
+                            <div class="text-center" style="display: flex; align-items: center;">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerPdf.png" style="width: 45px;" class="rounded img-fluid imagenDetalleTabla" alt="Boton PDF" (click)="AbrirAccionPdf(PopUpAccionPdf, PopUpErrorAcciones, resulActDoc.UrlPdf)">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/VerXml.png" style="width: 45px;" class="rounded img-fluid imagenDetalleTabla" alt="Boton XML" (click)="AbrirAccionXml(PopUpAccionXml, PopUpErrorAcciones, resulActDoc.UrlXml)">
+                            </div>
+                        </td>
+                        <td *ngIf="resulActDoc.DocumentacionNE == 0">
+                            <div class="text-center">
+                                <img src="../../../../assets/ImagenesSoporteTecntOnline/boton-actualizar.png" class="rounded img-fluid imagenDetalleTabla" alt="Boton Actualizar" (click)="AbrirModalActualizar(PopUpActualizar, resulActDoc)">
+                            </div>
+                        </td>
+                        <!-- MODAL ERROR 404 -->
+                        <ng-template #PopUpErrorAcciones let-modal>
+                            <div class="modal-header">
+                                <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+                                <h1 class="modal-title">Error de Descarga</h1>
+                                <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row br">
+                                    <div class="col-sm-12">
+                                        <h2 class="TituloDetalle">{{Respuesta}}</h2>
+                                    </div>
+                                    <br>
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" class="btn btn-primary BtnCancel" style="width: 100px;" (click)="AbrirModalActualizar(PopUpActualizar, resulActDoc)">Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+                                    <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()">Aceptar</button>
+                                </div>
+                            </div>
+                            <br>
+                        </ng-template>
+                        <!-- MODAL ACTUALIZAR DOCUMENTACION -->
+                        <ng-template #PopUpActualizar let-modal>
+                            <div class="modal-header">
+                                <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+                                <h1 class="modal-title">Actualizacion</h1>
+                                <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row br">
+                                    <div class="col-sm-12">
+                                        <h2 class="TituloDetalle">{{Respuesta}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+                                    <button (keyup.enter)="modal.close()" type="button" class="col-sm-3 btn BtnPrincipal" (click)="modal.close()" (click)="CerraModal(PopUpErrorAcciones)">Aceptar</button>
+                                </div>
+                            </div>
+                            <br>
+                        </ng-template>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="row br text-center" *ngIf="verOcultarLabel == true">
         <h2 class="textblue"><strong>¡ Sin resultados !</strong></h2>
         <h2 class="textblue"><strong>Revisa los datos de busqueda</strong></h2>
@@ -206,4 +341,36 @@
         </div>
     </div>
     <br>
+</ng-template>
+
+<!-- MODAL DESCARGA DE PDF -->
+<ng-template #PopUpAccionPdf let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion PDF</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="EnlacePdf"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+
+<!-- MODAL DESCARGA DE XML -->
+<ng-template #PopUpAccionXml let-modal>
+    <div class="modal-header">
+        <img class="logoContabilidadOnl" src="../../../../assets/ImagenesSoporteTecntOnline/contabilidad.png">
+        <h1 class="modal-title">Visualizacion XML</h1>
+        <button (keyup.enter)="modal.close()" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <div class="ratio ratio-1x1">
+            <iframe [src]="EnlaceXml"></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
 </ng-template>

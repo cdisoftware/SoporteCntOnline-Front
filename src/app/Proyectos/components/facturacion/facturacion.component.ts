@@ -4,6 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacturacionService } from 'src/app/core/facturacion.service';
 import { EmpresasService } from 'src/app/core/empresas.service';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { popper } from '@popperjs/core';
 @Component({
   selector: 'app-facturacion',
   templateUrl: './facturacion.component.html',
@@ -31,6 +33,11 @@ export class FacturacionComponent implements OnInit {
   RangoFecFin: string = '';
   RangoNCD: string = '';
   RangoNCH: string = '';
+  Empleado: string = '';
+  EnlacePdf:any;
+  EnlacePdfUni:any;
+  EnlaceXml:any;
+  EnlaceXmlUni:any;
 
   VerOcultarConsulta: boolean = false;
   VerOcultarActualizar: boolean = false;
@@ -40,6 +47,8 @@ export class FacturacionComponent implements OnInit {
   verOcultarPge: boolean = false;
   verOcultarXML: boolean = false;
   VerOcultarTargetXML: boolean = false;
+  VerOcultarFormActu:boolean = false;
+  VerOcultarResulActuDocu:boolean = false;
 
   NitFact: string = '';
   arregloListaFactura: any;
@@ -52,11 +61,19 @@ export class FacturacionComponent implements OnInit {
   Xml: string = '';
   ocultaBtnBuscar: string = '1';
 
+  // actualizarDocumentacion
+  ResulActuDocu:any = [];
+  ResulActuDocuFactu:any = [];
+  SplitEnlacePdf:any = [];
+  SplitEnlaceXml:any = [];
+  SplitActuDocuFactu: any = [];
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
     public empresaService: EmpresasService,
-    private formatofecha: DatePipe) { }
+    private formatofecha: DatePipe,
+    private Sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
     this.LimpiarConsulta();
@@ -71,6 +88,8 @@ export class FacturacionComponent implements OnInit {
     this.verOcultarPge = false;
     this.verOcultarXML = false;
     this.VerOcultarTargetXML = false;
+    this.VerOcultarFormActu = false;
+    this.VerOcultarResulActuDocu = false;
     this.NitFact = '';
     this.LimpiarXml();
   }
@@ -84,6 +103,8 @@ export class FacturacionComponent implements OnInit {
     this.verOcultarPge = false;
     this.verOcultarXML = false;
     this.VerOcultarTargetXML = false;
+    this.VerOcultarFormActu = false;
+    this.VerOcultarResulActuDocu = false;
     this.LimpiarConsulta();
     this.LimpiarXml();
   }
@@ -97,6 +118,8 @@ export class FacturacionComponent implements OnInit {
     this.verOcultarPge = false;
     this.verOcultarXML = true;
     this.VerOcultarTargetXML = false;
+    this.VerOcultarFormActu = false;
+    this.VerOcultarResulActuDocu = false;
   }
 
   LimpiarConsulta() {
@@ -106,6 +129,28 @@ export class FacturacionComponent implements OnInit {
     this.Pfjo = '';
     this.verOcultarPge = false;
     this.ArrayFactura = [];
+  }
+
+  ActualizarDocumentacion() {
+    this.VerOcultarConsulta = false;
+    this.VerOcultarActualizar = false;
+    this.VerOcultarCamposTarget = false;
+    this.VerOcultarFormAct = false;
+    this.verOcultarLabel = false;
+    this.verOcultarPge = false;
+    this.verOcultarXML = false;
+    this.VerOcultarTargetXML = false;
+    this.VerOcultarFormActu = true;
+    this.VerOcultarResulActuDocu = false;
+  }
+
+  LimpiarActuDocu () {
+    this.NitEmpresa = '';
+    this.RangoFecIni = '';
+    this.RangoFecFin = '';
+    this.Empleado = '';
+    this.VerOcultarResulActuDocu = false;
+    this.verOcultarLabel= false;
   }
 
   BuscarXML(templateMensaje: any) {
@@ -264,7 +309,6 @@ export class FacturacionComponent implements OnInit {
         NumFacturaAct: this.arregloListaFactura[0].NotaCreditoActual,
         Nit: this.arregloListaFactura[0].Nit
       }
-      console.log(body)
       this.facturaServices.ActFacturacion(body).subscribe(Resultado => {
         this.Respuesta = Resultado;
         this.modalService.open(templateMensaje, { ariaLabelledBy: 'modal-basic-title', size: 'md' })
@@ -302,5 +346,96 @@ export class FacturacionComponent implements OnInit {
     document.execCommand('copy');
     input.setSelectRange();
 
+  }
+
+  ConsulActuDocu (ModalRespuesta:any) {
+    if (this.NitEmpresa == '') {
+      this.Respuesta = "Señor usuario, por favor ingrese al menos el numero de Nit de la empresa que desea buscar.";
+      this.modalService.open(ModalRespuesta, {size:'md'});
+    } else {
+      var auxNitEmpresa: string = '';
+      var auxRangoFecIni:string = '';
+      var auxRangoFecFin:string = '';
+      var auxNumFactura:number = 0;
+  
+      if (this.NitEmpresa == '') {
+        auxNitEmpresa = '0';
+      } else {
+        auxNitEmpresa = this.NitEmpresa;
+      }
+      if (this.RangoFecIni == '') {
+        auxRangoFecIni = '0';
+      } else {
+        auxRangoFecIni = this.RangoFecIni;
+      }
+      if (this.RangoFecFin == '') {
+        auxRangoFecFin = '0';
+      } else {
+        auxRangoFecFin = this.RangoFecFin;
+      }
+      if (this.NumFactura == '') {
+        auxNumFactura = 0;
+      } else {
+        auxNumFactura = Number(this.NumFactura);
+      }
+  
+      this.facturaServices.ConFacturas(auxNitEmpresa, auxRangoFecIni, auxRangoFecFin, auxNumFactura).subscribe(registroConFacturas =>{
+        this.ResulActuDocu = registroConFacturas;
+        if (this.ResulActuDocu.length > 0) {
+          this.VerOcultarResulActuDocu = true;
+        } else {
+          this.Respuesta = "No existen registros con el numero ingresado Nit";
+          this.modalService.open(ModalRespuesta, {size:'md'});
+        }
+      })
+    }
+  }
+
+  AbrirAccionPdf (PopUpAccionPdf:any, PopUpErrorAcciones:any, UrlPdf:any) { 
+    this.EnlacePdf = this.Sanitizer.bypassSecurityTrustResourceUrl(UrlPdf);
+    this.SplitEnlacePdf = UrlPdf.split('https://api.apptotrip.com');
+    this.EnlacePdfUni = this.SplitEnlacePdf[1];
+
+    fetch(this.EnlacePdfUni).then(response => {
+      if (response.status == 404) {
+        this.Respuesta = "Lastimosamente no se ha podido descargar el archivo PDF, por favor de click en el botón actualizar para recargar el archivo.";
+        this.modalService.open(PopUpErrorAcciones, {size:'lg'})
+      }  else {
+        this.modalService.open(PopUpAccionPdf, {size:'lg'});
+      }
+    });
+  }
+
+  AbrirAccionXml (PopUpAccionXml:any, PopUpErrorAcciones:any, UrlXml:any) {
+    this.EnlaceXml = this.Sanitizer.bypassSecurityTrustResourceUrl(UrlXml);
+    this.SplitEnlaceXml = UrlXml.split('https://api.apptotrip.com');
+    this.EnlaceXmlUni = this.SplitEnlaceXml[1];
+    
+    fetch(this.EnlaceXmlUni).then(response => {
+      if (response.status == 404) {
+        this.Respuesta = "Lastimosamente no se ha podido descargar el archivo XML, por favor de click en el botón actualizar para recargar el archivo.";
+        this.modalService.open(PopUpErrorAcciones, {size:'lg'})
+      }  else {
+        this.modalService.open(PopUpAccionXml, {size:'lg'});
+      }
+    });
+  }
+
+  AbrirModalActualizar (PopUpActualizar:any, resulActDoc:any) {
+    this.facturaServices.ModDocumentacionFacturas(2, resulActDoc.NitEmpresa, resulActDoc.NumeroFactura).subscribe(RegistroActualizar => {
+      this.ResulActuDocuFactu = RegistroActualizar;
+      this.SplitActuDocuFactu = this.ResulActuDocuFactu.split('|');
+      if (Number(this.SplitActuDocuFactu[0])>0) {
+        this.Respuesta = "Registro actualizado. Recuerde que los documentos se mostraran en cinco minutos.";
+        this.modalService.open(PopUpActualizar, {size:'md'});
+      } else {
+        this.Respuesta = "No se han podido actualziar los documentos. Por favor, comuníquese lo más pronto posible con soporte.";
+        this.modalService.open(PopUpActualizar, {size:'md'});
+      }
+    })
+  }
+
+  CerraModal(PopUpErrorAcciones:any){
+    this.modalService.dismissAll(PopUpErrorAcciones);
   }
 }

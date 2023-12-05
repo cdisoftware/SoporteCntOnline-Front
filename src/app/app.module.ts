@@ -13,6 +13,9 @@ import { NominaComponent } from './Proyectos/components/nomina/nomina.component'
 import { DocumentoComponent } from './Proyectos/components/documento/documento.component';
 import { DatePipe } from '@angular/common';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ConsultafacturasComponent } from 'src/consultaFactura/consultafacturas/consultafacturas.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NominaElectronicaComponent } from './Proyectos/components/nomina/nomina-electronica/nomina-electronica.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ContabilidadComponent,
     FacturacionComponent,
     NominaComponent,
-    DocumentoComponent
+    DocumentoComponent,
+    ConsultafacturasComponent,
+    NominaElectronicaComponent
     
   ],
   imports: [

@@ -4,6 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacturacionService } from 'src/app/core/facturacion.service';
 import { EmpresasService } from 'src/app/core/empresas.service';
 import { DatePipe } from '@angular/common';
+import { ThisReceiver } from '@angular/compiler';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-nomina',
   templateUrl: './nomina.component.html',
@@ -18,6 +20,12 @@ export class NominaComponent implements OnInit {
   Regnal: string = '';
   Pfjo: string = '';
   NitNom: string = '';
+  Usuario:string = '';
+  Empleado:string = '';
+  EnlacePdf:any;
+  EnlacePdfUni:any;
+  EnlaceXml:any;
+  EnlaceXmlUni:any;
 
   VerOcultarConsulta: boolean = false;
   VerOcultarActualizar: boolean = false;
@@ -25,6 +33,8 @@ export class NominaComponent implements OnInit {
   VerOcultarFormAct: boolean = false;
   verOcultarLabel: boolean = false;
   VerOcultarXmlNom: boolean = false;
+  VerOcultarFormActu:boolean = false;
+  VerOcultarResulActuDocu:boolean = false;
 
   arregloNomina: any;
 
@@ -42,20 +52,31 @@ export class NominaComponent implements OnInit {
   Xml: string = '';
   DocUsu: string = "";
 
+  // actualizarDocumentacion
+  ResulActuDocu:any = [];
+  ResulActuDocuNomina:any = [];
+  SplitEnlacePdf:any = [];
+  SplitEnlaceXml:any = [];
+  SplitActuDocuNomina: any = [];
+
+
   constructor(public rutas: Router,
     private modalService: NgbModal,
     public facturaServices: FacturacionService,
     public empresaService: EmpresasService,
-    private formatofecha: DatePipe) { }
+    private formatofecha: DatePipe,
+    private Sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
-  }
+  } 
   ConsultaXmlNom() {
     this.VerOcultarConsulta = true;
     this.VerOcultarActualizar = false;
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
+    this.VerOcultarFormActu = false;
+    this.VerOcultarResulActuDocu = false;
   }
 
   HabilitarNomina() {
@@ -64,6 +85,18 @@ export class NominaComponent implements OnInit {
     this.VerOcultarCamposTarget = false;
     this.VerOcultarFormAct = false;
     this.verOcultarLabel = false;
+    this.VerOcultarFormActu = false;
+    this.VerOcultarResulActuDocu = false;
+  }
+
+  ActualizarDocumentacion() {
+    this.VerOcultarConsulta = false;
+    this.VerOcultarActualizar = false;
+    this.VerOcultarCamposTarget = false;
+    this.VerOcultarFormAct = false;
+    this.verOcultarLabel = false;
+    this.VerOcultarFormActu = true;
+    this.VerOcultarResulActuDocu = false;
   }
 
   BuscarXml(ModalRespuesta: any) {
@@ -211,5 +244,99 @@ export class NominaComponent implements OnInit {
     document.execCommand('copy');
     input.setSelectRange();
 
+  }
+
+  ConsulActuDocu(ModalRespuesta:any) {
+    if (this.Usuario != '' && this.fechaIni != '' && this.fechaFin != '') {
+      var AuxEmpleado:string = '';
+
+      if (this.Empleado == '') {
+        AuxEmpleado = '0';
+      } else {
+        AuxEmpleado = this.Empleado;
+      }
+
+      const body = {
+        FechaInicio: this.fechaIni,
+        FechaFinal: this.fechaFin,
+        Empleado: AuxEmpleado
+      }
+
+      this.facturaServices.ConsNominas(this.Usuario, body).subscribe(resultadoActuDocu => {
+        this.ResulActuDocu = resultadoActuDocu;
+        if (this.ResulActuDocu.length > 0) {
+          this.VerOcultarResulActuDocu = true;
+        } else {
+          this.Respuesta = "No se encuentran registros de acuerdo a la identificación del usuario, fecha de inicio y fecha de fin.";
+          this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' });
+          this.verOcultarLabel= true;
+        }
+      });
+    } else {
+      this.Respuesta = "Señor usuario, por favor ingrese la identificación del usuario, la fecha de inicio y la fecha de fin.";
+      this.modalService.open(ModalRespuesta, { ariaLabelledBy: 'modal-basic-title', size: 'md' });
+    }
+  }
+
+  AbrirAccionPdf (PopUpAccionPdf:any, PopUpErrorAcciones:any, UrlPdf:any) { 
+    this.EnlacePdf = this.Sanitizer.bypassSecurityTrustResourceUrl(UrlPdf);
+    this.SplitEnlacePdf = UrlPdf.split('https://api.apptotrip.com');
+    this.EnlacePdfUni = this.SplitEnlacePdf[1];
+
+    fetch(this.EnlacePdfUni).then(response => {
+      if (response.status == 404) {
+        this.Respuesta = "Lastimosamente no se ha podido descargar el archivo PDF, por favor de click en el botón actualizar para recargar el archivo.";
+        this.modalService.open(PopUpErrorAcciones, {size:'lg'})
+      }  else {
+        this.modalService.open(PopUpAccionPdf, {size:'lg'});
+      }
+    });
+  }
+
+  AbrirAccionXml (PopUpAccionXml:any, PopUpErrorAcciones:any, UrlXml:any) {
+    this.EnlaceXml = this.Sanitizer.bypassSecurityTrustResourceUrl(UrlXml);
+    this.SplitEnlaceXml = UrlXml.split('https://api.apptotrip.com');
+    this.EnlaceXmlUni = this.SplitEnlaceXml[1];
+    
+    fetch(this.EnlaceXmlUni).then(response => {
+      if (response.status == 404) {
+        this.Respuesta = "Lastimosamente no se ha podido descargar el archivo XML, por favor de click en el botón actualizar para recargar el archivo.";
+        this.modalService.open(PopUpErrorAcciones, {size:'lg'})
+      }  else {
+        this.modalService.open(PopUpAccionXml, {size:'lg'});
+      }
+    });
+  }
+
+  AbrirModalActualizar (PopUpActualizar:any, resulActDoc:any) {
+    const body = {
+      Usuario: resulActDoc.Usuario,
+      Empleado: resulActDoc.Empleado,
+      Folio: resulActDoc.Folio
+    }
+    this.facturaServices.ModDocumentacionNominas('2', body).subscribe(RegistroActualizar => {
+      this.ResulActuDocuNomina = RegistroActualizar;
+      this.SplitActuDocuNomina = this.ResulActuDocuNomina.split('|');
+      if (Number(this.SplitActuDocuNomina[0]) > 0) {
+        this.Respuesta = "Registro actualizado. Recuerde que los documentos se mostraran en cinco minutos.";
+        this.modalService.open(PopUpActualizar, {size:'md'});
+      } else {
+        this.Respuesta = "No se han podido actualziar los documentos. Por favor, comuníquese lo más pronto posible con soporte.";
+        this.modalService.open(PopUpActualizar, {size:'md'});
+      }
+    });
+  }
+
+  LimpiarActuDocu () {
+    this.Usuario = '';
+    this.fechaIni = '';
+    this.fechaFin = '';
+    this.Empleado = '';
+    this.VerOcultarResulActuDocu = false;
+    this.verOcultarLabel= false;
+  }
+
+  CerraModal(PopUpErrorAcciones:any){
+    this.modalService.dismissAll(PopUpErrorAcciones);
   }
 }
