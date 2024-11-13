@@ -6,7 +6,6 @@ import { EmpresasService } from 'src/app/core/empresas.service';
 import { DatePipe } from '@angular/common';
 import { ThisReceiver } from '@angular/compiler';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'app-nomina',
   templateUrl: './nomina.component.html',
@@ -248,7 +247,6 @@ export class NominaComponent implements OnInit {
   }
 
   ConsulActuDocu(ModalRespuesta:any) {
-    this.verOcultarLabel = false;
     if (this.Usuario != '' && this.fechaIni != '' && this.fechaFin != '') {
       var AuxEmpleado:string = '';
 

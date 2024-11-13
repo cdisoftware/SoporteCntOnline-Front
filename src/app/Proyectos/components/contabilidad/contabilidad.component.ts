@@ -531,7 +531,6 @@ export class ContabilidadComponent implements OnInit {
   }
 
   VerEliminarEmpresa(InfoEliminar:any) {
-    this.verOcultarLabelC = false;
     if (this.Nit == '') {
       this.MensajeModal = "Señor usuario, para eliminar una empresa por lo menos debe ingresar el numero de Nit de la empresa a eliminar.";
       this.modalInfoEliminar.open (InfoEliminar, {size: 'md'})

@@ -349,7 +349,6 @@ export class FacturacionComponent implements OnInit {
   }
 
   ConsulActuDocu (ModalRespuesta:any) {
-    this.verOcultarLabel= false;
     if (this.NitEmpresa == '') {
       this.Respuesta = "Señor usuario, por favor ingrese al menos el numero de Nit de la empresa que desea buscar.";
       this.modalService.open(ModalRespuesta, {size:'md'});
@@ -392,8 +391,7 @@ export class FacturacionComponent implements OnInit {
     }
   }
 
-  AbrirAccionPdf (PopUpAccionPdf:any, PopUpErrorAcciones:any, UrlPdf:any) {
-    console.log(UrlPdf); 
+  AbrirAccionPdf (PopUpAccionPdf:any, PopUpErrorAcciones:any, UrlPdf:any) { 
     this.EnlacePdf = this.Sanitizer.bypassSecurityTrustResourceUrl(UrlPdf);
     this.SplitEnlacePdf = UrlPdf.split('https://api.apptotrip.com');
     this.EnlacePdfUni = this.SplitEnlacePdf[1];
